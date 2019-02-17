@@ -1,0 +1,1 @@
+xorriso -outdev debian-live-9.4.0-amd64-cinnamon.iso -volid d-live 9.4.0 ci amd64 -padding 0 -map /w/work/free/cinnamon/tmp/tmpglzexT / -chmod 0755 / -- -boot_image isolinux dir=/isolinux -boot_image isolinux system_area=/usr/lib/ISOLINUX/isohdpfx.bin -boot_image any next -boot_image any efi_path=boot/grub/efi.img -boot_image isolinux partition_entry=gpt_basdat
