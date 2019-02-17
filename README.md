@@ -10,17 +10,17 @@ Although, the writing speed performance may be slow, depending on USB device.
 
 Application:
 * It can be used as a portable system with all the programs and data you need on a USB stick.
-* It also has tools for diagnosing and repairing other broken machines (that's why it's named "Watchmaker").
+* It also has tools for diagnosing and repairing other broken machines (that's why it's named `Watchmaker`).
 
 Watchmaker can be booted in different modes:
-* *Live mode* - The base Linux system is loaded on the fly to RAM (not the entire, but only required components when necessary). Any change in the system is not persistent, only separate `data` partition is fully persistent (can be modified).
-* *Persistent mode* - like Live mode, but any modified system file is copied on write and stored on separate `persitence` partition. This might be slow due to many writing operations on USB disk. On boot both RW and RO images are joined in the union FS.
-* *full RAM mode* - All the required system files are loaded to RAM, so it's even allowed to eject the USB from machine, leaving fully efficient running system.
+* **Live mode** - The base Linux system is loaded on the fly to RAM (not the entire, but only required components when necessary). Any change in the system is not persistent, only separate `data` partition is fully persistent (can be modified).
+* **Persistent mode** - like Live mode, but any modified system file is copied on write and stored on separate `persitence` partition. This might be slow due to many writing operations on USB disk. On boot both RW and RO images are joined in the union FS.
+* **full RAM mode** - All the required system files are loaded to RAM, so it's even allowed to eject the USB from machine, leaving fully efficient running system.
 
 It also has Debian installer on the board (as one of the booting options).
 
 
-# Making USB guide
+# Making USB
 ```bash
 su
 cd /mnt/data/ext/watchmaker
@@ -28,6 +28,7 @@ cd /mnt/data/ext/watchmaker
 
 ## find dev disk name
 ```bash
+# check which one of the disks is your USB stick
 lsblk
 fdisk -l
 
