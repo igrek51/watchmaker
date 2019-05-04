@@ -106,6 +106,14 @@ grub-install \
 sync
 ```
 
+## EFI Microsoft workaround
+```
+mkdir -p /mnt/efi/EFI/Microsoft
+mkdir -p /mnt/boot/EFI/Microsoft
+cp -r /mnt/efi/EFI/BOOT /mnt/efi/EFI/Microsoft/
+cp -r /mnt/boot/EFI/BOOT /mnt/boot/EFI/Microsoft/
+```
+
 ## GRUB config
 ```bash
 cp content/grub/grub.cfg /mnt/boot/boot/grub/
