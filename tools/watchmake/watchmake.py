@@ -59,6 +59,8 @@ mkfs.ext4 -F {}3
 mkfs.ext4 -F {}4
     ''', disk)
 
+    wrap_shell('sync')
+
     info('setting partition names')
     wrap_shell('''
 mlabel -i {}1 ::boot
@@ -66,6 +68,133 @@ mlabel -i {}2 ::EFI
 e2label {}3 persistence
 e2label {}4 usb-data
     ''', disk, disk, disk, disk)
+
+    wrap_shell('sync')
+
+    info('mounting partitions')
+    wrap_shell('''
+mkdir -p /mnt/watchmaker
+mkdir -p /mnt/watchmaker/boot
+mkdir -p /mnt/watchmaker/efi
+mkdir -p /mnt/watchmaker/persistence
+mkdir -p /mnt/watchmaker/usb-data
+mount {}1 /mnt/watchmaker/boot
+mount {}2 /mnt/watchmaker/efi
+mount {}3 /mnt/watchmaker/persistence
+mount {}4 /mnt/watchmaker/usb-data
+    ''', disk, disk, disk, disk)
+
+    info('installing GRUB EFI bootloaders')
+    wrap_shell('''
+grub-install \\
+    --target=i386-efi \\
+    --efi-directory=/mnt/watchmaker/boot \\
+    --boot-directory=/mnt/watchmaker/boot/boot \\
+    --removable --recheck
+    ''')
+    wrap_shell('''
+grub-install \\
+    --target=x86_64-efi \\
+    --efi-directory=/mnt/watchmaker/boot \\
+    --boot-directory=/mnt/watchmaker/boot/boot \\
+    --removable --recheck
+    ''')
+    wrap_shell('''
+grub-install \\
+    --target=i386-efi \\
+    --efi-directory=/mnt/watchmaker/efi \\
+    --boot-directory=/mnt/watchmaker/boot/boot \\
+    --removable --recheck
+    ''')
+    wrap_shell('''
+grub-install \\
+    --target=x86_64-efi \\
+    --efi-directory=/mnt/watchmaker/efi \\
+    --boot-directory=/mnt/watchmaker/boot/boot \\
+    --removable --recheck
+    ''')
+
+    info('installing GRUB i386-pc bootloader')
+    wrap_shell('''
+grub-install \\
+    --target=i386-pc \\
+    --boot-directory=/mnt/watchmaker/boot/boot \\
+    --recheck \\
+    {}
+    ''', disk)
+
+    wrap_shell('sync')
+
+    info('making EFI Microsoft workaround')
+    wrap_shell('''
+mkdir -p /mnt/watchmaker/efi/EFI/Microsoft
+mkdir -p /mnt/watchmaker/boot/EFI/Microsoft
+cp -r /mnt/watchmaker/efi/EFI/BOOT /mnt/watchmaker/efi/EFI/Microsoft/
+cp -r /mnt/watchmaker/boot/EFI/BOOT /mnt/watchmaker/boot/EFI/Microsoft/
+    ''')
+
+    info('GRUB config')
+    wrap_shell('''
+cp content/grub/grub.cfg /mnt/watchmaker/boot/boot/grub/
+cp content/grub/background.png /mnt/watchmaker/boot/boot/grub/
+cp content/grub/font.pf2 /mnt/watchmaker/boot/boot/grub/
+cp content/grub/loopback.cfg /mnt/watchmaker/boot/boot/grub/
+cp content/grub/GRUB_FINDME /mnt/watchmaker/boot/
+    ''')
+
+    info('Boot base files')
+    wrap_shell('''
+cp -r content/boot-files/[BOOT] /mnt/watchmaker/boot/
+cp -r content/boot-files/d-i /mnt/watchmaker/boot/
+cp -r content/boot-files/dists /mnt/watchmaker/boot/
+cp -r content/boot-files/live /mnt/watchmaker/boot/
+cp -r content/boot-files/pool /mnt/watchmaker/boot/
+cp -r content/boot-files/.disk /mnt/watchmaker/boot/
+    ''')
+    wrap_shell('''
+cp -r content/boot-files/[BOOT] /mnt/watchmaker/efi/
+cp -r content/boot-files/dists /mnt/watchmaker/efi/
+cp -r content/boot-files/live /mnt/watchmaker/efi/
+cp -r content/boot-files/pool /mnt/watchmaker/efi/
+cp -r content/boot-files/.disk /mnt/watchmaker/efi/
+    ''')
+
+    info('Persistence configuration')
+    wrap_shell('''
+cp -r content/persistence/persistence.conf /mnt/watchmaker/persistence/
+    ''')
+
+    info('Copying squash filesystem')
+    wrap_shell('''
+cp squash/filesystem.squashfs /mnt/watchmaker/boot/live/
+    ''')
+
+    info('Copying base usb-data modules')
+    wrap_shell('''
+cp -r modules/dev-data /mnt/watchmaker/usb-data/
+    ''')
+    wrap_shell('''
+mkdir -p /mnt/watchmaker/usb-data/modules
+    ''')
+    wrap_shell('''
+cp -r modules/init /mnt/watchmaker/usb-data/modules/
+    ''')
+    info('make usb-data writable to non-root user')
+    wrap_shell('''
+chown igrek /mnt/watchmaker/usb-data -R
+    ''')
+
+    info('unmounting')
+    wrap_shell('sync')
+    wrap_shell('''
+umount /mnt/watchmaker/boot
+umount /mnt/watchmaker/efi
+umount /mnt/watchmaker/persistence
+umount /mnt/watchmaker/usb-data
+    ''')
+
+    info('done')
+    info('Optional modules:')
 
 
 def action_flash(ap: ArgsProcessor):
