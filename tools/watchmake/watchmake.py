@@ -21,25 +21,26 @@ def flash_disk(disk):
 
     info('creating MBR')
     wrap_shell('''
+wipefs {}
+    ''', disk)
+    wrap_shell('''
 parted --script {} \\
     mklabel msdos
     ''', disk)
 
-    info('creating partitions')
+    info('creating partitions space')
     wrap_shell('''
 parted --script {} \\
-    mkpart primary fat32 1MiB 4.5GiB \\
+    mkpart primary fat32 1MiB 4608MiB \\
     set 1 lba on \\
     set 1 boot on \\
-    name 1 'boot' \\
-    mkpart primary fat32 4.5GiB 4.7GiB \\
+    mkpart primary fat32 4608MiB 4813MiB \\
     set 2 esp on \\
-    name 2 'EFI' \\
-    mkpart primary ext4 4.7GiB 6.2GiB \\
-    name 3 'persistence' \\
-    mkpart primary ext4 6.2GiB 100%
-    name 4 'usb-data' \\
+    mkpart primary ext4 4813MiB 6349MiB \\
+    mkpart primary ext4 6349MiB 100%
     ''', disk)
+
+    wrap_shell('sync')
 
     info('making boot partition filesystem')
     wrap_shell('''
@@ -51,12 +52,20 @@ mkfs.fat -F32 {}2
     ''', disk)
     info('making persistence partition filesystem')
     wrap_shell('''
-mkfs.ext4 {}3
+mkfs.ext4 -F {}3
     ''', disk)
     info('making usb-data partition filesystem')
     wrap_shell('''
-mkfs.ext4 {}4
+mkfs.ext4 -F {}4
     ''', disk)
+
+    info('setting partition names')
+    wrap_shell('''
+mlabel -i {}1 ::boot
+mlabel -i {}2 ::EFI
+e2label {}3 persistence
+e2label {}4 usb-data
+    ''', disk, disk, disk, disk)
 
 
 def action_flash(ap: ArgsProcessor):
