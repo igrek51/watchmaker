@@ -194,7 +194,7 @@ umount /mnt/watchmaker/usb-data
     ''')
 
     info('done')
-    info('Optional modules:')
+    print_modules()
 
 
 def action_flash(ap: ArgsProcessor):
@@ -214,6 +214,23 @@ def action_flash(ap: ArgsProcessor):
         while input_required('[yes/no]... ') != 'yes':
             pass
     flash_disk(disk)
+
+
+def print_modules():
+    info('Optional modules:')
+    modules = [
+        'android-sdk',
+        'android-studio',
+        'dev-data',
+        'init',
+        'factorio',
+        'aoe2',
+        'heroes3-hota',
+        'warcraft-3-pl',
+        'pycharm',
+    ]
+    for module in modules:
+        info('- ' + module)
 
 
 def main():
