@@ -219,15 +219,15 @@ def action_flash(ap: ArgsProcessor):
 def print_modules():
     info('Optional modules:')
     modules = [
-        'android-sdk',
-        'android-studio',
+        'android-sdk - /mnt/data/ext/watchmaker/modules/android-sdk.zip',
+        'android-studio - /mnt/data/ext/watchmaker/modules/android-studio.zip',
         'dev-data',
         'init',
-        'factorio',
-        'aoe2',
-        'heroes3-hota',
-        'warcraft-3-pl',
-        'pycharm',
+        'factorio - /mnt/games/linux-games/factorio',
+        'aoe2 - /mnt/data/ext/live-games/aoe2',
+        'heroes3-hota - /mnt/data/ext/live-games/heroes3-hota',
+        'warcraft-3-pl - /mnt/data/ext/live-games/warcraft-3-pl',
+        'pycharm - /mnt/data/ext/watchmaker/modules/pycharm',
     ]
     for module in modules:
         info('- ' + module)
