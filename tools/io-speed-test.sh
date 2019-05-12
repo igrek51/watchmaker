@@ -7,12 +7,10 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # provide mounted partition name, not device
-export TEST_PARTITION=/media/igrek/9016-4EF8
-export OF=${TEST_PARTITION}/SPEED_TEST
 export OF=/dev/mmcblk0
 # disks info
 lsblk -o NAME,TYPE,RM,RO,FSTYPE,SIZE,VENDOR,MODEL,LABEL,MOUNTPOINT
-df $TEST_PARTITION
+df .
 CURRENT_PARTITION=$(df . | awk 'END{print $1}')
 echo "Current partition: ${CURRENT_PARTITION}"
 
