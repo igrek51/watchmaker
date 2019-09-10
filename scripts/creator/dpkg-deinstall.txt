@@ -1,0 +1,8 @@
+fonts-beng-extra				deinstall
+fonts-deva-extra				deinstall
+fonts-gujr-extra				deinstall
+fonts-guru-extra				deinstall
+fonts-lohit-knda				deinstall
+fonts-lohit-taml-classical			deinstall
+fonts-smc					deinstall
+fonts-telu-extra				deinstall
