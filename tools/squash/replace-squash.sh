@@ -1,11 +1,12 @@
 #!/bin/bash
 set -ex
 
+DATE=`date +%Y-%m-%d`
+
 export SQUASH_STORAGE_PATH=/media/user/data/ext/watchmaker/squash
 export SQUASH_FS_STORAGE_PATH=$SQUASH_STORAGE_PATH/filesystem.squashfs
 export TAGGED_SQUASH_PATH=$SQUASH_STORAGE_PATH/filesystem-${DATE}.squashfs
-export TARGET_SQUASH=/media/user/live/live/filesystem.squashfs
-DATE=`date +%Y-%m-%d`
+export TARGET_SQUASH=/media/user/boot/live/filesystem.squashfs
 
 # root only
 if [[ $EUID -ne 0 ]]; then
