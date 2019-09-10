@@ -1,20 +1,6 @@
-#!/usr/bin/env python3
-import os
+from cliglue.utils.output import info, warn
 
-from cliglue import CliBuilder, argument, flag, subcommand
-from cliglue.utils.files import set_workdir, script_real_dir
-from cliglue.utils.input import input_required
-from cliglue.utils.output import info, debug, warn
-from cliglue.utils.shell import shell
-
-DRY_RUN = False
-
-
-def wrap_shell(cmd):
-    cmd = cmd.strip()
-    debug(f'> {cmd}')
-    if not DRY_RUN:
-        shell(cmd)
+from system import wrap_shell
 
 
 def flash_disk(disk: str, persistence: bool):
@@ -219,24 +205,6 @@ chown igrek /mnt/watchmaker/usb-data -R
     print_modules()
 
 
-def flash_live_os(disk: str, yes: bool, dry: bool, skip_persistence: bool):
-    global DRY_RUN
-    DRY_RUN = dry
-
-    set_workdir(os.path.join(script_real_dir(), '..', '..'))
-
-    if os.geteuid() != 0:
-        raise PermissionError('This script must be run as root')
-
-    shell('lsblk')
-
-    if not yes:
-        warn(f'Are you sure, you want to write to {disk} disk?')
-        while input_required('[yes/no]... ') != 'yes':
-            pass
-    flash_disk(disk, not skip_persistence)
-
-
 def print_modules():
     info('Optional modules:')
     modules = [
@@ -252,18 +220,3 @@ def print_modules():
     ]
     for module in modules:
         info('- ' + module)
-
-
-def main():
-    CliBuilder('Watchmaker Creator', version='1.0.1').has(
-        subcommand('flash', run=flash_live_os, help='flash Watchmaker OS to a drive').has(
-            argument('disk', help='disk drive name (/dev/sdc)'),
-            flag('yes', help='skip confirmation'),
-            flag('dry', help='dry run instead of invoking real shell commands'),
-            flag('skip-persistence', help='Skip creating persistence partition'),
-        ),
-    ).run()
-
-
-if __name__ == '__main__':
-    main()
