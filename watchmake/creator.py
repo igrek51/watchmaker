@@ -1,9 +1,15 @@
+import os
+
 from cliglue.utils.output import info, warn
 
 from system import wrap_shell
 
 
 def flash_disk(disk: str, persistence: bool):
+
+    info(f'checking files existence')
+    assert os.path.exists('squash/filesystem.squashfs')
+
     warn(f'writing to disk {disk}')
     wrap_shell(f'df {disk}')
 
@@ -15,6 +21,7 @@ parted --script {disk} \\
     ''')
 
     info('creating partitions space')
+    # TODO depend on filesystem.squash size, expand by some surplus (for storage)
     if persistence:
         wrap_shell(f'''
 parted --script {disk} \\

@@ -1,4 +1,0 @@
-user: user, 
-password: NOPASSWD
-
-user: root:live

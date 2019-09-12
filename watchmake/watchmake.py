@@ -43,7 +43,7 @@ def create_os(dry: bool, yes: bool, disk: str, skip_persistence: bool):
 
     wrap_shell('lsblk')
 
-    confirm(yes, f'Are you sure, you want to write to {disk} disk?')
+    confirm(yes, f'Are you sure, you want to create Wathmaker OS on {disk} disk?')
 
     creator.flash_disk(disk, not skip_persistence)
 
