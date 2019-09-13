@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-
 from cliglue import CliBuilder, argument, flag, subcommand, parameter
 from cliglue.utils.input import input_required
 from cliglue.utils.output import warn
 
-from system import wrap_shell, ensure_root, workdir_root
-import settings
 import creator
+import prebuild
+import replicate
 import resquash
+import settings
+from system import wrap_shell, ensure_root
 
 
 def main():
@@ -26,10 +27,8 @@ def main():
                       default='/media/user/boot/live/filesystem.squashfs'),
         ),
         subcommand('replicate', run=replicate_os, help='clone current OS itself to another drive').has(
-
-        ),
-        subcommand('make-iso', run=make_iso, help='create ISO from disk OS installation').has(
-
+            parameter('source-disk', help='source disk device name'),
+            parameter('target-disk', help='target disk device name'),
         ),
         flag('dry', help='dry run instead of invoking real shell commands'),
         flag('yes', help='skip confirmation'),
@@ -39,44 +38,29 @@ def main():
 def create_os(dry: bool, yes: bool, disk: str, skip_persistence: bool):
     settings.DRY_RUN = dry
     ensure_root()
-    workdir_root()
-
     wrap_shell('lsblk')
-
     confirm(yes, f'Are you sure, you want to create Wathmaker OS on {disk} disk?')
-
     creator.flash_disk(disk, not skip_persistence)
 
 
 def prebuild_tools(dry: bool):
     settings.DRY_RUN = dry
-    # TODO update py-tools:
-    # watchmaker tools
-    # EXCLUDE_FILE
-    # lichking
-    # regex-rename
-    # differ
-    # volumen
-    # update tips, cheatsheet
-    # update live dev-data repos
-    # update .osversion
-    pass
+    prebuild.prebuild_tools()
 
 
 def resquash_os(dry: bool, yes: bool, storage_path: str, live_squash: str):
     settings.DRY_RUN = dry
     ensure_root()
-    workdir_root()
     confirm(yes, f'Are you sure, you want to resquash filesystem?')
     resquash.resquash_os(storage_path, live_squash)
 
 
-def replicate_os():
-    pass
-
-
-def make_iso():
-    pass
+def replicate_os(dry: bool, yes: bool, source_disk: str, target_disk: str):
+    settings.DRY_RUN = dry
+    ensure_root()
+    wrap_shell('lsblk -o NAME,TYPE,RM,RO,FSTYPE,SIZE,VENDOR,MODEL,LABEL,MOUNTPOINT')
+    confirm(yes, f'Are you sure, you want to replicate OS from {source_disk} to {target_disk}?')
+    replicate.replicate_os(source_disk, target_disk)
 
 
 def confirm(yes: bool, msg: str):

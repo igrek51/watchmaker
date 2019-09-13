@@ -3,16 +3,17 @@ import hashlib
 import os
 
 from cliglue.utils.files import set_workdir
-from cliglue.utils.output import info, warn
+from cliglue.utils.output import info
+from cliglue.utils.time import time2str
 
 from system import wrap_shell
-from cliglue.utils.time import time2str
 
 
 def resquash_os(storage_path: str, live_squash: str):
     today = today_stamp()
     squashfs_storage_path = f'{storage_path}/filesystem.squashfs'
     tagged_squashfs_path = f'{storage_path}/filesystem-{today}.squashfs'
+    exclude_file = f'~/tools/watchmake/EXCLUDE_FILE'
 
     set_workdir('/')
 
@@ -20,6 +21,7 @@ def resquash_os(storage_path: str, live_squash: str):
     info(f'checking mount points')
     assert os.path.exists(storage_path)
     assert os.path.exists(live_squash)
+    assert os.path.exists(exclude_file)
 
     info('removing old filesystem copy on storage')
     wrap_shell(f'rm -f {squashfs_storage_path}')
@@ -31,7 +33,7 @@ mksquashfs \
     /bin /boot /dev /etc /home /lib /lib64 /media /mnt /opt /proc /run /root /sbin /srv /sys /tmp /usr /var \
     /initrd.img /initrd.img.old /vmlinuz /vmlinuz.old \
     {squashfs_storage_path} \
-    -regex -ef {storage_path}/EXCLUDE_FILE \
+    -regex -ef {exclude_file} \
     -comp gzip -b 512k \
     -keep-as-directory
     ''')
@@ -55,8 +57,11 @@ mksquashfs \
     cksum2 = checksum_file(live_squash)
     assert cksum1 == cksum2
     info(f'checksums are valid')
+    tagged_squashfs_mib = os.path.getsize(tagged_squashfs_path) / 1024 ** 2
 
-    info(f'Success. Resquashed {live_squash}. Filesystem snaposhot dumped to {tagged_squashfs_path}')
+    info(f'Success. '
+         f'Resquashed {live_squash}. '
+         f'Filesystem snaposhot dumped to {tagged_squashfs_path} ({tagged_squashfs_mib}MiB)')
 
 
 def today_stamp() -> str:

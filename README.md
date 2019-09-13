@@ -19,7 +19,7 @@ Watchmaker can be booted in 3 different modes:
 
 It also has Debian installer on the board (as one of the booting options).
 
-# Making USB
+# Making USB with Live OS
 In order to install Watchmaker on the USB stick, you need to download the squashed filesystem image. It's not included in the git repository, cause it's huge (about 3.5GB).
 It can be downloaded from [here](https://drive.google.com/drive/folders/1FbVHMHunX0wT5GI0DPFMLswnBw5EHA7S?usp=sharing). Save it to `squash/filesystem.squashfs`.
 
@@ -27,10 +27,16 @@ Check the disk device name (e.g. `/dev/sdd`) using `lsblk` or `sudo fdisk -l` co
 
 Then run `watchmake.py` script which will create all the partitions and save all the needed files:
 ```bash
-sudo tools/watchmake/watchmake.py flash /dev/sdd
+sudo watchmake/watchmake.py create /dev/sdd
 ```
 
-Optional modules can be copied to `usb-data` partition.
+Optional modules & custom data can be copied to `usb-data` partition.
+
+# Prerequisites
+Before running any of `watchmake.py` commands, install required packages. For Debian-based systems:
+```bash
+sudo apt install `cat watchmake/pkg-requirements.txt`
+```
 
 # Requirements
 - USB stick with the Watchmaker Linux should have at least 8GB disk space.
