@@ -6,6 +6,7 @@ from cliglue.utils.output import info
 
 from system import wrap_shell
 
+# Put your own develop repositories here
 repo_remotes = {
     'android-songbook': 'https://github.com/igrek51/android-songbook.git',
     'py-tools': 'https://github.com/igrek51/py-tools.git',
@@ -16,9 +17,8 @@ repo_remotes = {
     'cliglue': 'https://github.com/igrek51/cliglue.git',
 }
 
-pytools_src_dir = 'modules/py-tools'
-linux_helpers_src_dir = '/media/user/data/Igrek/linux'
 watchmaker_src_dir = '/media/user/data/ext/watchmaker'
+pytools_src_dir = f'{watchmaker_src_dir}/modules/py-tools'
 
 
 def prebuild_tools():
@@ -39,18 +39,14 @@ def prebuild_tools():
     info('updating watchmaker tools itself')
     wrap_shell(f'rsync -a {watchmaker_src_dir}/watchmake/ ~/tools/watchmake')
     wrap_shell(f'rsync -a {watchmaker_src_dir}/scripts/ ~/tools/scripts')
-    wrap_shell(f'cp {watchmaker_src_dir}/data/tubular.wav ~/Music/')
-    wrap_shell(f'cp {watchmaker_src_dir}/data/tubular.mp3 ~/Music/')
+    wrap_shell(f'cp {watchmaker_src_dir}/modules/music/tubular.wav ~/Music/')
+    wrap_shell(f'cp {watchmaker_src_dir}/modules/music/tubular.mp3 ~/Music/')
 
     wrap_shell('updating py-tools')
     wrap_shell(f'rsync -a {pytools_src_dir}/lichking/ ~/tools/lichking')
     wrap_shell(f'rsync -a {pytools_src_dir}/regex-rename/ ~/tools/regex-rename')
     wrap_shell(f'rsync -a {pytools_src_dir}/differ/ ~/tools/differ')
     wrap_shell(f'rsync -a {pytools_src_dir}/volumen/ ~/tools/volumen')
-
-    wrap_shell('updating tips, cheatsheet')
-    wrap_shell(f'mkdir -p ~/tools/cheatsheet')
-    wrap_shell(f'rsync -a {linux_helpers_src_dir}/cheatsheet/ ~/tools/cheatsheet')
 
     info('updating cliglue')
     wrap_shell(f'python3.6 -m pip install --upgrade cliglue')
