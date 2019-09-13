@@ -1,0 +1,4 @@
+[submodule "modules/py-tools"]
+	path = modules/py-tools
+	url = https://github.com/igrek51/py-tools
+	branch = master

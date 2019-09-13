@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 from cliglue import CliBuilder, argument, flag, subcommand, parameter
-from cliglue.utils.input import input_required
-from cliglue.utils.output import warn
 
 import creator
+import iso
 import prebuild
 import replicate
 import resquash
 import settings
-from system import wrap_shell, ensure_root
+from system import wrap_shell, ensure_root, confirm
 
 
 def main():
@@ -29,6 +28,10 @@ def main():
         subcommand('replicate', run=replicate_os, help='clone current OS itself to another drive').has(
             parameter('source-disk', help='source disk device name'),
             parameter('target-disk', help='target disk device name'),
+        ),
+        subcommand('iso', run=make_iso, help='make ISO from disk partitions').has(
+            argument('source-disk', help='source disk device name'),
+            argument('target-iso', help='target ISO filename'),
         ),
         flag('dry', help='dry run instead of invoking real shell commands'),
         flag('yes', help='skip confirmation'),
@@ -63,11 +66,10 @@ def replicate_os(dry: bool, yes: bool, source_disk: str, target_disk: str):
     replicate.replicate_os(source_disk, target_disk)
 
 
-def confirm(yes: bool, msg: str):
-    if not yes:
-        warn(msg)
-        while input_required('[yes/no]... ') != 'yes':
-            pass
+def make_iso(dry: bool, yes: bool, source_disk: str, target_iso: str):
+    settings.DRY_RUN = dry
+    ensure_root()
+    iso.make_iso(yes, source_disk, target_iso)
 
 
 if __name__ == '__main__':

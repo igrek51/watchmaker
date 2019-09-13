@@ -1,6 +1,7 @@
 import os
+import re
 
-from cliglue.utils.files import set_workdir, script_real_dir
+from cliglue.utils.files import set_workdir, script_real_dir, read_file, save_file
 from cliglue.utils.output import info
 
 from system import wrap_shell
@@ -15,7 +16,7 @@ repo_remotes = {
     'cliglue': 'https://github.com/igrek51/cliglue.git',
 }
 
-pytools_src_dir = '/media/user/data/Igrek/python/py-tools'
+pytools_src_dir = 'modules/py-tools'
 linux_helpers_src_dir = '/media/user/data/Igrek/linux'
 watchmaker_src_dir = '/media/user/data/ext/watchmaker'
 
@@ -27,6 +28,10 @@ def prebuild_tools():
     assert os.path.exists('modules/dev-data/remotes.md')
     assert os.path.exists('/media/user/data/')
     assert os.path.exists(pytools_src_dir)
+    assert os.path.exists(f'{pytools_src_dir}/lichking')
+    assert os.path.exists(f'{pytools_src_dir}/regex-rename')
+    assert os.path.exists(f'{pytools_src_dir}/differ')
+    assert os.path.exists(f'{pytools_src_dir}/volumen')
     assert os.path.exists(watchmaker_src_dir)
 
     assert os.geteuid() == 0, 'This script must not be run as root'
@@ -69,7 +74,16 @@ def prebuild_tools():
     info('clearing apt cache')
     wrap_shell(f'sudo apt clean')
 
-    # TODO update .osversion
+    version_file = '~/.osversion'
+    version_line = read_file(version_file).splitlines()[0]
+    version_matcher = re.compile(r'^([0-9]+)\.([0-9]+)$')
+    match = version_matcher.match(version_line)
+    assert match
+    major_version = int(match.group(1))
+    minor_version = int(match.group(2)) + 1
+    new_version = f'{major_version}.{minor_version}'
+    info(f'updating new OS version {new_version}')
+    save_file(version_file, new_version)
 
 
 def workdir_watchmake():
