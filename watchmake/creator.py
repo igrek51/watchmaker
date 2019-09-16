@@ -5,12 +5,11 @@ from cliglue.utils.output import info, warn
 
 from system import wrap_shell
 
-boot_storage_surplus = 300  # MiB
 efi_part_size = 205  # MiB
 persistence_part_size = 1536  # MiB
 
 
-def flash_disk(disk: str, persistence: bool):
+def flash_disk(disk: str, persistence: bool, boot_storage_surplus: int):
     set_workdir(os.path.join(script_real_dir(), '..'))
 
     info(f'checking required files existence')
@@ -192,30 +191,19 @@ cp -r content/boot-files/.disk /mnt/watchmaker/efi/
 
     if persistence:
         info('Persistence configuration')
-        wrap_shell(f'''
-    cp -r content/persistence/persistence.conf /mnt/watchmaker/persistence/
-        ''')
+        wrap_shell(f'''cp -r content/persistence/persistence.conf /mnt/watchmaker/persistence/''')
 
     info('Copying squash filesystem')
-    wrap_shell(f'''
-cp squash/filesystem.squashfs /mnt/watchmaker/boot/live/
-    ''')
+    wrap_shell(f'''cp squash/filesystem.squashfs /mnt/watchmaker/boot/live/''')
 
-    info('Copying base modules')
-    wrap_shell(f'''
-cp -r modules/dev-data /mnt/watchmaker/usb-data/
-    ''')
-    wrap_shell(f'''
-mkdir -p /mnt/watchmaker/usb-data/modules
-    ''')
-    wrap_shell(f'''
-cp -r modules/init /mnt/watchmaker/usb-data/modules/
-    ''')
+    info('Adding init module')
+    wrap_shell(f'''mkdir -p /mnt/watchmaker/usb-data/modules''')
+    wrap_shell(f'''cp -r modules/init /mnt/watchmaker/usb-data/modules/''')
+    info('Adding dev-data module')
+    wrap_shell(f'''cp -r modules/dev-data /mnt/watchmaker/usb-data/''')
 
     info('make usb-data writable to non-root user')
-    wrap_shell(f'''
-chown igrek /mnt/watchmaker/usb-data -R
-    ''')
+    wrap_shell(f'''chown igrek /mnt/watchmaker/usb-data -R''')
 
     info('unmounting')
     wrap_shell('sync')

@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+import sys
+
 from cliglue import CliBuilder, argument, flag, subcommand, parameter
+from cliglue.utils.shell import shell_error_code
 
 import creator
 import iso
@@ -15,9 +18,9 @@ def main():
         subcommand('create', run=create_os, help='flash Watchmaker OS to a drive').has(
             argument('disk', help='disk drive name (/dev/sdc)'),
             flag('skip-persistence', help='Skip creating persistence partition'),
+            parameter('boot-surplus', help='Boot partition storage surplus (MiB)', type=int, default=300),
         ),
         subcommand('prebuild', run=prebuild_tools, help='update current OS with latest tools').has(
-
         ),
         subcommand('resquash', run=resquash_os, help='rebuild squashed filesystem and swap it on the run').has(
             parameter('storage-path', help='temporary storage path for leaving a new squashed filesystem',
@@ -38,12 +41,12 @@ def main():
     ).run()
 
 
-def create_os(dry: bool, yes: bool, disk: str, skip_persistence: bool):
+def create_os(dry: bool, yes: bool, disk: str, skip_persistence: bool, boot_surplus: int):
     settings.DRY_RUN = dry
     ensure_root()
     wrap_shell('lsblk')
-    confirm(yes, f'Are you sure, you want to create Wathmaker OS on {disk} disk?')
-    creator.flash_disk(disk, not skip_persistence)
+    confirm(yes, f'Attempting to create Wathmaker OS on {disk} disk. Are you sure?')
+    creator.flash_disk(disk, not skip_persistence, boot_surplus)
 
 
 def prebuild_tools(dry: bool):
@@ -54,7 +57,7 @@ def prebuild_tools(dry: bool):
 def resquash_os(dry: bool, yes: bool, storage_path: str, live_squash: str):
     settings.DRY_RUN = dry
     ensure_root()
-    confirm(yes, f'Are you sure, you want to resquash filesystem?')
+    confirm(yes, f'Attepmting to resquash filesystem. Are you sure?')
     resquash.resquash_os(storage_path, live_squash)
 
 
@@ -62,7 +65,7 @@ def replicate_os(dry: bool, yes: bool, source_disk: str, target_disk: str):
     settings.DRY_RUN = dry
     ensure_root()
     wrap_shell('lsblk -o NAME,TYPE,RM,RO,FSTYPE,SIZE,VENDOR,MODEL,LABEL,MOUNTPOINT')
-    confirm(yes, f'Are you sure, you want to replicate OS from {source_disk} to {target_disk}?')
+    confirm(yes, f'Attepmting to replicate OS from {source_disk} to {target_disk}. Are you sure?')
     replicate.replicate_os(source_disk, target_disk)
 
 
@@ -72,5 +75,18 @@ def make_iso(dry: bool, yes: bool, source_disk: str, target_iso: str):
     iso.make_iso(yes, source_disk, target_iso)
 
 
+def ensure_python():
+    # ensure it's Python 3.6+
+    if sys.version_info.major == 3 and sys.version_info.minor >= 6:
+        return
+    args = ' '.join(sys.argv)
+    if shell_error_code('/usr/bin/env python3.7 --version > /dev/null') == 0:
+        shell_error_code('/usr/bin/env python3.7 ' + args)
+        exit(0)
+    shell_error_code('/usr/bin/env python3.6 ' + args)
+    exit(0)
+
+
 if __name__ == '__main__':
+    ensure_python()
     main()
