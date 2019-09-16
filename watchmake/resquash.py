@@ -13,7 +13,7 @@ def resquash_os(storage_path: str, live_squash: str):
     today = today_stamp()
     squashfs_storage_path = f'{storage_path}/filesystem.squashfs'
     tagged_squashfs_path = f'{storage_path}/filesystem-{today}.squashfs'
-    exclude_file = f'~/tools/watchmake/EXCLUDE_FILE'
+    exclude_file = f'/home/user/tools/watchmake/EXCLUDE_FILE'
 
     set_workdir('/')
 

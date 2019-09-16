@@ -22,6 +22,7 @@ pytools_src_dir = f'{watchmaker_src_dir}/modules/py-tools'
 
 
 def prebuild_tools():
+	# TODO change to storage watchmaker full repo
     workdir_watchmake()
 
     info(f'checking required files existence')
@@ -34,15 +35,16 @@ def prebuild_tools():
     assert os.path.exists(f'{pytools_src_dir}/volumen')
     assert os.path.exists(watchmaker_src_dir)
 
-    assert os.geteuid() == 0, 'This script must not be run as root'
+    assert os.geteuid() != 0, 'This script must not be run as root'
 
     info('updating watchmaker tools itself')
+    wrap_shell(f'mkdir -p ~/tools')
     wrap_shell(f'rsync -a {watchmaker_src_dir}/watchmake/ ~/tools/watchmake')
     wrap_shell(f'rsync -a {watchmaker_src_dir}/scripts/ ~/tools/scripts')
     wrap_shell(f'cp {watchmaker_src_dir}/modules/music/tubular.wav ~/Music/')
     wrap_shell(f'cp {watchmaker_src_dir}/modules/music/tubular.mp3 ~/Music/')
 
-    wrap_shell('updating py-tools')
+    info('updating py-tools')
     wrap_shell(f'rsync -a {pytools_src_dir}/lichking/ ~/tools/lichking')
     wrap_shell(f'rsync -a {pytools_src_dir}/regex-rename/ ~/tools/regex-rename')
     wrap_shell(f'rsync -a {pytools_src_dir}/differ/ ~/tools/differ')
@@ -55,9 +57,9 @@ def prebuild_tools():
     wrap_shell(f'rm -rf ~/dev-live')
     wrap_shell(f'mkdir -p ~/dev-live')
     wrap_shell(f'cp modules/dev-data/remotes.md ~/dev-live/')
-    for repo_name, url in repo_remotes:
+    for repo_name, url in repo_remotes.items():
         info(f'initializing live git repo {repo_name}')
-        repo_path = f'~/dev-live/{repo_name}'
+        repo_path = f'/home/user/dev-live/{repo_name}'
         wrap_shell(f'mkdir -p {repo_path}')
         set_workdir(repo_path)
         wrap_shell(f'git init')
@@ -70,14 +72,14 @@ def prebuild_tools():
     info('clearing apt cache')
     wrap_shell(f'sudo apt clean')
 
-    version_file = '~/.osversion'
+    version_file = '/home/user/.osversion'
     version_line = read_file(version_file).splitlines()[0]
-    version_matcher = re.compile(r'^([0-9]+)\.([0-9]+)$')
+    version_matcher = re.compile(r'^v([0-9]+)\.([0-9]+)$')
     match = version_matcher.match(version_line)
     assert match
     major_version = int(match.group(1))
     minor_version = int(match.group(2)) + 1
-    new_version = f'{major_version}.{minor_version}'
+    new_version = f'v{major_version}.{minor_version}'
     info(f'updating new OS version {new_version}')
     save_file(version_file, new_version)
 
