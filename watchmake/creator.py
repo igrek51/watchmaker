@@ -2,14 +2,28 @@ import os
 
 from cliglue.utils.files import set_workdir, script_real_dir
 from cliglue.utils.output import info, warn
+from typing import List
 
 from system import wrap_shell
 
 efi_part_size = 205  # MiB
 persistence_part_size = 1536  # MiB
 
+# raw directory name or zip archive
+optional_modules = {
+    'android-sdk': '/mnt/data/ext/watchmaker/modules/android-sdk.zip',
+    'android-studio': '/mnt/data/ext/watchmaker/modules/android-studio.zip',
+    'factorio': '/mnt/games/linux-games/factorio',
+    'aoe2': '/mnt/data/ext/live-games/aoe2',
+    'heroes3-hota': '/mnt/data/ext/live-games/heroes3-hota',
+    'warcraft-3-pl': '/mnt/data/ext/live-games/warcraft-3-pl',
+    'pycharm': '/mnt/data/ext/watchmaker/modules/pycharm',
+    'wine': '/mnt/data/ext/watchmaker/modules/wine.zip',
+    'dev-data': '/mnt/data/ext/watchmaker/modules/dev-data',
+}
 
-def flash_disk(disk: str, persistence: bool, boot_storage_surplus: int):
+
+def flash_disk(disk: str, persistence: bool, boot_storage_surplus: int, modules: List[str]):
     set_workdir(os.path.join(script_real_dir(), '..'))
 
     info(f'checking required files existence')
@@ -202,6 +216,11 @@ cp -r content/boot-files/.disk /mnt/watchmaker/efi/
     info('Adding dev-data module')
     wrap_shell(f'''cp -r modules/dev-data /mnt/watchmaker/usb-data/''')
 
+    if modules:
+        info(f'Adding optional modules: {modules}')
+        for module in modules:
+            add_module(module)
+
     info('make usb-data writable to non-root user')
     wrap_shell(f'''chown igrek /mnt/watchmaker/usb-data -R''')
 
@@ -213,25 +232,21 @@ cp -r content/boot-files/.disk /mnt/watchmaker/efi/
     if persistence:
         wrap_shell(f'''umount /mnt/watchmaker/persistence''')
 
-    info('done')
-    print_modules()
+    info('Success')
 
 
-def print_modules():
-    info('Optional modules:')
-    modules = [
-        'android-sdk - /mnt/data/ext/watchmaker/modules/android-sdk.zip',
-        'android-studio - /mnt/data/ext/watchmaker/modules/android-studio.zip',
-        'dev-data',
-        'init',
-        'factorio - /mnt/games/linux-games/factorio',
-        'aoe2 - /mnt/data/ext/live-games/aoe2',
-        'heroes3-hota - /mnt/data/ext/live-games/heroes3-hota',
-        'warcraft-3-pl - /mnt/data/ext/live-games/warcraft-3-pl',
-        'pycharm - /mnt/data/ext/watchmaker/modules/pycharm',
-    ]
-    for module in modules:
-        info('- ' + module)
+def add_module(module: str):
+    info(f'Adding module {module}')
+    module_src_path = optional_modules[module]
+    assert os.path.exists(module_src_path), 'module src path not found'
+    target_path = '/mnt/watchmaker/usb-data'
+    if os.path.isdir(module_src_path):
+        info(f'Copying module {module_src_path} to {target_path}')
+        wrap_shell(f'rsync -a {module_src_path}/ {target_path}/')
+    else:
+        assert module_src_path.endswith('.zip'), 'supporting .zip only'
+        info(f'Extracting module from {module_src_path} to {target_path}')
+        wrap_shell(f'unzip {module_src_path} -d {target_path}/')
 
 
 def dir_size(dir_path: str) -> int:
