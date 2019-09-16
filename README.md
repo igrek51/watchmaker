@@ -35,6 +35,7 @@ Optional modules & custom data can be copied to `usb-data` partition.
 # Prerequisites
 Before running any of `watchmake.py` commands, install required packages. For Debian-based systems:
 ```bash
+python3 -m pip install -r watchmake/requirements.txt
 sudo apt install `cat watchmake/pkg-requirements.txt`
 ```
 

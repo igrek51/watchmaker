@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import sys
+from typing import List
 
 from cliglue import CliBuilder, argument, flag, subcommand, parameter
 from cliglue.utils.shell import shell_error_code
-from typing import List
 
 import creator
 import iso
@@ -24,10 +24,14 @@ def main():
                       choices=creator.optional_modules.keys(), strict_choices=True),
         ),
         subcommand('prebuild', run=prebuild_tools, help='update current OS with latest tools').has(
+            parameter('watchmaker-repo', help='a path to full watchmaker repository',
+                      default='/media/user/data/ext/watchmaker'),
         ),
         subcommand('resquash', run=resquash_os, help='rebuild squashed filesystem and swap it on the run').has(
-            parameter('storage-path', help='temporary storage path for leaving a new squashed filesystem',
+            parameter('storage-path', help='storage path for dumping new squashed filesystem snapshot',
                       default='/media/user/data/ext/watchmaker/squash'),
+            parameter('exclude-file', help='EXCLUDE_FILE path for squashfs',
+                      default='./EXCLUDE_FILE'),
             parameter('live-squash', help='target squashed filesytem to be replaced',
                       default='/media/user/boot/live/filesystem.squashfs'),
         ),
@@ -52,16 +56,16 @@ def create_os(dry: bool, yes: bool, disk: str, skip_persistence: bool, boot_surp
     creator.flash_disk(disk, not skip_persistence, boot_surplus, modules)
 
 
-def prebuild_tools(dry: bool):
+def prebuild_tools(dry: bool, watchmaker_repo: str):
     settings.DRY_RUN = dry
-    prebuild.prebuild_tools()
+    prebuild.prebuild_tools(watchmaker_repo)
 
 
-def resquash_os(dry: bool, yes: bool, storage_path: str, live_squash: str):
+def resquash_os(dry: bool, yes: bool, storage_path: str, live_squash: str, exclude_file: str):
     settings.DRY_RUN = dry
     ensure_root()
     confirm(yes, f'Attepmting to resquash filesystem. Are you sure?')
-    resquash.resquash_os(storage_path, live_squash)
+    resquash.resquash_os(storage_path, live_squash, exclude_file)
 
 
 def replicate_os(dry: bool, yes: bool, source_disk: str, target_disk: str):

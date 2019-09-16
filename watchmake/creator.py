@@ -1,8 +1,8 @@
 import os
+from typing import List
 
 from cliglue.utils.files import set_workdir, script_real_dir
 from cliglue.utils.output import info, warn
-from typing import List
 
 from system import wrap_shell
 

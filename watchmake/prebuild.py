@@ -1,7 +1,7 @@
 import os
 import re
 
-from cliglue.utils.files import set_workdir, script_real_dir, read_file, save_file
+from cliglue.utils.files import set_workdir, read_file, save_file
 from cliglue.utils.output import info
 
 from system import wrap_shell
@@ -17,32 +17,28 @@ repo_remotes = {
     'cliglue': 'https://github.com/igrek51/cliglue.git',
 }
 
-watchmaker_src_dir = '/media/user/data/ext/watchmaker'
-pytools_src_dir = f'{watchmaker_src_dir}/modules/py-tools'
 
-
-def prebuild_tools():
-	# TODO change to storage watchmaker full repo
-    workdir_watchmake()
+def prebuild_tools(watchmaker_repo: str):
+    set_workdir(watchmaker_repo)
+    pytools_src_dir = f'{watchmaker_repo}/modules/py-tools'
 
     info(f'checking required files existence')
-    assert os.path.exists('modules/dev-data/remotes.md')
-    assert os.path.exists('/media/user/data/')
+    assert os.path.exists(watchmaker_repo)
+    assert os.path.exists(f'{watchmaker_repo}/modules/dev-data/remotes.md')
     assert os.path.exists(pytools_src_dir)
     assert os.path.exists(f'{pytools_src_dir}/lichking')
     assert os.path.exists(f'{pytools_src_dir}/regex-rename')
     assert os.path.exists(f'{pytools_src_dir}/differ')
     assert os.path.exists(f'{pytools_src_dir}/volumen')
-    assert os.path.exists(watchmaker_src_dir)
 
     assert os.geteuid() != 0, 'This script must not be run as root'
 
     info('updating watchmaker tools itself')
     wrap_shell(f'mkdir -p ~/tools')
-    wrap_shell(f'rsync -a {watchmaker_src_dir}/watchmake/ ~/tools/watchmake')
-    wrap_shell(f'rsync -a {watchmaker_src_dir}/scripts/ ~/tools/scripts')
-    wrap_shell(f'cp {watchmaker_src_dir}/modules/music/tubular.wav ~/Music/')
-    wrap_shell(f'cp {watchmaker_src_dir}/modules/music/tubular.mp3 ~/Music/')
+    wrap_shell(f'rsync -a {watchmaker_repo}/watchmake/ ~/tools/watchmake')
+    wrap_shell(f'rsync -a {watchmaker_repo}/scripts/ ~/tools/scripts')
+    wrap_shell(f'cp {watchmaker_repo}/modules/music/tubular.wav ~/Music/')
+    wrap_shell(f'cp {watchmaker_repo}/modules/music/tubular.mp3 ~/Music/')
 
     info('updating py-tools')
     wrap_shell(f'rsync -a {pytools_src_dir}/lichking/ ~/tools/lichking')
@@ -64,7 +60,7 @@ def prebuild_tools():
         set_workdir(repo_path)
         wrap_shell(f'git init')
         wrap_shell(f'git remote add origin "{url}"')
-    workdir_watchmake()
+    set_workdir(watchmaker_repo)
 
     info('clearing gradle cache')
     wrap_shell(f'rm -rf ~/.gradle/*')
@@ -82,7 +78,3 @@ def prebuild_tools():
     new_version = f'v{major_version}.{minor_version}'
     info(f'updating new OS version {new_version}')
     save_file(version_file, new_version)
-
-
-def workdir_watchmake():
-    set_workdir(os.path.join(script_real_dir(), '..'))

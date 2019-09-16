@@ -9,11 +9,11 @@ from cliglue.utils.time import time2str
 from system import wrap_shell
 
 
-def resquash_os(storage_path: str, live_squash: str):
+def resquash_os(storage_path: str, live_squash: str, exclude_file: str):
     today = today_stamp()
     squashfs_storage_path = f'{storage_path}/filesystem.squashfs'
     tagged_squashfs_path = f'{storage_path}/filesystem-{today}.squashfs'
-    exclude_file = f'/home/user/tools/watchmake/EXCLUDE_FILE'
+    exclude_file_abs = os.path.abspath(exclude_file)
 
     set_workdir('/')
 
@@ -21,7 +21,7 @@ def resquash_os(storage_path: str, live_squash: str):
     info(f'checking mount points')
     assert os.path.exists(storage_path)
     assert os.path.exists(live_squash)
-    assert os.path.exists(exclude_file)
+    assert os.path.exists(exclude_file_abs)
 
     info('removing old filesystem copy on storage')
     wrap_shell(f'rm -f {squashfs_storage_path}')
@@ -33,7 +33,7 @@ mksquashfs \
     /bin /boot /dev /etc /home /lib /lib64 /media /mnt /opt /proc /run /root /sbin /srv /sys /tmp /usr /var \
     /initrd.img /initrd.img.old /vmlinuz /vmlinuz.old \
     {squashfs_storage_path} \
-    -regex -ef {exclude_file} \
+    -regex -ef {exclude_file_abs} \
     -comp gzip -b 512k \
     -keep-as-directory
     ''')
