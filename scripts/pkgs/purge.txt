@@ -25,7 +25,6 @@ task-chinese-s \
 task-chinese-s-desktop \
 task-chinese-t \
 task-chinese-t-desktop \
-task-cinnamon-desktop \
 task-croatian \
 task-croatian-desktop \
 task-cyrillic \
@@ -34,7 +33,6 @@ task-czech \
 task-czech-desktop \
 task-danish \
 task-danish-desktop \
-task-desktop \
 task-dutch \
 task-dutch-desktop \
 task-dzongkha-desktop \
