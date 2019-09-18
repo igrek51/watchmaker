@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-import sys
 from typing import List
 
-from cliglue import CliBuilder, argument, flag, subcommand, parameter
-from cliglue.utils.shell import shell_error_code
+from cliglue import CliBuilder, argument, flag, subcommand, parameter, arguments
 
 import creator
 import iso
@@ -11,6 +9,7 @@ import prebuild
 import replicate
 import resquash
 import settings
+import install_module
 from system import wrap_shell, ensure_root, confirm
 
 
@@ -21,11 +20,15 @@ def main():
             flag('skip-persistence', help='Skip creating persistence partition'),
             parameter('boot-surplus', help='Boot partition storage surplus (MiB)', type=int, default=300),
             parameter('--module', name='modules', help='Add optional module', multiple=True,
-                      choices=creator.optional_modules.keys(), strict_choices=True),
+                      choices=install_module.optional_modules.keys(), strict_choices=True),
         ),
         subcommand('prebuild', run=prebuild_tools, help='update current OS with latest tools').has(
             parameter('watchmaker-repo', help='a path to full watchmaker repository',
                       default='/media/user/data/ext/watchmaker'),
+        ),
+        subcommand('module', run=add_modules, help='install modules on existing OS').has(
+            arguments('modules', help='module names',
+                      choices=install_module.optional_modules.keys(), strict_choices=True),
         ),
         subcommand('resquash', run=resquash_os, help='rebuild squashed filesystem and swap it on the run').has(
             parameter('storage-path', help='storage path for dumping new squashed filesystem snapshot',
@@ -68,6 +71,11 @@ def resquash_os(dry: bool, yes: bool, storage_path: str, live_squash: str, exclu
     resquash.resquash_os(storage_path, live_squash, exclude_file)
 
 
+def add_modules(dry: bool, yes: bool, modules: List[str]):
+    settings.DRY_RUN = dry
+    install_module.add_modules(yes, modules)
+
+
 def replicate_os(dry: bool, yes: bool, source_disk: str, target_disk: str):
     settings.DRY_RUN = dry
     ensure_root()
@@ -82,18 +90,5 @@ def make_iso(dry: bool, yes: bool, source_disk: str, target_iso: str):
     iso.make_iso(yes, source_disk, target_iso)
 
 
-def ensure_python():
-    # ensure it's Python 3.6+
-    if sys.version_info.major == 3 and sys.version_info.minor >= 6:
-        return
-    args = ' '.join(sys.argv)
-    if shell_error_code('/usr/bin/env python3.7 --version > /dev/null') == 0:
-        shell_error_code('/usr/bin/env python3.7 ' + args)
-        exit(0)
-    shell_error_code('/usr/bin/env python3.6 ' + args)
-    exit(0)
-
-
 if __name__ == '__main__':
-    ensure_python()
     main()
