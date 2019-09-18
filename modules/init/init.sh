@@ -1,9 +1,12 @@
 #!/bin/bash
-
+#
 # Watchmaker live initializer script
-
-#cat << 'EOF' > /home/user/.osversion
-#v2.11
-#EOF
+#
 
 echo "$(id) - $(date)" >> /mnt/usb-data/modules/init/init.log
+
+# release version
+# cp /mnt/usb-data/modules/init/version/.osversion /home/user/.osversion
+
+# add application launchers
+cp /mnt/usb-data/modules/init/applications/*.desktop /home/ireneusz/.local/share/applications/
