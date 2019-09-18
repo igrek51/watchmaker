@@ -15,12 +15,14 @@ repo_remotes = {
     'django_chords': 'https://igrek51@bitbucket.org/igrek51/django_chords.git',
     'crypto-encoder': 'https://igrek51@bitbucket.org/igrek51/crypto-encoder.git',
     'cliglue': 'https://github.com/igrek51/cliglue.git',
+    'dirty-monitor': 'https://github.com/igrek51/dirty-monitor',
 }
 
 
 def prebuild_tools(watchmaker_repo: str):
     set_workdir(watchmaker_repo)
     pytools_src_dir = f'{watchmaker_repo}/modules/py-tools'
+    home = '/home/user'
 
     info(f'checking required files existence')
     assert os.path.exists(watchmaker_repo)
@@ -40,14 +42,28 @@ def prebuild_tools(watchmaker_repo: str):
     wrap_shell(f'cp {watchmaker_repo}/modules/music/tubular.wav ~/Music/')
     wrap_shell(f'cp {watchmaker_repo}/modules/music/tubular.mp3 ~/Music/')
 
+    info('updating cliglue')
+    wrap_shell(f'python3.6 -m pip install --upgrade cliglue')
+
     info('updating py-tools')
     wrap_shell(f'rsync -a {pytools_src_dir}/lichking/ ~/tools/lichking')
     wrap_shell(f'rsync -a {pytools_src_dir}/regex-rename/ ~/tools/regex-rename')
     wrap_shell(f'rsync -a {pytools_src_dir}/differ/ ~/tools/differ')
     wrap_shell(f'rsync -a {pytools_src_dir}/volumen/ ~/tools/volumen')
+    wrap_shell(f'rsync -a {watchmaker_repo}/modules/dirty-monitor/ ~/tools/dirty-monitor')
 
-    info('updating cliglue')
-    wrap_shell(f'python3.6 -m pip install --upgrade cliglue')
+    info('recreating links & autocompletion for tools')
+    wrap_shell(f'sudo rm -f /usr/bin/{{lichking,king,lich,regex-rename,differ,dirty-monitor}}')
+    wrap_shell(f'sudo rm -f /etc/bash_completion.d/cliglue_*')
+
+    wrap_shell(f'sudo {home}/tools/lichking/lichking.py --bash-install lichking')
+    wrap_shell(f'sudo {home}/tools/lichking/lichking.py --bash-install lich')
+    wrap_shell(f'sudo {home}/tools/lichking/lichking.py --bash-install king')
+    wrap_shell(f'sudo {home}/tools/dirty-monitor/dirty_monitor.py --bash-install dirty-monitor')
+    wrap_shell(f'sudo {home}/tools/watchmake/watchmake.py --bash-install watchmake')
+
+    wrap_shell(f'sudo ln -s {home}/tools/differ/differ.py /usr/bin/differ')
+    wrap_shell(f'sudo ln -s {home}/tools/regex-rename/regex-rename.py /usr/bin/regex-rename')
 
     info('updating live dev-data repos')
     wrap_shell(f'rm -rf ~/dev-live')

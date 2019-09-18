@@ -20,3 +20,6 @@ https://igrek51@bitbucket.org/igrek51/crypto-encoder.git
 
 ## cliglue
 https://github.com/igrek51/cliglue.git
+
+## dirty-monitor
+https://github.com/igrek51/dirty-monitor
