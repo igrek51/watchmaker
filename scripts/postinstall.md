@@ -51,7 +51,8 @@ apt install \
 	conky pavucontrol ydpdict adb \
 	samba smbclient cups \
 	aptitude build-essential p7zip-full tar zip gzip tree curl httpie \
-	task-laptop
+	task-laptop task-desktop task-cinnamon-desktop live-task-cinnamon live-task-recommended \
+	
 
 ```
 

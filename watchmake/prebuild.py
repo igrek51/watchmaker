@@ -43,7 +43,7 @@ def prebuild_tools(watchmaker_repo: str):
     wrap_shell(f'cp {watchmaker_repo}/modules/music/tubular.mp3 ~/Music/')
 
     info('updating cliglue')
-    wrap_shell(f'python3.6 -m pip install --upgrade cliglue')
+    wrap_shell(f'sudo python3.6 -m pip install --upgrade cliglue')
 
     info('updating py-tools')
     wrap_shell(f'rsync -a {pytools_src_dir}/lichking/ ~/tools/lichking')

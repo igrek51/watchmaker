@@ -129,3 +129,12 @@ task-vietnamese-desktop \
 task-welsh \
 task-welsh-desktop \
 task-xhosa-desktop \
+
+
+apt install \
+task-desktop \
+task-cinnamon-desktop \
+live-task-cinnamon \
+live-task-recommended
+
+apt install ibus

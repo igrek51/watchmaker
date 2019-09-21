@@ -1,2 +1,6 @@
 .idea
 *.pyc
+
+*.squashfs
+/iso/
+/modules/*.zip
