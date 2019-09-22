@@ -7,25 +7,25 @@ su
 ```
 ## Package sources
 ```bash
-cat << 'EOF' > /etc/apt/sources.list
-deb http://deb.debian.org/debian/ buster main contrib non-free
-deb-src http://deb.debian.org/debian/ buster main contrib non-free
+cat << 'EOF' | sudo tee /etc/apt/sources.list
+deb http://ftp.pl.debian.org/debian/ buster main contrib non-free
 
 deb http://security.debian.org/debian-security buster/updates main contrib non-free
-deb-src http://security.debian.org/debian-security buster/updates main contrib non-free
 
-# buster-updates, previously known as 'volatile'
-deb http://deb.debian.org/debian/ buster-updates main contrib non-free
-deb-src http://deb.debian.org/debian/ buster-updates main contrib non-free
+deb http://ftp.pl.debian.org/debian/ buster-updates main contrib non-free
 
-# backports
+# Backports are recompiled packages from testing and unstable in a stable environment so that they will run without new libraries
+# It is recommended to select single backported packages that fit your needs, and not use all available backports
+# Use with care!
 deb http://ftp.pl.debian.org/debian buster-backports main contrib non-free
-deb http://deb.debian.org/debian oldstable main contrib non-free
+
+# oldstable is a codename for the previous Debian stable repository, as long as security updates are provided
+deb http://ftp.pl.debian.org/debian oldstable main contrib non-free
 
 EOF
 ```
 
-## Packages
+## Install Packages
 ```bash
 apt update
 apt install \
@@ -52,7 +52,176 @@ apt install \
 	samba smbclient cups \
 	aptitude build-essential p7zip-full tar zip gzip tree curl httpie \
 	task-laptop task-desktop task-cinnamon-desktop live-task-cinnamon live-task-recommended \
-	
+
+apt install \
+	acpid \
+	adb \
+	apt-transport-https \
+	apt-utils \
+	aptitude \
+	audacious \
+	audacity \
+	baobab \
+	base-files \
+	bash-completion \
+	binutils \
+	bless \
+	blueman \
+	bluez \
+	bluez-tools \
+	bsdmainutils \
+	bsdutils \
+	build-essential \
+	ca-certificates \
+	conky \
+	coreutils \
+	cpio \
+	cron \
+	cups \
+	curl \
+	dash \
+	dbus \
+	debconf \
+	debian-archive-keyring \
+	debianutils \
+	deborphan \
+	diffutils \
+	dirmngr \
+	dkms \
+	dmidecode \
+	dmsetup \
+	dosfstools \
+	dstat \
+	e2fslibs \
+	e2fsprogs \
+	extlinux \
+	fatsort \
+	findutils \
+	firefox-esr \
+	firefox-esr-l10n-en-gb \
+	firefox-esr-l10n-pl \
+	firmware-iwlwifi \
+	firmware-linux \
+	firmware-linux-free \
+	firmware-linux-nonfree \
+	firmware-misc-nonfree \
+	gcc \
+	gedit \
+	gimp \
+	git \
+	gitk \
+	gksu \
+	gnome-disk-utility \
+	gnupg \
+	gnupg-agent \
+	gnupg2 \
+	gparted \
+	gpgv \
+	grep \
+	grub2-common \
+	grub-common \
+	gzip \
+	hostname \
+	hplip \
+	htop \
+	httpie \
+	ifupdown \
+	inetutils-ping \
+	init \
+	init-system-helpers \
+	initramfs-tools \
+	initramfs-tools-core \
+	iotop \
+	iproute2 \
+	iptables \
+	ipython3 \
+	isc-dhcp-client \
+	isc-dhcp-common \
+	isolinux \
+	kid3 \
+	klibc-utils \
+	kmod \
+	less \
+	libreoffice-calc \
+	libreoffice-writer \
+	live-boot \
+	live-config \
+	live-task-base \
+	live-task-localisation \
+	live-task-localisation-desktop \
+	llvm \
+	make \
+	maven \
+	mawk \
+	mc \
+	meld \
+	mpg123 \
+	mplayer \
+	multiarch-support \
+	nano \
+	ncurses-base \
+	ncurses-bin \
+	net-tools \
+	netbase \
+	network-manager \
+	nmap \
+	numix-gtk-theme \
+	numix-icon-theme \
+	okular \
+	openjdk-8-jdk \
+	openssh-client \
+	openssh-server \
+	oxygencursors \
+	p7zip-full \
+	parted \
+	pavucontrol \
+	pulseaudio-module-bluetooth \
+	python \
+	python3 \
+	python3-pip \
+	python3-virtualenv \
+	qnapi \
+	readline-common \
+	rfkill \
+	rsyslog \
+	rsync \
+	samba \
+	seahorse \
+	sed \
+	sensible-utils \
+	smbclient \
+	software-properties-common \
+	sqlitebrowser \
+	squashfs-tools \
+	ssh \
+	sublime-text \
+	sudo \
+	syslinux \
+	tar \
+	task-english \
+	task-laptop \
+	tasksel \
+	tasksel-data \
+	tcpdump \
+	tcpreplay \
+	testdisk \
+	time \
+	traceroute \
+	tree \
+	tzdata \
+	udev \
+	util-linux \
+	unzip \
+	vim \
+	vlc \
+	wget \
+	wireless-tools \
+	xserver-xorg-core \
+	xxd \
+	xz-utils \
+	ydpdict \
+	youtube-dl \
+	zip \
 
 ```
 
@@ -479,7 +648,8 @@ apt upgrade
 ```
 
 ## visudo config
-add lines when `visudo`:
+add lines after
+`sudo visudo`:
 ```bash
 user ALL=(ALL) NOPASSWD:ALL
 %sudo  ALL=(ALL) NOPASSWD:ALL
@@ -487,19 +657,19 @@ user ALL=(ALL) NOPASSWD:ALL
 
 ## System settings
 ```bash
-cat << 'EOF' > /etc/hostname
+cat << 'EOF' | sudo tee /etc/hostname
 watchmaker
 EOF
 ```
 
 ```bash
-cat << 'EOF' > /etc/motd
+cat << 'EOF' | sudo tee /etc/motd
 
 Welcome to the machine...
 EOF
 ```
 
-## Passwords
+## Set Passwords
 ```bash
 passwd
 passwd user
@@ -508,7 +678,7 @@ passwd user
 ## Locales
 Uncomment pl_PL.UTF-8 UTF-8, en_US.UTF-8 UTF-8 or:
 ```bash
-sudo cat << 'EOF' > /etc/locale.gen
+cat << 'EOF' | sudo tee /etc/locale.gen
 # This file lists locales that you wish to have built. You can find a list
 # of valid supported locales at /usr/share/i18n/SUPPORTED, and you can add
 # user defined locales to /usr/local/share/i18n/SUPPORTED. If you change
@@ -580,12 +750,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
     else
-	color_prompt=
+    color_prompt=
     fi
 fi
 
@@ -650,17 +820,19 @@ alias ll='ls -al --color=auto'
 alias l='ls -CF --color=auto'
 alias pax='ps ax | grep '
 
+alias python3=python3.6
+
 # colours
 force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
     else
-	color_prompt=
+    color_prompt=
     fi
 fi
 
@@ -674,10 +846,10 @@ export JAVA_HOME
 
 # ~/bin
 if [ -d $HOME/bin ]; then
-	export PATH="$HOME/bin:$PATH"
+    export PATH="$HOME/bin:$PATH"
 fi
 if [ -d /mnt/win/ext/opt/android/sdk/platform-tools ]; then
-	export PATH="/mnt/win/ext/opt/android/sdk/platform-tools:$PATH"
+    export PATH="/mnt/win/ext/opt/android/sdk/platform-tools:$PATH"
 fi
 
 # locale
@@ -722,7 +894,7 @@ cat << 'EOF' > ~/.profile
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+    . "$HOME/.bashrc"
     fi
 fi
 
@@ -756,7 +928,7 @@ EOF
 ## root bash profiles
 execute as root:
 ```bash
-cat << 'EOF' > /root/.bashrc
+cat << 'EOF' | sudo tee /root/.bashrc
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
 # Note: PS1 and umask are already set in /etc/profile. You should not
@@ -789,11 +961,11 @@ PS1="\[\033[1;31m\]\u\[\033[2m\]@\h \W\[\033[0;1;31m\]#\[\033[0m\] "
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-	if [ -f /usr/share/bash-completion/bash_completion ]; then
-		. /usr/share/bash-completion/bash_completion
-	elif [ -f /etc/bash_completion ]; then
-		. /etc/bash_completion
-	fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 
@@ -803,7 +975,7 @@ export NVM_DIR="$HOME/.nvm"
 
 EOF
 
-cat << 'EOF' > /root/.profile
+cat << 'EOF' | sudo tee /root/.profile
 # ~/.profile: executed by Bourne-compatible login shells.
 
 if [ "$BASH" ]; then
@@ -833,18 +1005,26 @@ cd /tmp
 ```bash
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+apt update
+apt install sublime-text
 ```
 ### Spotify
-Install from deb
+Install No-ads deb
+```bash
+wget -O spotify.deb --no-check-certificate 'https://drive.google.com/uc?export=download&id=1Qi2vb0L4Vsf9R4Yy2-j3sR9ZdJqrNuEW'
+sudo dpkg -i spotify.deb
+```
 ### Google Chrome
 ```bash
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-```
-
-```bash
 apt update
-apt install sublime-text spotify-client google-chrome-stable
+apt install google-chrome-stable
+```
+### Teamviewer
+```bash
+wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+sudo dpkg -i teamviewer_amd64.deb
 ```
 
 ## chrome config
@@ -870,18 +1050,19 @@ winetricks directplay
 ```bash
 # uncomment kernel.sysrq=1
 cat /etc/sysctl.conf | sed -e "s/#\\? *kernel\\.sysrq=[01]/kernel.sysrq=1/" > /tmp/sysctl.conf
-mv /tmp/sysctl.conf /etc/sysctl.conf
-sysctl -p /etc/sysctl.conf
+sudo mv /tmp/sysctl.conf /etc/sysctl.conf
+sudo sysctl -p /etc/sysctl.conf
 ```
 
 ## cinnamon panels
 Applets:
-
-* CPU Temperature Indicator
+* Menu
+* Panel launchers: nemo, sublime, google-chrome, terminal, ydpdict
+* Window list
+* Workspace switcher: 1,2
 * Multi-Core System Monitor
 * Sound with apps volume
-
-Date format: %H:%M:%S, %a %d.%m.%y
+* Calendar: Date format: %H:%M:%S, %a %d.%m.%y
 
 ## cinnamon themes
 * Window borders: Numix
@@ -889,7 +1070,7 @@ Date format: %H:%M:%S, %a %d.%m.%y
 * Controls: Numix
 * Mouse Pointer: oxy-white
 * Desktop: Mint-Y-Yltra-Dark
-* Settings: icons in menus, icons in buttons, dark theme
+* Settings: show icons in menus, show icons in buttons, use a dark theme variant when available in certain applications
 
 ## nemo terminal here
 Alt + T shortcut
@@ -904,15 +1085,7 @@ EOF
 Watchmaker SSH keys
 ```bash
 mkdir -p ~/.ssh
-#ssh-keygen
-
-cat << 'EOF' > ~/.ssh/id_rsa
-
-EOF
-
-cat << 'EOF' > ~/.ssh/id_rsa.pub
-
-EOF
+ssh-keygen
 ```
 
 ## gitconfig
@@ -921,8 +1094,8 @@ cat << 'EOF' > ~/.gitconfig
 # This is Git's per-user configuration file.
 [user]
 # Please adapt and uncomment the following lines:
-	name = igrek51
-	email = igrek51.dev@gmail.com
+    name = watchmaker
+    email = igrek51.dev@gmail.com
 
 
 # GIT KURWA
@@ -1023,7 +1196,7 @@ cat << 'EOF' > ~/.gitconfig
     unhide = update-index --no-assume-unchanged
 
     #OTHER
-    
+
     #Finds a filename in the git repository. Gives absolute location (from the git root).
     find = !sh -c 'git ls-tree -r --name-only HEAD | grep --color $1' - 
 
@@ -1061,7 +1234,7 @@ cat << 'EOF' > ~/.gitconfig
     whitespace = nowarn
 [core]
     pager = less -R
-	editor = vim
+    editor = vim
 #[help]
 #    autocorrect = 1 #fucking magic!
 
@@ -1101,7 +1274,7 @@ cat << 'EOF' > ~/.gitconfig
     cotammistrzukurwa = !sh -c 'git fetch' && git log --oneline HEAD..origin/master
     ktotamkurwa = !sh -c 'git shortlog HEAD..origin/$0'
     ktotammistrzukurwa = !sh -c 'git shortlog HEAD..origin/master'
-    
+
     tagikurwa = show-ref --tags
     pchajtagikurwa = push --tags
     tagujzdatakurwa = !sh -c 'git tag "$0"_$(date "+%y-%m-%d_%H-%M-%S")'
@@ -1119,7 +1292,7 @@ cat << 'EOF' > ~/.gitconfig
     sprzatajkurwa = clean
     sprzatajwszystkokurwa = !sh -c 'git clean -x' && git reset --hard
     wyjebzrobionekurwa = !sh -c 'git branch --merged' | grep -v "\\*" | grep -v master | grep -v dev | xargs -n 1 git branch -d
-    
+
     dodajkurwa = add
     takkurwa = commit
     sciagajkurwa = pull
@@ -1137,14 +1310,16 @@ cat << 'EOF' > ~/.gitconfig
 
     palisiekurwa = !sh -c 'git add . && git commit -m \"palilo sie\" && git push --force && echo \"Ok, now RUN!\"'
 
-    
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-    
+
 [apply]
-	whitespace = nowarn
+    whitespace = nowarn
 
 [mergetool]
-	keepBackup = false
+    keepBackup = false
+
+[credential]
+	helper = cache
 
 EOF
 ```
@@ -1152,15 +1327,15 @@ EOF
 ## git repos
 Linux-helpers, py-tools:
 ```bash
-mkdir -p ~/dev
-git clone https://igrek51@bitbucket.org/igrek51/linux-helpers.git ~/dev/linux-helpers
-git clone https://github.com/igrek51/py-tools.git ~/dev/py-tools
+mkdir -p ~/live-dev
+git clone https://igrek51@bitbucket.org/igrek51/linux-helpers.git ~/live-dev/linux-helpers
+git clone https://github.com/igrek51/py-tools.git ~/live-dev/py-tools
 ```
 
 ## ydpdict db
 ```bash
 sudo mkdir -p /usr/local/share/ydpdict/
-sudo cp ~/dev/linux-helpers/ydpdict/usr-local-share-ydpdict/* /usr/local/share/ydpdict/
+sudo cp ~/live-dev/linux-helpers/ydpdict/usr-local-share-ydpdict/* /usr/local/share/ydpdict/
 ```
 
 ## tab bell disable
@@ -1173,13 +1348,20 @@ set bell-style none
 Disable Sound and Media Volume down/up shortcuts.
 Add custom shortcuts:
 * shutdown dialog: ```cinnamon-session-quit --power-off```, alt + shift + f4
-* volumen up: ```/home/user/dev/py-tools/volumen/volumen.py up```, Audio raise volume
-* volumen down: ```/home/user/dev/py-tools/volumen/volumen.py down```, Audio lower volume
+* volumen up: ```/home/user/live-dev/py-tools/volumen/volumen.py up```, Audio raise volume
+* volumen down: ```/home/user/live-dev/py-tools/volumen/volumen.py down```, Audio lower volume
 
 ## fstab
 mount rwx options:
-```
-rw,users,exec,umask=000,nofail,x-gvfs-show
+```bash
+cat << 'EOF' | sudo tee /etc/fstab
+proc /proc proc defaults 0 0
+/dev/sda1 / ext4 errors=remount-ro 0 1
+overlay / overlay rw 0 0
+tmpfs /tmp tmpfs nosuid,nodev 0 0
+/dev/disk/by-label/persistence /mnt/persistence auto nosuid,nodev,nofail,x-gvfs-show 0 0
+/dev/disk/by-label/usb-data /mnt/usb-data auto rw,users,exec,nosuid,nodev,nofail,x-gvfs-show 0 0
+EOF
 ```
 
 ## sublime config
@@ -1189,28 +1371,28 @@ rw,users,exec,umask=000,nofail,x-gvfs-show
 ```bash
 cat << 'EOF' > "$HOME/.config/sublime-text-3/Packages/User/Preferences.sublime-settings"
 {
-    "always_show_minimap_viewport": true,
-    "auto_close_tags": false,
-    "auto_match_enabled": false,
-    "color_scheme": "Packages/Theme - Brogrammer/brogrammer.tmTheme",
-    "draw_minimap_border": true,
-    "fallback_encoding": "Windows 1250",
-    "font_size": 11,
-    "highlight_line": true,
-    "highlight_modified_tabs": true,
-    "hot_exit": true,
-    "ignored_packages":
-    [
-        "Vintage"
-    ],
-    "remember_full_screen": true,
-    "scroll_past_end": false,
-    "shift_tab_unindent": true,
-    "show_encoding": true,
-    "show_line_endings": true,
-    "theme": "Brogrammer.sublime-theme",
-    "word_wrap": true,
-    "update_check": false
+	"always_show_minimap_viewport": true,
+	"auto_close_tags": false,
+	"auto_match_enabled": false,
+	"color_scheme": "Packages/Theme - Brogrammer/brogrammer.tmTheme",
+	"draw_minimap_border": true,
+	"fallback_encoding": "Windows 1250",
+	"font_size": 12,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"hot_exit": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"remember_full_screen": true,
+	"scroll_past_end": false,
+	"shift_tab_unindent": true,
+	"show_encoding": true,
+	"show_line_endings": true,
+	"theme": "Brogrammer.sublime-theme",
+	"update_check": false,
+	"word_wrap": true
 }
 EOF
 ```
@@ -1225,7 +1407,6 @@ cat << 'EOF' > "$HOME/.config/sublime-text-3/Packages/User/Default (Linux).subli
     { "keys": ["ctrl+l"], "command": "show_overlay", "args": {"overlay": "goto", "text": ":"} },
     { "keys": ["shift+enter"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Add Line.sublime-macro"} },
     { "keys": ["ctrl+shift+s"], "command": "save_all" },
-    // TAB
     { "keys": ["tab"], "command": "insert", "args": {"characters": "\t"},
         "context":
         [
@@ -1272,7 +1453,7 @@ conky.config = {
     background = false,
     border_width = 1,
     cpu_avg_samples = 2,
-	default_color = 'white',
+default_color = 'white',
     default_outline_color = 'white',
     default_shade_color = 'white',
     draw_borders = false,
@@ -1282,9 +1463,9 @@ conky.config = {
     use_xft = true,
     font = 'DejaVu Sans Mono:size=12',
     gap_x = 5,
-    gap_y = 60,
+    gap_y = 5,
     minimum_height = 5,
-	minimum_width = 5,
+minimum_width = 5,
     net_avg_samples = 2,
     no_buffers = true,
     out_to_console = false,
@@ -1302,12 +1483,14 @@ conky.config = {
     use_spacer = 'none',
     show_graph_scale = false,
     show_graph_range = false,
-	double_buffer = true,
+double_buffer = true,
     short_units = true
 }
 
 conky.text = [[
-${color grey}$nodename - $color$sysname $kernel on $machine
+Watchmaker ${execi 600 cat ~/.osversion}
+${color grey}$color$sysname $kernel on $machine
+${color grey}$nodename ${execi 3600 grep -q persistence /proc/cmdline && echo 'persistence' || echo 'live'}${execi 3600 grep -q toram /proc/cmdline && echo ' RAM'} - ${execi 3600 [ -d /sys/firmware/efi ] && echo 'UEFI' || echo 'BIOS'} boot
 CPU $hr
 ${color grey}CPU Usage:$color $cpu% ${cpubar 4}
 ${color grey}Frequency:$color $freq MHz
@@ -1326,9 +1509,8 @@ ${color grey}Dirty:$color ${exec grep -e Dirty: /proc/meminfo | sed -E 's/Dirty:
 ${color grey}Writeback:$color ${exec grep -e Writeback: /proc/meminfo | sed -E 's/Writeback: +//g'}
 Disk usage $hr
  ${color grey}/        $color${fs_used /}/${fs_size /} ${fs_bar 6 /}
- ${color grey}/mnt/win $color${fs_used /mnt/win}/${fs_size /mnt/win} ${fs_bar 6 /mnt/win}
- ${color grey}/mnt/games $color${fs_used /mnt/games}/${fs_size /mnt/games} ${fs_bar 6 /mnt/games}
- ${color grey}/mnt/data $color${fs_used /mnt/data}/${fs_size /mnt/data} ${fs_bar 6 /mnt/data}
+ ${color grey}persistence $color${fs_used /mnt/persistence}/${fs_size /mnt/persistence} ${fs_bar 6 /mnt/persistence}
+ ${color grey}usb-data $color${fs_used /media/user/usb-data}/${fs_size /media/user/usb-data} ${fs_bar 6 /media/user/usb-data}
 Networking $hr
 ${color lightgrey}Ethernet:
 ${color grey}IP address: $color${addr enp3s0}
@@ -1347,6 +1529,7 @@ ${color lightgrey} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
 ${color lightgrey} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
 ${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
 ]]
+
 EOF
 ```
 Add to Cinnamon Startup applications:
@@ -1354,89 +1537,94 @@ Add to Cinnamon Startup applications:
 conky -d -p 5
 ```
 
-## xscreensaver
-Blaster
-BouncingCow
-BSOD
-Cage
-CloudLife
-Coral
-Engine
-FlyingToasters
-GLCells
-GLMatrix
-Hilbert
-Intermomentary
-Juggler3D
-Molecule
-Pacman
-Pipes
-Pong
-Squiral
-StarWars
-UnknownPleasures
-Vermiculate
-WindupRobot
-Wormhole
-XMatrix
-XRaySwarm
-
-## Startup service
+## Initializer service
 ```bash
-sudo cat << 'EOF' > /etc/init.d/ystartup
-#! /bin/sh
-# /etc/init.d/ystartup 
+cat << 'EOF' | sudo tee /etc/systemd/system/watchmaker-live-initializer.service
+[Unit]
+Description=Watchmaker live initializer running after fstab
+Requires=local-fs.target
+After=local-fs.target
+RequiresMountsFor=/mnt/usb-data
 
-### BEGIN INIT INFO
-# Provides:          noip
-# Required-Start:    $remote_fs $syslog
-# Required-Stop:     $remote_fs $syslog
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: Simple script to start a program at boot
-# Description:       A simple script from www.stuffaboutcode.com which will start / stop a program a boot / shutdown.
-### END INIT INFO
+[Service]
+Type=simple        
+ExecStart=/bin/bash -c "/home/user/init.sh"
 
-# If you want a command to always run, put it here
-
-# Carry out specific functions when asked to by the system
-case "$1" in
-  start)
-    echo "Starting ystartup..."
-    # run application you want to start
-    mkdir -p /tmp/ycache
-    mkdir -p /tmp/ycache/.cache
-    mkdir -p /tmp/ycache/var/cache
-    mkdir -p /tmp/ycache/var/log
-    mkdir -p /tmp/ycache/1
-    mkdir -p /tmp/ycache/2
-    mkdir -p /tmp/ycache/3
-    mkdir -p /tmp/ycache/4
-    chmod -R 777 /tmp/ycache
-    chown -R user /tmp/ycache
-    ;;
-  stop)
-    echo "Stopping ystartup..."
-    # kill application you want to stop
-    ;;
-  *)
-    echo "Usage: /etc/init.d/ystartup {start|stop}"
-    exit 1
-    ;;
-esac
-
-exit 0
+[Install]
+WantedBy=multi-user.target
 
 EOF
 
-sudo chmod 755 /etc/init.d/ystartup
-sudo update-rc.d ystartup defaults
-sudo systemctl enable ystartup
-# remove from startup
-#sudo update-rc.d -f  NameOfYourScript remove
+cat << 'EOF' | tee /home/user/init.sh
+#!/bin/bash
+#
+# Watchmaker live initializer script
+# launched from /etc/systemd/system/watchmaker-live-initializer.service
+#
+
+if [ -f "/mnt/usb-data/modules/init/init.sh" ]; then
+	. "/mnt/usb-data/modules/init/init.sh"
+fi
+EOF
+
+sudo chmod +x /etc/systemd/system/watchmaker-live-initializer.service
+sudo systemctl daemon-reload
+sudo systemctl enable watchmaker-live-initializer
+sudo systemctl start watchmaker-live-initializer
 ```
 
-# TODO
-~/.conkyrc
-usb-data init service
-apt purge
+# Update kernel
+update vmlinuz, initrd.img on boot/live
+```bash
+update-initramfs -u
+```
+
+# Install hamachi, haguichi
+```bash
+cd /tmp
+# hamachi
+wget https://www.vpn.net/installers/logmein-hamachi_2.1.0.203-1_amd64.deb
+sudo dpkg -i logmein-hamachi_2.1.0.203-1_amd64.deb
+# haguichi
+sudo sh -c 'echo "deb http://ppa.launchpad.net/webupd8team/haguichi/ubuntu bionic main" > /etc/apt/sources.list.d/haguichi.list'
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C2518248EEA14886
+sudo apt update
+sudo apt install -y haguichi
+```
+disable in cinnamon startup applications
+
+# Install docker, configure device mapper
+```bash
+cd /tmp
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo usermod -aG docker user
+
+sudo systemctl stop docker
+sudo systemctl disable docker
+sudo rm -rf /var/lib/docker
+```
+Change `/lib/systemd/system/docker.service`:
+Set `ExecStart=/usr/bin/dockerd --storage-driver=vfs -H fd://`
+
+# Instal pip3 packages
+```bash
+pip3 install \
+	requests \
+	ipython \
+	youtube-dl \
+	cliglue
+
+```
+
+# Create .osversion
+```bash
+cat << 'EOF' | tee /home/user/.osversion
+v2.21
+EOF
+```
