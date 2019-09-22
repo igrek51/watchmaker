@@ -1,0 +1,1293 @@
+Package: btrfs-progs
+Architecture: amd64
+Version: 4.20.1-2
+Priority: optional
+Section: admin
+Maintainer: Dimitri John Ledkov <xnox@debian.org>
+Installed-Size: 3313
+Provides: btrfs-tools
+Depends: libblkid1 (>= 2.17.2), libc6 (>= 2.8), liblzo2-2, libuuid1 (>= 2.16), libzstd1 (>= 1.3.2), zlib1g (>= 1:1.2.0)
+Suggests: duperemove
+Breaks: btrbk (<= 0.25.0), btrfs-tools (<< 4.4.1-1)
+Replaces: btrfs-tools (<< 4.4.1-1)
+Filename: pool/main/b/btrfs-progs/btrfs-progs_4.20.1-2_amd64.deb
+Size: 602316
+MD5sum: c1f235b5a27c0bc8b1e55dfe3f3ba889
+SHA1: 4eb8b1d8b5545bc9cc189568fe1bc628b1f99fb2
+SHA256: 6a0795f5d592733478771329e92ae1d8395df35c68f74eeed0193b5b1a8b28e6
+SHA512: 86fc002fd7eef30eaa99531ae40a83129e46c346d3ddc8438571f53f2ac7c1bf19d74ec248e333f7173280b74123560e1a0722ac57c702e15140b6b3ee01438f
+Homepage: http://btrfs.wiki.kernel.org/
+Description: Checksumming Copy on Write Filesystem utilities
+ Btrfs is a new copy on write filesystem for Linux aimed at implementing
+ advanced features while focusing on fault tolerance, repair and easy
+ administration.
+ .
+ This package contains utilities (mkfs, fsck) used to work with btrfs
+ and an utility (btrfs-convert) to make a btrfs filesystem from an ext3.
+
+Package: console-setup
+Architecture: all
+Version: 1.193~deb10u1
+Multi-Arch: foreign
+Priority: optional
+Section: utils
+Maintainer: Debian Install System Team <debian-boot@lists.debian.org>
+Installed-Size: 421
+Pre-Depends: debconf (>= 1.5.34)
+Depends: console-setup-linux | console-setup-freebsd | hurd, xkb-data (>= 0.9), keyboard-configuration (= 1.193~deb10u1)
+Suggests: lsb-base (>= 3.0-6), locales
+Conflicts: console-setup-mini
+Breaks: lsb (<< 2.0-6), lsb-base (<< 3.0-6), lsb-core (<< 2.0-6)
+Filename: pool/main/c/console-setup/console-setup_1.193~deb10u1_all.deb
+Size: 98488
+MD5sum: 59de387d88773ca1f8177ae035db08d5
+SHA1: 649312db7d198421e6282bf124ee1873aba75b20
+SHA256: 2ad6c7ef16ab20ec6714abab8ff795690a65078ad1bbccbbaadb90d2d803d838
+SHA512: 1094116fd68b60775dd13ea397c85faeea4dc57fbbd6244ea1811090684abf069ab80e7abcf62717981c3f3bf8338dbb728cf58f0b3497516a3a63139e173d8e
+Description: console font and keymap setup program
+ This package provides the console with the same keyboard
+ configuration scheme as the X Window System. As a result, there is no
+ need to duplicate or change the keyboard files just to make simple
+ customizations such as the use of dead keys, the key functioning as
+ AltGr or Compose key, the key(s) to switch between Latin and
+ non-Latin mode, etc.
+ .
+ The package also installs console fonts supporting many of the
+ world's languages.  It provides an unified set of font faces - the
+ classic VGA, the simplistic Fixed, and the cleaned Terminus,
+ TerminusBold and TerminusBoldVGA.
+
+Package: keyboard-configuration
+Architecture: all
+Version: 1.193~deb10u1
+Multi-Arch: foreign
+Priority: optional
+Section: utils
+Source: console-setup
+Maintainer: Debian Install System Team <debian-boot@lists.debian.org>
+Installed-Size: 2574
+Pre-Depends: debconf (>= 1.5.34)
+Depends: liblocale-gettext-perl
+Breaks: console-setup (<< 1.71), console-setup-mini (<< 1.47)
+Replaces: console-setup (<< 1.47), console-setup-mini (<< 1.47)
+Filename: pool/main/c/console-setup/keyboard-configuration_1.193~deb10u1_all.deb
+Size: 404412
+MD5sum: 707898f7d1bfedb48f329491216e0cf0
+SHA1: 55b25684dd946e32c22734898ac142927d70e4f9
+SHA256: 9b3a8fb5bf0e6e9b41a97412dc982e6391909f12c67b503d4c2677b7a1cd0a02
+SHA512: 45b34258885ed718f7189089e027038f87e4b748494b5c8151c747a986cf9740e1d6cb92dca94c9dc1d11c7f467172f703ee1a0a69ac07b2adcc6cbdd8e19ac1
+Description: system-wide keyboard preferences
+ This package maintains the keyboard preferences in
+ /etc/default/keyboard.  Other packages can use the information
+ provided by this package in order to configure the keyboard on the
+ console or in X Window.
+
+Package: cryptsetup
+Architecture: all
+Version: 2:2.1.0-5+deb10u2
+Priority: optional
+Section: oldlibs
+Maintainer: Debian Cryptsetup Team <pkg-cryptsetup-devel@alioth-lists.debian.net>
+Installed-Size: 68
+Depends: cryptsetup-initramfs (>= 2:2.0.3-1), cryptsetup-run (>= 2:2.0.3-1)
+Filename: pool/main/c/cryptsetup/cryptsetup_2.1.0-5+deb10u2_all.deb
+Size: 51508
+MD5sum: 0391a96afe245724e74399c747edc30a
+SHA1: 42eb6fa2f7147d24f8d9b70e8103a8333a46e9b7
+SHA256: 42abd5ae685703539d38dfb8786fed2c44cae20b737c8df545aed73ded8fc6a1
+SHA512: d1bb555451210a3fec3b38f917b75d1ca8ff19b33d94799696509e6e86b7eda4c93c769ed7f56cd4a7cd024076094c0848cfd586123b20b04b50890a7fa0c0a4
+Homepage: https://gitlab.com/cryptsetup/cryptsetup
+Description: transitional dummy package for cryptsetup-{run,initramfs}
+ This is a transitional dummy package to get upgrading systems to install the
+ cryptsetup-run and cryptsetup-initramfs packages. It can safely be removed
+ once no other package depends on it.
+
+Package: dmraid
+Architecture: amd64
+Version: 1.0.0.rc16-8
+Priority: optional
+Section: admin
+Maintainer: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Installed-Size: 93
+Depends: libc6 (>= 2.4), libdmraid1.0.0.rc16 (>= 1.0.0.rc16), libselinux1 (>= 1.32), libsepol1 (>= 2.4), udev, dmsetup
+Filename: pool/main/d/dmraid/dmraid_1.0.0.rc16-8_amd64.deb
+Size: 35978
+MD5sum: 80a34b4d87a6f8c6c22b347c6403573c
+SHA1: 955d0fafba849efc0e70f052ec7ef1edb5f0326c
+SHA256: 55e68dbb5caadb6a8a82a851377ca5bf6662ecccc7b4d4532c54192cd585a63e
+SHA512: 0a8794866498c4a6990d89396239fec83683dc8846beda709cf0d231e2223811c66523dd0961e78612dab29706294428c65f6adf52fdb77d26c3a61dedbbef9b
+Homepage: http://people.redhat.com/~heinzm/sw/dmraid/
+Description: Device-Mapper Software RAID support tool
+ dmraid discovers, activates, deactivates and displays properties
+ of software RAID sets (eg, ATARAID) and contained DOS partitions.
+ .
+ dmraid uses the Linux device-mapper to create devices with respective
+ mappings for the ATARAID sets discovered.
+ .
+ The following formats are supported:
+  Highpoint HPT37X/HPT45X
+  Intel Software RAID
+  LSI Logic MegaRAID
+  NVidia NForce RAID (nvraid)
+  Promise FastTrack
+  Silicon Image(tm) Medley(tm)
+  VIA Software RAID
+ .
+ Please read the documentation in /usr/share/doc/dmraid BEFORE attempting
+ any use of this software. Improper use can cause data loss!
+
+Package: libdmraid1.0.0.rc16
+Architecture: amd64
+Version: 1.0.0.rc16-8
+Priority: optional
+Section: libs
+Source: dmraid
+Maintainer: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Installed-Size: 239
+Depends: libc6 (>= 2.14), libdevmapper1.02.1 (>= 2:1.02.97)
+Replaces: libdmraid1.0.0.rc15 (<< 1.0.0.rc16-1)
+Filename: pool/main/d/dmraid/libdmraid1.0.0.rc16_1.0.0.rc16-8_amd64.deb
+Size: 99260
+MD5sum: 53eff9d34b3113e13155add6886cdd81
+SHA1: d92e92e3960dc06ad49c80f5237bb595155f35c5
+SHA256: 8e0130a4327af3c216afbd7e7849a6e775631cb2d563ce0a149356a5d1b2fde4
+SHA512: 203f44e75e1c74f067958e2080c8f038716c54bf7fa58df66a72df46519f8b4ceef58733d17b1758fdf581e0a768a59e417a8f646af1295e0be65208934f25c3
+Homepage: http://people.redhat.com/~heinzm/sw/dmraid/
+Description: Device-Mapper Software RAID support tool - shared library
+ dmraid discovers, activates, deactivates and displays properties
+ of software RAID sets (eg, ATARAID) and contained DOS partitions.
+ .
+ dmraid uses the Linux device-mapper to create devices with respective
+ mappings for the ATARAID sets discovered.
+ .
+ This package contains the dmraid shared library, which implements
+ the back half of dmraid, including on-disk metadata formats.
+
+Package: e2fsprogs
+Architecture: amd64
+Version: 1.44.5-1+deb10u1
+Multi-Arch: foreign
+Priority: required
+Section: admin
+Maintainer: Theodore Y. Ts'o <tytso@mit.edu>
+Installed-Size: 1416
+Pre-Depends: libblkid1 (>= 2.17.2), libc6 (>= 2.14), libcom-err2 (>= 1.43.9), libext2fs2 (= 1.44.5-1+deb10u1), libss2 (>= 1.38), libuuid1 (>= 2.16)
+Recommends: e2fsprogs-l10n
+Suggests: gpart, parted, fuse2fs, e2fsck-static
+Filename: pool/main/e/e2fsprogs/e2fsprogs_1.44.5-1+deb10u1_amd64.deb
+Size: 574760
+MD5sum: 4245124d0618de491f919a0eedda77fb
+SHA1: bda103919e5adf38080de0addbf3696cc37ea929
+SHA256: b9a14bc703632086395d3c6995dc7bde7c94fce2d7b10f485f88eda9db8147fd
+SHA512: 6125efcfedca61bd86e2556035983fc52324afd60603bb5a4aea7b285abd51cee374fd96b4166b9c004836a5c629416dacb3c48146a4ca869b6b657a2901ba9c
+Homepage: http://e2fsprogs.sourceforge.net
+Description: ext2/ext3/ext4 file system utilities
+ The ext2, ext3 and ext4 file systems are successors of the original ext
+ ("extended") file system. They are the main file system types used for
+ hard disks on Debian and other Linux systems.
+ .
+ This package contains programs for creating, checking, and maintaining
+ ext2/3/4-based file systems.  It also includes the "badblocks" program,
+ which can be used to scan for bad blocks on a disk or other storage device.
+Important: yes
+
+Package: efibootmgr
+Architecture: amd64
+Version: 15-1
+Multi-Arch: foreign
+Priority: optional
+Section: admin
+Maintainer: Debian UEFI Maintainers <debian-efi@lists.debian.org>
+Installed-Size: 83
+Depends: libc6 (>= 2.14), libefiboot1 (>= 30), libefivar1 (>= 30), libpopt0 (>= 1.14)
+Filename: pool/main/e/efibootmgr/efibootmgr_15-1_amd64.deb
+Size: 31842
+MD5sum: 1a63c2e4386518b8868549da6ac1cdcb
+SHA1: b373dc92321eef71f9856c20606b2c2275b2623f
+SHA256: cab21af54dd9a70a8d049b588a060ce58f5e4e8d80036f5c282653bf0b90af97
+SHA512: 9e8a93e67ab245a12be1bc328d5ede8e1664136b0a16479d1a66bd83f5f49c03be5b32736dd712551dda55a535df9c2ff45a22808267eb66f4bb097fc96c09ee
+Description: Interact with the EFI Boot Manager
+ This is a Linux user-space application to modify the Intel Extensible
+ Firmware Interface (EFI) Boot Manager configuration. This application can
+ create and destroy boot entries, change the boot order, change the next
+ running boot option, and more.
+ .
+ Additional information about (U)EFI can be found at http://www.uefi.org/.
+ .
+ Note: efibootmgr requires that the kernel module efivars be loaded prior
+ to use. 'modprobe efivars' should do the trick if it does not
+ automatically load.
+
+Package: eject
+Architecture: amd64
+Version: 2.1.5+deb1+cvs20081104-13.2
+Multi-Arch: foreign
+Priority: optional
+Section: utils
+Maintainer: Frank Lichtenheld <djpig@debian.org>
+Installed-Size: 229
+Depends: libc6 (>= 2.8), libdevmapper1.02.1 (>= 2:1.02.97)
+Suggests: cdtool, setcd
+Filename: pool/main/e/eject/eject_2.1.5+deb1+cvs20081104-13.2_amd64.deb
+Size: 50568
+MD5sum: 2c89fae301305dca9c48ecfca21548b7
+SHA1: 2c477a226acb470a1061011f19d38ba414efc3b8
+SHA256: a39357b6f0a08a703262b2c9103d2346651ea9f66bfffefc04278e1b1b933670
+SHA512: effe178d17b27d35b1d6981450c0fca0dad461424c2464d74af189914d1a5241b507ff2791ae79005e3794435ed67a62f0ceadc5ee2c8280a153ca2258693275
+Homepage: http://www.pobox.com/~tranter/eject.html
+Description: ejects CDs and operates CD-Changers under Linux
+ This little program will eject CD-ROMs (assuming your drive supports
+ the CDROMEJECT ioctl). It also allows setting the autoeject feature.
+ .
+ On supported ATAPI/IDE multi-disc CD-ROM changers, it allows changing
+ the active disc.
+ .
+ You can also use eject to properly disconnect external mass-storage
+ devices like digital cameras or portable music players.
+
+Package: exim4-base
+Architecture: amd64
+Version: 4.92-8+deb10u1
+Priority: optional
+Section: mail
+Source: exim4
+Maintainer: Exim4 Maintainers <pkg-exim4-maintainers@lists.alioth.debian.org>
+Installed-Size: 1624
+Depends: adduser, cron | cron-daemon | anacron, exim4-config (>= 4.82) | exim4-config-2, lsb-base (>= 3.0-6), netbase, debconf (>= 0.5) | debconf-2.0, libc6 (>= 2.14), libdb5.3
+Recommends: mailx, psmisc
+Suggests: exim4-doc-html | exim4-doc-info, eximon4, file, gnutls-bin | openssl, mail-reader, spf-tools-perl, swaks
+Conflicts: exim, exim-tls
+Breaks: exim4-daemon-custom (<< 4.92), exim4-daemon-heavy (<< 4.92), exim4-daemon-light (<< 4.92)
+Replaces: exim, exim-tls, exim4-daemon-custom, exim4-daemon-heavy, exim4-daemon-light
+Filename: pool/main/e/exim4/exim4-base_4.92-8+deb10u1_amd64.deb
+Size: 1134760
+MD5sum: 5b38ab5edb1a628a5768428a7cc65a87
+SHA1: c4e8d5db30819fd4299fbd07fd571d1bd0b8429d
+SHA256: f86840e881375c8e81be12334648a7424b878dbe85b556e3bc3147fc3fc538d9
+SHA512: 563f009c9589e846fb95f70d48d7562dac991d11e91182bc0312cb47af5c53065faa4ada3512a3290c09aaa14fcb3b01dbdfb9ddbdd3a2f57f3a96dac09a9490
+Homepage: https://www.exim.org/
+Description: support files for all Exim MTA (v4) packages
+ Exim (v4) is a mail transport agent. exim4-base provides the support
+ files needed by all exim4 daemon packages. You need an additional package
+ containing the main executable. The available packages are:
+ .
+  exim4-daemon-light
+  exim4-daemon-heavy
+ .
+ If you build exim4 from the source package locally, you can also
+ build an exim4-daemon-custom package tailored to your own feature set.
+ .
+ The Debian exim4 packages have their own web page,
+ http://wiki.debian.org/PkgExim4. There is also a Debian-specific
+ FAQ list. Information about the way the Debian packages are
+ configured can be found in
+ /usr/share/doc/exim4-base/README.Debian.gz, which additionally contains
+ information about the way the Debian binary packages are built. The
+ very extensive upstream documentation is shipped in
+ /usr/share/doc/exim4-base/spec.txt.gz. To repeat the debconf-driven
+ configuration process in a standard setup, invoke dpkg-reconfigure
+ exim4-config. There is a Debian-centered mailing list,
+ pkg-exim4-users@lists.alioth.debian.org. Please ask Debian-specific
+ questions there, and only write to the upstream exim-users mailing
+ list if you are sure that your question is not Debian-specific. You
+ can find the subscription web page on
+ http://lists.alioth.debian.org/mailman/listinfo/pkg-exim4-users
+
+Package: exim4-config
+Architecture: all
+Version: 4.92-8+deb10u1
+Priority: optional
+Section: mail
+Source: exim4
+Maintainer: Exim4 Maintainers <pkg-exim4-maintainers@lists.alioth.debian.org>
+Installed-Size: 985
+Provides: exim4-config-2
+Depends: adduser, debconf (>= 0.5) | debconf-2.0
+Conflicts: citadel-server, courier-mta, dma, esmtp-run, exim, exim-tls, exim4-config, exim4-config-2, hula-mta, masqmail, msmtp-mta, mta-dummy, nullmailer, opensmtpd, postfix, qmail-run, sendmail-bin, smail, ssmtp, xmail, zmailer
+Breaks: exim4-daemon-heavy (<< 4.91~RC1), exim4-daemon-light (<< 4.91~RC1)
+Filename: pool/main/e/exim4/exim4-config_4.92-8+deb10u1_all.deb
+Size: 323092
+MD5sum: fc908d9232e281452651f2b6b4bcdfe9
+SHA1: 3bab31be6f4d40896dd21fa498d140a4ec93fbd3
+SHA256: 979540dc2b6bf791313e9e932f6fec38c8010004f806cb1ee3a7b3bb76c94ed4
+SHA512: 96800374b0c1aefba281be173af2719a05a6fd0bfa46c410c76cfbad8885029956fc3625d10fb69077e1a911d0bfc4c1f5d3acd97c8bbaae0d46df399b00a604
+Homepage: https://www.exim.org/
+Description: configuration for the Exim MTA (v4)
+ Exim (v4) is a mail transport agent. exim4-config provides the configuration
+ for the exim4 daemon packages. The configuration framework has been split
+ off the main package to allow sites to replace the configuration scheme
+ with their own without having to change the actual exim4 packages.
+ .
+ Sites with special configuration needs (having a lot of identically
+ configured machines for example) can use this to distribute their own
+ custom configuration via the packaging system, using the magic
+ available with dpkg's conffile handling, without having to do local
+ changes on all of these machines.
+ .
+ The Debian exim4 packages have their own web page,
+ http://wiki.debian.org/PkgExim4. There is also a Debian-specific
+ FAQ list. Information about the way the Debian packages are
+ configured can be found in
+ /usr/share/doc/exim4-base/README.Debian.gz, which additionally contains
+ information about the way the Debian binary packages are built. The
+ very extensive upstream documentation is shipped in
+ /usr/share/doc/exim4-base/spec.txt.gz. To repeat the debconf-driven
+ configuration process in a standard setup, invoke dpkg-reconfigure
+ exim4-config. There is a Debian-centered mailing list,
+ pkg-exim4-users@lists.alioth.debian.org. Please ask Debian-specific
+ questions there, and only write to the upstream exim-users mailing
+ list if you are sure that your question is not Debian-specific. You
+ can find the subscription web page on
+ http://lists.alioth.debian.org/mailman/listinfo/pkg-exim4-users
+
+Package: exim4-daemon-light
+Architecture: amd64
+Version: 4.92-8+deb10u1
+Priority: optional
+Section: mail
+Source: exim4
+Maintainer: Exim4 Maintainers <pkg-exim4-maintainers@lists.alioth.debian.org>
+Installed-Size: 1332
+Provides: default-mta, exim4-localscanapi-2.0, mail-transport-agent
+Depends: exim4-base (>= 4.92), debconf (>= 0.5) | debconf-2.0, libc6 (>= 2.16), libdb5.3, libgnutls-dane0 (>= 3.5.7), libgnutls30 (>= 3.6.6), libpcre3
+Conflicts: mail-transport-agent
+Replaces: exim4-base (<= 4.61-1), mail-transport-agent
+Filename: pool/main/e/exim4/exim4-daemon-light_4.92-8+deb10u1_amd64.deb
+Size: 580648
+MD5sum: 43088f7a5e0504c637c07568157934e3
+SHA1: efd134c695041405cd3e38a787606391e270969b
+SHA256: bfc2257fdbccfdd13b12448a7576325af47f0669f16022cc4260f690680b4c03
+SHA512: ccdc3711b68434b662d91b0e3c9485f29ebcb26fddb51bcfe215ab9f069e084476c8e63a1883254d089037cd9eedbb012f9c186703553e4133e15c211703d848
+Homepage: https://www.exim.org/
+Description: lightweight Exim MTA (v4) daemon
+ Exim (v4) is a mail transport agent. This package contains the exim4
+ daemon with only basic features enabled. It works well with the
+ standard setups that are provided by Debian and includes support for
+ TLS encryption and the dlopen patch to allow dynamic loading of a
+ local_scan function.
+ .
+ The Debian exim4 packages have their own web page,
+ http://wiki.debian.org/PkgExim4. There is also a Debian-specific
+ FAQ list. Information about the way the Debian packages are
+ configured can be found in
+ /usr/share/doc/exim4-base/README.Debian.gz, which additionally contains
+ information about the way the Debian binary packages are built. The
+ very extensive upstream documentation is shipped in
+ /usr/share/doc/exim4-base/spec.txt.gz. To repeat the debconf-driven
+ configuration process in a standard setup, invoke dpkg-reconfigure
+ exim4-config. There is a Debian-centered mailing list,
+ pkg-exim4-users@lists.alioth.debian.org. Please ask Debian-specific
+ questions there, and only write to the upstream exim-users mailing
+ list if you are sure that your question is not Debian-specific. You
+ can find the subscription web page on
+ http://lists.alioth.debian.org/mailman/listinfo/pkg-exim4-users
+
+Package: libgnutls-dane0
+Architecture: amd64
+Version: 3.6.7-4
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: gnutls28
+Maintainer: Debian GnuTLS Maintainers <pkg-gnutls-maint@lists.alioth.debian.org>
+Installed-Size: 369
+Depends: libgnutls30 (= 3.6.7-4), libc6 (>= 2.14), libunbound8 (>= 1.8.0)
+Suggests: dns-root-data
+Filename: pool/main/g/gnutls28/libgnutls-dane0_3.6.7-4_amd64.deb
+Size: 316800
+MD5sum: 41cc55775fa32b9bb6b8e008df41b5b5
+SHA1: 56c76cc213de2418f541c6dac51e8c30254726ed
+SHA256: 7fdec4b4cb05a99a2887ea21c80f3857895f6260967cb5c270cc02fd1c6dd85c
+SHA512: c6a8d23e61633a32ae1360547b2a65f294885cc279c7292a8b532bb57057c2999579b65f211737393091495b5a326908a06d5d8d5bc2b93f6e3555e7020fe546
+Homepage: https://www.gnutls.org/
+Description: GNU TLS library - DANE security support
+ Security (TLS 1.0, 1.1, 1.2, 1.3) and Datagram
+ Transport Layer Security (DTLS 1.0, 1.2) protocols.
+ .
+ GnuTLS features support for:
+  - certificate path validation, as well as DANE and trust on first use.
+  - the Online Certificate Status Protocol (OCSP).
+  - public key methods, including RSA and Elliptic curves, as well as password
+    and key authentication methods such as SRP and PSK protocols.
+  - all the strong encryption algorithms, including AES and Camellia.
+  - CPU-assisted cryptography with VIA padlock and AES-NI instruction sets.
+  - HSMs and cryptographic tokens, via PKCS #11.
+ .
+ This package contains the runtime library for DANE (DNS-based Authentication
+ of Named Entities) support.
+
+Package: grub-efi-amd64-signed
+Architecture: amd64
+Version: 1+2.02+dfsg1+20
+Built-Using: grub2 (= 2.02+dfsg1-20)
+Priority: optional
+Section: admin
+Maintainer: GRUB Maintainers <pkg-grub-devel@alioth-lists.debian.net>
+Installed-Size: 5180
+Depends: grub-common (= 2.02+dfsg1-20)
+Recommends: shim-signed
+Filename: pool/main/g/grub-efi-amd64-signed/grub-efi-amd64-signed_1+2.02+dfsg1+20_amd64.deb
+Size: 436132
+MD5sum: bb1d396b8e5c8010befc3afe81522440
+SHA1: 6442da2e9fc1ed540831a751d759e92b27c706c9
+SHA256: a250686fee5bd3e2d08724dc161a5baf6c36a0e393e9feb565758cacb915683d
+SHA512: 961befd0014dc02975547c23566fb47bfd73d3000ee241a2c1cd952ab9d3d38719b056c1c2db2ca3ba1978d50b104789fbf2916434383b17bea8f1fe30b7a0ec
+Description: GRand Unified Bootloader, version 2 (amd64 UEFI signed by Debian)
+ GRUB is a portable, powerful bootloader.  This version of GRUB is based on a
+ cleaner design than its predecessors, and provides the following new features:
+ .
+  - Scripting in grub.cfg using BASH-like syntax.
+  - Support for modern partition maps such as GPT.
+  - Modular generation of grub.cfg via update-grub.  Packages providing GRUB
+    add-ons can plug in their own script rules and trigger updates by invoking
+    update-grub.
+ .
+ This package contains the binaries signed by the Debian UEFI CA to be used by
+ shim-signed.
+
+Package: grub-efi-amd64-bin
+Architecture: amd64
+Version: 2.02+dfsg1-20
+Multi-Arch: foreign
+Priority: optional
+Section: admin
+Source: grub2
+Maintainer: GRUB Maintainers <pkg-grub-devel@alioth-lists.debian.net>
+Installed-Size: 7836
+Depends: grub-common (= 2.02+dfsg1-20)
+Recommends: grub-efi-amd64-signed, efibootmgr
+Replaces: grub-common (<= 1.97~beta2-1), grub-efi-amd64 (<< 1.99-1), grub2 (<< 2.02+dfsg1-20)
+Filename: pool/main/g/grub2/grub-efi-amd64-bin_2.02+dfsg1-20_amd64.deb
+Size: 665172
+MD5sum: 214eee52bb52a56a528223aaeea7e2b1
+SHA1: b01b5c11694c117c9a58e8d8354105c9cab8881f
+SHA256: 3849cf9417c8bec400384be32c66e5ae47bbeba8a135bc5b73116128ee838248
+SHA512: af20d015a200f4a336cac0dd635aa86054503a746f97f8f390003f7fce105192e952fb6292af55fcf47b2e77336a5b0c02f68e1c6a2d29a5f541ebb77f241d88
+Homepage: https://www.gnu.org/software/grub/
+Description: GRand Unified Bootloader, version 2 (EFI-AMD64 modules)
+ GRUB is a portable, powerful bootloader.  This version of GRUB is based on a
+ cleaner design than its predecessors, and provides the following new features:
+ .
+  - Scripting in grub.cfg using BASH-like syntax.
+  - Support for modern partition maps such as GPT.
+  - Modular generation of grub.cfg via update-grub.  Packages providing GRUB
+    add-ons can plug in their own script rules and trigger updates by invoking
+    update-grub.
+ .
+ This package contains GRUB modules that have been built for use with the
+ EFI-AMD64 architecture, as used by Intel Macs (unless a BIOS interface has
+ been activated).  It can be installed in parallel with other flavours, but
+ will not automatically install GRUB as the active boot loader nor
+ automatically update grub.cfg on upgrade unless grub-efi-amd64 is also
+ installed.
+Efi-Vendor: debian
+
+Package: grub-efi-amd64
+Architecture: amd64
+Version: 2.02+dfsg1-20
+Multi-Arch: foreign
+Priority: optional
+Section: admin
+Source: grub2
+Maintainer: GRUB Maintainers <pkg-grub-devel@alioth-lists.debian.net>
+Installed-Size: 157
+Depends: debconf (>= 0.5) | debconf-2.0, grub-common (= 2.02+dfsg1-20), grub2-common (= 2.02+dfsg1-20), grub-efi-amd64-bin (= 2.02+dfsg1-20), ucf
+Conflicts: elilo, grub, grub-coreboot, grub-efi-ia32, grub-ieee1275, grub-legacy, grub-pc, grub-xen
+Replaces: grub, grub-common (<= 1.97~beta2-1), grub-coreboot, grub-efi-ia32, grub-ieee1275, grub-legacy, grub-pc, grub2 (<< 2.02+dfsg1-20)
+Filename: pool/main/g/grub2/grub-efi-amd64_2.02+dfsg1-20_amd64.deb
+Size: 39760
+MD5sum: 976f8450606e6b543778dbb9b5fafabc
+SHA1: 7c92df6878e2f66845d50783da879042d716d77b
+SHA256: bebbb6510aba34800543da08c1c7dd24fc11b652758e373a08fa61ec639790bd
+SHA512: 6611fb1448eca7e3aad780782d26972deb57074038223ce148ac3baf200785b17ef5bdeb23792361363f52af417dc44ee384e525f9af1987721871a79f85a2e2
+Homepage: https://www.gnu.org/software/grub/
+Description: GRand Unified Bootloader, version 2 (EFI-AMD64 version)
+ GRUB is a portable, powerful bootloader.  This version of GRUB is based on a
+ cleaner design than its predecessors, and provides the following new features:
+ .
+  - Scripting in grub.cfg using BASH-like syntax.
+  - Support for modern partition maps such as GPT.
+  - Modular generation of grub.cfg via update-grub.  Packages providing GRUB
+    add-ons can plug in their own script rules and trigger updates by invoking
+    update-grub.
+ .
+ This is a dependency package for a version of GRUB that has been built for
+ use with the EFI-AMD64 architecture, as used by Intel Macs (unless a BIOS
+ interface has been activated).  Installing this package indicates that this
+ version of GRUB should be the active boot loader.
+
+Package: grub-pc-bin
+Architecture: amd64
+Version: 2.02+dfsg1-20
+Multi-Arch: foreign
+Priority: optional
+Section: admin
+Source: grub2
+Maintainer: GRUB Maintainers <pkg-grub-devel@alioth-lists.debian.net>
+Installed-Size: 2920
+Depends: libc6 (>= 2.14), libdevmapper1.02.1 (>= 2:1.02.36), grub-common (= 2.02+dfsg1-20)
+Suggests: desktop-base (>= 4.0.6)
+Replaces: grub-common (<= 1.97~beta2-1), grub-pc (<< 1.99-1), grub2 (<< 2.02+dfsg1-20)
+Filename: pool/main/g/grub2/grub-pc-bin_2.02+dfsg1-20_amd64.deb
+Size: 900656
+MD5sum: 5150a0b18b427faf980f9c507906da04
+SHA1: 393ed1c5cafbfa9b932f67e0bef6c5583577d5b8
+SHA256: 03b251ffc1331ffccaf51efd6bacd43f502f1cfd60c554eea6268451930ca2dc
+SHA512: 488ca69a59dda43aa11222922ac522c146ce048c8f7779ceb944ec540ee9cc273af28c14542d3a564e2a94046eed30c09f4863c1fb1df072d90fe92b6de2e13b
+Homepage: https://www.gnu.org/software/grub/
+Description: GRand Unified Bootloader, version 2 (PC/BIOS modules)
+ GRUB is a portable, powerful bootloader.  This version of GRUB is based on a
+ cleaner design than its predecessors, and provides the following new features:
+ .
+  - Scripting in grub.cfg using BASH-like syntax.
+  - Support for modern partition maps such as GPT.
+  - Modular generation of grub.cfg via update-grub.  Packages providing GRUB
+    add-ons can plug in their own script rules and trigger updates by invoking
+    update-grub.
+  - VESA-based graphical mode with background image support and complete 24-bit
+    color set.
+  - Support for extended charsets.  Users can write UTF-8 text to their menu
+    entries.
+ .
+ This package contains GRUB modules that have been built for use with the
+ traditional PC/BIOS architecture.  It can be installed in parallel with
+ other flavours, but will not automatically install GRUB as the active boot
+ loader nor automatically update grub.cfg on upgrade unless grub-pc is also
+ installed.
+
+Package: grub-pc
+Architecture: amd64
+Version: 2.02+dfsg1-20
+Multi-Arch: foreign
+Priority: optional
+Section: admin
+Source: grub2
+Maintainer: GRUB Maintainers <pkg-grub-devel@alioth-lists.debian.net>
+Installed-Size: 532
+Depends: debconf (>= 0.5) | debconf-2.0, grub-common (= 2.02+dfsg1-20), grub2-common (= 2.02+dfsg1-20), grub-pc-bin (= 2.02+dfsg1-20), ucf
+Conflicts: grub (<< 0.97-54), grub-coreboot, grub-efi-amd64, grub-efi-ia32, grub-ieee1275, grub-legacy, grub-xen
+Replaces: grub, grub-common (<= 1.97~beta2-1), grub-coreboot, grub-efi-amd64, grub-efi-ia32, grub-ieee1275, grub-legacy, grub2 (<< 2.02+dfsg1-20)
+Filename: pool/main/g/grub2/grub-pc_2.02+dfsg1-20_amd64.deb
+Size: 130960
+MD5sum: cffebe8790877623ae14a4d862e70ffb
+SHA1: 305228bdf3852738b8eef27caae384b05a64ef83
+SHA256: 48d7db2750adb26db2a253c68bc800657ea0b2d2a5131667a802398f8d224928
+SHA512: 0567602a3739754f352e6e28dde2bb802f2a0a11636f4a25b9a631a90e71e79d198fd212f99baeea76a74a0fd2ed737ed687d79bae461bd87df355ebf45abc2f
+Homepage: https://www.gnu.org/software/grub/
+Description: GRand Unified Bootloader, version 2 (PC/BIOS version)
+ GRUB is a portable, powerful bootloader.  This version of GRUB is based on a
+ cleaner design than its predecessors, and provides the following new features:
+ .
+  - Scripting in grub.cfg using BASH-like syntax.
+  - Support for modern partition maps such as GPT.
+  - Modular generation of grub.cfg via update-grub.  Packages providing GRUB
+    add-ons can plug in their own script rules and trigger updates by invoking
+    update-grub.
+  - VESA-based graphical mode with background image support and complete 24-bit
+    color set.
+  - Support for extended charsets.  Users can write UTF-8 text to their menu
+    entries.
+ .
+ This is a dependency package for a version of GRUB that has been built for
+ use with the traditional PC/BIOS architecture.  Installing this package
+ indicates that this version of GRUB should be the active boot loader.
+
+Package: grub2-common
+Architecture: amd64
+Version: 2.02+dfsg1-20
+Multi-Arch: foreign
+Priority: optional
+Section: admin
+Source: grub2
+Maintainer: GRUB Maintainers <pkg-grub-devel@alioth-lists.debian.net>
+Installed-Size: 1180
+Depends: grub-common (= 2.02+dfsg1-20), dpkg (>= 1.15.4) | install-info, libc6 (>= 2.14), libdevmapper1.02.1 (>= 2:1.02.36), libefiboot1 (>= 37), libefivar1 (>= 37), liblzma5 (>= 5.1.1alpha+20120614)
+Conflicts: grub-legacy
+Breaks: grub (<< 0.97-54), grub-cloud-amd64 (<< 0.0.4), grub-coreboot (<< 2.02+dfsg1-7), grub-doc (<< 0.97-32), grub-efi-amd64 (<< 2.02+dfsg1-7), grub-efi-arm (<< 2.02+dfsg1-7), grub-efi-arm64 (<< 2.02+dfsg1-7), grub-efi-ia32 (<< 2.02+dfsg1-7), grub-efi-ia64 (<< 2.02+dfsg1-7), grub-ieee1275 (<< 2.02+dfsg1-7), grub-legacy-doc (<< 0.97-59), grub-pc (<< 2.02+dfsg1-7), grub-uboot (<< 2.02+dfsg1-7), grub-xen (<< 2.02+dfsg1-7), grub-yeeloong (<< 2.02+dfsg1-7), shim (<< 0.9+1474479173.6c180c6-0ubuntu1~)
+Replaces: grub, grub-cloud-amd64 (<< 0.0.4), grub-common (<< 1.99-1), grub-coreboot (<< 2.02+dfsg1-7), grub-doc (<< 0.97-32), grub-efi-amd64 (<< 2.02+dfsg1-7), grub-efi-arm (<< 2.02+dfsg1-7), grub-efi-arm64 (<< 2.02+dfsg1-7), grub-efi-ia32 (<< 2.02+dfsg1-7), grub-efi-ia64 (<< 2.02+dfsg1-7), grub-ieee1275 (<< 2.02+dfsg1-7), grub-legacy, grub-legacy-doc (<< 0.97-59), grub-pc (<< 2.02+dfsg1-7), grub-uboot (<< 2.02+dfsg1-7), grub-xen (<< 2.02+dfsg1-7), grub-yeeloong (<< 2.02+dfsg1-7)
+Filename: pool/main/g/grub2/grub2-common_2.02+dfsg1-20_amd64.deb
+Size: 538000
+MD5sum: 00f28fa7fe9350fba55f395cee1ebe01
+SHA1: 53aa89248990680ec92b6ce02eb6c16c80b45a0f
+SHA256: db51513e2b9a04cae7f8ee39d9416db8fefd5b15616519531d15b46e1afc1879
+SHA512: bdfd60b03a25d73016c428ebc4594bcca29260a773e1249cd65535106da4fda322b789b456ae5b2155ad9d04954bb4326c37643e958d4b59b90c66ff8051f754
+Homepage: https://www.gnu.org/software/grub/
+Description: GRand Unified Bootloader (common files for version 2)
+ This package contains common files shared by the distinct flavours of GRUB.
+ The files in this package are specific to GRUB 2, and would break GRUB
+ Legacy if installed on the same system.
+
+Package: libgsasl7
+Architecture: amd64
+Version: 1.8.0-8+b2
+Priority: optional
+Section: libs
+Source: gsasl (1.8.0-8)
+Maintainer: Debian XMPP Maintainers <pkg-xmpp-devel@lists.alioth.debian.org>
+Installed-Size: 620
+Depends: libc6 (>= 2.14), libcomerr2 (>= 1.01), libgssapi-krb5-2 (>= 1.14+dfsg), libidn11 (>= 1.13), libk5crypto3 (>= 1.6.dfsg.2), libkrb5-3 (>= 1.6.dfsg.2), libntlm0 (>= 1.2)
+Conflicts: libgsasl1
+Replaces: libgsasl1
+Filename: pool/main/g/gsasl/libgsasl7_1.8.0-8+b2_amd64.deb
+Size: 206862
+MD5sum: 31430ab71afb921cf3ff6b95bde3a5eb
+SHA1: 5c764f23077245e57513c528e2a9644656ebaabc
+SHA256: 44d09ed3873a7374ed1764d56b60f59fb5019bf1393e52f37215117c17be9bc2
+SHA512: ca4f969945a8c4c84f45837c7bee47560841a9952f193ca1a0fd83e9ad5a683d2f3e61bc297dd61653b0e666602d7965247c7a79b1af90d240410a25dd623593
+Homepage: http://www.gnu.org/software/gsasl/
+Description: GNU SASL library
+ GNU SASL is an implementation of the Simple Authentication and
+ Security Layer framework and a few common SASL mechanisms. SASL is
+ used by network servers (e.g., IMAP, SMTP) to request authentication
+ from clients, and in clients to authenticate against servers.
+ .
+ Supported mechanisms are ANONYMOUS, EXTERNAL, LOGIN, PLAIN, SECURID, NTLM,
+ DIGEST-MD5, CRAM-MD5, SCRAM-SHA-1, SCRAM-SHA-1-PLUS, GS2-KRB5, GSSAPI.
+ .
+ This package includes the GNU SASL shared library that is required
+ by applications using GNU SASL.  You normally don't need to install
+ it manually.
+
+Package: jfsutils
+Architecture: amd64
+Version: 1.1.15-4
+Priority: optional
+Section: admin
+Maintainer: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Installed-Size: 1561
+Depends: libc6 (>= 2.14), libuuid1 (>= 2.16)
+Filename: pool/main/j/jfsutils/jfsutils_1.1.15-4_amd64.deb
+Size: 205456
+MD5sum: cae22db57a428357bc01629c586ca939
+SHA1: 8978df9c6684820023912718003affa9e630fb0d
+SHA256: f4da201a39d49067be6ba5de64433016d72e36b18cef5e0cddd21a08a47a85fa
+SHA512: 1c9e2d2e8fa75349248416d0033270f5e6ce189e0b9ac6e387c1a4627bbcc1c11f01de4b7bae68bf2d9e193088481c15d2b7ff969c96f5ab28900638785aedb9
+Homepage: https://jfs.sourceforge.net/
+Description: utilities for managing the JFS filesystem
+ Utilities for managing IBM's Journaled File System (JFS) under Linux.
+ .
+ IBM's journaled file system technology, currently used in IBM
+ enterprise servers, is designed for high-throughput server
+ environments, key to running intranet and other high-performance
+ e-business file servers.
+ .
+ The following utilities are available:
+  * fsck.jfs - initiate replay of the JFS transaction log, and check and
+    repair a JFS formatted device.
+  * logdump - dump a JFS formatted device's journal log.
+  * logredo - "replay" a JFS formatted device's journal log.
+  * mkfs.jfs - create a JFS formatted partition.
+  * xchkdmp - dump the contents of a JFS fsck log file created with
+    xchklog.
+  * xchklog - extract a log from the JFS fsck workspace into a file.
+  * xpeek - shell-type JFS file system editor.
+
+Package: keyutils
+Architecture: amd64
+Version: 1.6-6
+Multi-Arch: foreign
+Priority: optional
+Section: admin
+Maintainer: Christian Kastner <ckk@debian.org>
+Installed-Size: 146
+Depends: libc6 (>= 2.15), libkeyutils1 (>= 1.6)
+Filename: pool/main/k/keyutils/keyutils_1.6-6_amd64.deb
+Size: 51660
+MD5sum: 8bc52e4d395b0d2fd554d92b9ed9346a
+SHA1: f709a6096f0a756c4f0f5ef4a97f7ce1c456961e
+SHA256: 233fae5d7121888af31022479b084884c8cda9c45290f08d3bec2ab1580c8da7
+SHA512: 4f7008e890bd9b72aec54fb8e7381b044038fa7b80665ccdfd149f98ff2d8022acb4dec294c70cb0fda179d7aa48955637cb048cfa0dbb4da4004588a3516d44
+Homepage: https://people.redhat.com/~dhowells/keyutils/
+Description: Linux Key Management Utilities
+ Keyutils is a set of utilities for managing the key retention facility in the
+ kernel, which can be used by filesystems, block devices and more to gain and
+ retain the authorization and encryption keys required to perform secure
+ operations.
+
+Package: libkyotocabinet16v5
+Architecture: amd64
+Version: 1.2.76-4.2+b1
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: kyotocabinet (1.2.76-4.2)
+Maintainer: Shawn Landden <shawnlandden@gmail.com>
+Installed-Size: 1014
+Depends: libc6 (>= 2.14), libgcc1 (>= 1:3.0), liblzma5 (>= 5.1.1alpha+20120614), liblzo2-2, libstdc++6 (>= 5.2), zlib1g (>= 1:1.1.4)
+Conflicts: libkyotocabinet16
+Replaces: libkyotocabinet16
+Filename: pool/main/k/kyotocabinet/libkyotocabinet16v5_1.2.76-4.2+b1_amd64.deb
+Size: 298480
+MD5sum: 6c61c99e25db97db1f4ef6a3bdb74dce
+SHA1: ec852ee3179e3d1f2ad4e635e8e8ff4509b18b45
+SHA256: b4c657192b1ebb3df2f4670435a32012de723d7f9d6c970c9b902c82df475f72
+SHA512: 8d2ec3b633d05de509c4cc454211cbabb712345e88d297567c44fcd758989f64b9b2a5676e85682b98f05fb5ec0a73a5d3557ff9411ece932db45e278b27af22
+Homepage: http://fallabs.com/kyotocabinet/
+Description: Straightforward implementation of DBM - shared library
+ Kyoto Cabinet is a library of routines for managing a database. The
+ database is a simple data file containing records, each is a pair of
+ a key and a value. Every key and value is serial bytes with variable
+ length. Both binary data and character string can be used as a key and
+ a value. Each key must be unique within a database. There is neither
+ concept of data tables nor data types. Records are organized in
+ hash table or B+ tree.
+ .
+ This package contains the shared library.
+
+Package: dmeventd
+Architecture: amd64
+Version: 2:1.02.155-3
+Priority: optional
+Section: admin
+Source: lvm2 (2.03.02-3)
+Maintainer: Debian LVM Team <team+lvm@tracker.debian.org>
+Installed-Size: 224
+Depends: libblkid1 (>= 2.16), libc6 (>= 2.28), libdevmapper-event1.02.1 (>= 2:1.02.110), libdevmapper1.02.1 (>= 2:1.02.110), liblvm2cmd2.03 (>= 2.03.02), libselinux1 (>= 1.32), libudev1 (>= 183)
+Filename: pool/main/l/lvm2/dmeventd_1.02.155-3_amd64.deb
+Size: 66188
+MD5sum: 2a8ef32808137a091ae9ac375f806fde
+SHA1: 13dba9806b03e698e3fd8c9018f2e4c8a6a32c77
+SHA256: 0c57995b586fa3bee1ab3ae0efd434a150fad2b0dbd96499ad43377929e13f42
+SHA512: 44d9c400efc1638f7604367f6431c9adc3ff66a94c61d788a56097c7a7fb6606e613d17bde03a2af44619edcd0e2850eec3997629362d0b3964a4fceb83fb862
+Homepage: http://sources.redhat.com/lvm2/
+Description: Linux Kernel Device Mapper event daemon
+ The Linux Kernel Device Mapper is the LVM (Linux Logical Volume Management)
+ Team's implementation of a minimalistic kernel-space driver that handles
+ volume management, while keeping knowledge of the underlying device layout
+ in user-space.  This makes it useful for not only LVM, but software raid,
+ and other drivers that create "virtual" block devices.
+ .
+ This package contains a daemon to monitor events of devmapper devices.
+
+Package: dmsetup
+Architecture: amd64
+Version: 2:1.02.155-3
+Multi-Arch: foreign
+Priority: optional
+Section: admin
+Source: lvm2 (2.03.02-3)
+Maintainer: Debian LVM Team <team+lvm@tracker.debian.org>
+Installed-Size: 253
+Depends: libc6 (>= 2.14), libdevmapper1.02.1 (>= 2:1.02.138)
+Filename: pool/main/l/lvm2/dmsetup_1.02.155-3_amd64.deb
+Size: 90792
+MD5sum: 9715cf0eb1e7c051939ccc4456dc4277
+SHA1: 86cffb14d6b55dca923f5d519217e02d2c1bb287
+SHA256: 384c761c876cf55bd6cd47f1555e9e866be3b32a569021f7bcc576632cffc42f
+SHA512: ec0afc9f6ce8e4c3b3ad6aac8d5534e0df8feb80f53b88cd961f7ed7111cfc4564b796ce27e21a4cd9d09c7eca229c2306520d3eb046466ed17201f91357472c
+Homepage: http://sources.redhat.com/lvm2/
+Description: Linux Kernel Device Mapper userspace library
+ The Linux Kernel Device Mapper is the LVM (Linux Logical Volume Management)
+ Team's implementation of a minimalistic kernel-space driver that handles
+ volume management, while keeping knowledge of the underlying device layout
+ in user-space.  This makes it useful for not only LVM, but software raid,
+ and other drivers that create "virtual" block devices.
+ .
+ This package contains a utility for modifying device mappings.
+
+Package: libdevmapper-event1.02.1
+Architecture: amd64
+Version: 2:1.02.155-3
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: lvm2 (2.03.02-3)
+Maintainer: Debian LVM Team <team+lvm@tracker.debian.org>
+Installed-Size: 59
+Depends: libblkid1 (>= 2.16), libc6 (>= 2.14), libdevmapper1.02.1 (>= 2:1.02.97), libselinux1 (>= 1.32), libudev1 (>= 183)
+Filename: pool/main/l/lvm2/libdevmapper-event1.02.1_1.02.155-3_amd64.deb
+Size: 22580
+MD5sum: f3410be1748177de410d0314489af894
+SHA1: 02a98a46212cf8a645b3a633b474dfc39ec1914d
+SHA256: 8c0a6a62fc42e094a72dd27b24f3faee80fe5d9f30e22971174af679ed5ef638
+SHA512: 25fafe3ce01bc9bbc3ad5330050ca04416509dc322ede832374934742835cbb48568af7616c183ebca2a36cc9c077cfb43b1531c96d3c84a777858e7682620ef
+Homepage: http://sources.redhat.com/lvm2/
+Description: Linux Kernel Device Mapper event support library
+ The Linux Kernel Device Mapper is the LVM (Linux Logical Volume Management)
+ Team's implementation of a minimalistic kernel-space driver that handles
+ volume management, while keeping knowledge of the underlying device layout
+ in user-space.  This makes it useful for not only LVM, but software raid,
+ and other drivers that create "virtual" block devices.
+ .
+ This package contains the userspace library to help with event monitoring
+ for devmapper devices, in conjunction with the dmevent daemon.
+
+Package: liblvm2cmd2.03
+Architecture: amd64
+Version: 2.03.02-3
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: lvm2
+Maintainer: Debian LVM Team <team+lvm@tracker.debian.org>
+Installed-Size: 2579
+Depends: libaio1 (>= 0.3.93), libblkid1 (>= 2.24.2), libc6 (>= 2.28), libdevmapper1.02.1 (>= 2:1.02.20), libselinux1 (>= 1.32), libsystemd0 (>= 222), libudev1 (>= 183), dmeventd
+Filename: pool/main/l/lvm2/liblvm2cmd2.03_2.03.02-3_amd64.deb
+Size: 640244
+MD5sum: 692924b7231ea835dd03567b8f58110d
+SHA1: 40e2effe5e16f854c82c8c1a815efe63ed6499fd
+SHA256: 8612e789d828044be3d235b6e3fbade38ed9db841199b1ff038232cf7bdc5a50
+SHA512: 5ff33f6606c9de9e872c25721ae38d02214c038255d8d6d38af37e089430981974c56f940923b7c80599ecb20a004a1a6c5a1797a4b666832918f15995a8d057
+Homepage: http://sources.redhat.com/lvm2/
+Description: LVM2 command library
+ This package contains the lvm2cmd shared library.
+
+Package: lvm2
+Architecture: amd64
+Version: 2.03.02-3
+Multi-Arch: foreign
+Priority: optional
+Section: admin
+Maintainer: Debian LVM Team <team+lvm@tracker.debian.org>
+Installed-Size: 3625
+Depends: libaio1 (>= 0.3.93), libblkid1 (>= 2.24.2), libc6 (>= 2.28), libdevmapper-event1.02.1 (>= 2:1.02.74), libdevmapper1.02.1 (>= 2:1.02.20), libreadline5 (>= 5.2), libselinux1 (>= 1.32), libsystemd0 (>= 222), libudev1 (>= 183), lsb-base, dmsetup (>= 1.02.145-2~), dmeventd
+Recommends: thin-provisioning-tools
+Conflicts: clvm
+Filename: pool/main/l/lvm2/lvm2_2.03.02-3_amd64.deb
+Size: 1104836
+MD5sum: 5e533cba81bb9647160516347e7c24c5
+SHA1: 63f576f6973248768f48b6e70559d5b0a4a848d5
+SHA256: ea9039c1dbfb1e153a2628acbfe137b1247b73796f2b95ed76ced7b924beac46
+SHA512: 3e57eb40b42c6405538120d198343d742392ce4b46352c2ecec80203670d836155f46d57b44e5d4222d5cb75f82c81f12b91cdc13a47675c245720e89907b9ac
+Homepage: http://sources.redhat.com/lvm2/
+Description: Linux Logical Volume Manager
+ This is LVM2, the rewrite of The Linux Logical Volume Manager.  LVM
+ supports enterprise level volume management of disk and disk subsystems
+ by grouping arbitrary disks into volume groups. The total capacity of
+ volume groups can be allocated to logical volumes, which are accessed as
+ regular block devices.
+
+Package: libaio1
+Architecture: amd64
+Version: 0.3.112-3
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libaio
+Maintainer: Guillem Jover <guillem@debian.org>
+Installed-Size: 35
+Depends: libc6 (>= 2.4)
+Filename: pool/main/liba/libaio/libaio1_0.3.112-3_amd64.deb
+Size: 11236
+MD5sum: 33bd013f7267ecccbedd3be9a6e1d8f5
+SHA1: 75d3da71912ec27c184816422d066493f1c29e9e
+SHA256: 93029c32b6d9e7110069fafd3958a1eb86a808999c21c8846df437746845d8db
+SHA512: 2930af70df7191cd8326f374221e99a0deba1f90362572737a059d54007eb7ee021e3b1abbe7fafde78157c414b3fd7e2eb0bda36cae40dfd8f618d6373c1199
+Homepage: https://pagure.io/libaio
+Description: Linux kernel AIO access library - shared library
+ This library enables userspace to use Linux kernel asynchronous I/O
+ system calls, important for the performance of databases and other
+ advanced applications.
+ .
+ This package contains the shared library.
+
+Package: libntlm0
+Architecture: amd64
+Version: 1.5-1
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libntlm
+Maintainer: Debian Authentication Maintainers <pkg-auth-maintainers@lists.alioth.debian.org>
+Installed-Size: 59
+Depends: libc6 (>= 2.14)
+Filename: pool/main/libn/libntlm/libntlm0_1.5-1_amd64.deb
+Size: 21988
+MD5sum: 315bf4c7682e84b2728a911acbc23372
+SHA1: 7c3688341c18d08cc22661818fa2ac1e03248929
+SHA256: 9ca55358c64077f6922ec3afc6d77dbf3b2a86e08740c280d072d921645be205
+SHA512: ca604bf3546df0569eff8e95ff4ce41c2f4ad8ea07acca536826b43285af559a9d91894cd107d1afe11b010329323c1825cd9f5ee48ddb07ebdf370c43e5a7c2
+Homepage: http://www.nongnu.org/libntlm/
+Description: NTLM authentication library
+ NTLM is an authentication protocol used in various Microsoft network
+ protocol implementations and supported by the NTLM Security Support
+ Provider ("NTLMSSP"). Originally used for authentication and negotiation
+ of secure DCE/RPC, NTLM is also used throughout Microsoft's systems as
+ an integrated single sign-on mechanism.
+ .
+ NTLM employs a challenge-response mechanism for authentication, in  which
+ clients are able to prove their identities without sending a  password to
+ the server. It consists of three messages, commonly referred  to as Type 1
+ (negotiation), Type 2 (challenge) and Type 3 (authentication).
+
+Package: libmailutils5
+Architecture: amd64
+Version: 1:3.5-3
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: mailutils
+Maintainer: Jordi Mallach <jordi@debian.org>
+Installed-Size: 2365
+Depends: mailutils-common (= 1:3.5-3), guile-2.2-libs, libc6 (>= 2.27), libgc1c2 (>= 1:7.2d), libgnutls30 (>= 3.6.6), libgsasl7 (>= 1.1), libkyotocabinet16v5 (>= 1.2.76), libldap-2.4-2 (>= 2.4.7), libltdl7 (>= 2.4.6), libmariadb3 (>= 3.0.0), libpam0g (>= 0.99.7.1), libpython2.7 (>= 2.7)
+Conflicts: libmailutils4
+Replaces: libmailutils4
+Filename: pool/main/m/mailutils/libmailutils5_3.5-3_amd64.deb
+Size: 880952
+MD5sum: d44928a5e3641740441af01e00dfb866
+SHA1: 90ab48403b9e20d354659632917a761f1c0943dd
+SHA256: 843ef6b566ab93a741b7586c795fc83ba7105cfe2a3006d5fec1244bd191fa78
+SHA512: ce02c15154a246477cbabcd03e45f803748abd67a103467295e58c4ddbf4699da540617ff49c82b6f7ab430d9207960f923b85874b92371a347660cd9ebde06d
+Homepage: https://www.gnu.org/software/mailutils/
+Description: GNU Mail abstraction library
+ GNU Mailutils is a rich and powerful protocol-independent mail framework.
+ It contains a series of useful mail libraries, clients, and servers.
+ .
+ This is GNU's Mail abstraction library.  This library allows programs to
+ hook into a single library for many different types of mail backends.
+ The following backend stores are currently provided: mbox, mh, maildir,
+ pop3, imap4.
+
+Package: mailutils-common
+Architecture: all
+Version: 1:3.5-3
+Multi-Arch: foreign
+Priority: optional
+Section: mail
+Source: mailutils
+Maintainer: Jordi Mallach <jordi@debian.org>
+Installed-Size: 1674
+Filename: pool/main/m/mailutils/mailutils-common_3.5-3_all.deb
+Size: 689208
+MD5sum: 0a03e5059ca26dbf328cb55f13ded117
+SHA1: 1c72092e07f90847bbeca82a7d5117e6cd1ba457
+SHA256: d5b21113e2a9cb76da452628c5d1aae92c3316004e431c994b680f894cff7452
+SHA512: f0bfeb051a52d6de88749a992c044e5a16b2a81c7d9c6482533c9bba53d5bd3aa0ec93210136e887d7dfa848046de1b68604cd98c6af191c581d5f5327ae9ed3
+Homepage: https://www.gnu.org/software/mailutils/
+Description: Common files for GNU mailutils
+ GNU Mailutils is a rich and powerful protocol-independent mail framework.
+ It contains a series of useful mail libraries, clients, and servers.
+ .
+ These are common files for all mailutils packages, including locale
+ files.
+
+Package: mailutils
+Architecture: amd64
+Version: 1:3.5-3
+Priority: optional
+Section: mail
+Maintainer: Jordi Mallach <jordi@debian.org>
+Installed-Size: 995
+Provides: mail-reader, mailx
+Depends: mailutils-common (= 1:3.5-3), guile-2.2-libs, libc6 (>= 2.14), libfribidi0 (>= 0.19.2), libgc1c2 (>= 1:7.2d), libgnutls30 (>= 3.6.5), libgsasl7 (>= 1.1), libkyotocabinet16v5 (>= 1.2.76), libldap-2.4-2 (>= 2.4.7), libmailutils5, libncurses6 (>= 6), libpam0g (>= 0.99.7.1), libpython2.7 (>= 2.7), libreadline7 (>= 6.0), libtinfo6 (>= 6), libwrap0 (>= 7.6-4~)
+Recommends: default-mta | mail-transport-agent
+Suggests: mailutils-mh, mailutils-doc
+Breaks: bsd-mailx (<< 8.1.2-0.20071201cvs-1), bsdmainutils (<< 8.0.6), elm-me+ (<< 2.4pl25ME+99c-3), heirloom-mailx (<< 12.3-3)
+Filename: pool/main/m/mailutils/mailutils_3.5-3_amd64.deb
+Size: 585068
+MD5sum: 4ed35eed9e1a29b3448488d0e05d8a79
+SHA1: 5fc5e7f35391f7d94899baf991dd45dc989f018e
+SHA256: e50aec3e034383eed287b80a15408c9ee17d7eab94e9894af6ab5a047e711ada
+SHA512: a2ddfe8052a9ef43f6c782f36a3faa609d21063a1e0ab498b70e50a6c5837e22e50ae1a8e787ec04936e0031b0cc3a7c9b0b71c22bf8097728e8ed3d53a6a33d
+Homepage: https://www.gnu.org/software/mailutils/
+Description: GNU mailutils utilities for handling mail
+ GNU Mailutils is a rich and powerful protocol-independent mail framework.
+ It contains a series of useful mail libraries, clients, and servers.
+ .
+ This package contains the GNU mailutils versions of dotlock, frm, from,
+ maidag, mail, messages, mimeview, movemail, readmsg and sieve. They are
+ capable of speaking POP3, IMAP, mbox, MH and Maildir.
+ .
+  dotlock -- lock mail spool files.
+  frm -- display From: lines.
+  from -- display from and subject.
+  maidag -- the mail delivery agent.
+  mail -- the standard /bin/mail interface, mail sender and reader.
+  messages -- count the number of messages in a mailbox.
+  mimeview -- display files, using mailcap mechanism.
+  movemail -- move messages across mailboxes.
+  readmsg -- extract selected messages from a mailbox.
+  sieve -- a mail filtering tool.
+
+Package: mdadm
+Architecture: amd64
+Version: 4.1-1
+Priority: optional
+Section: admin
+Maintainer: Debian mdadm maintainers <pkg-mdadm-devel@lists.alioth.debian.org>
+Installed-Size: 1211
+Depends: libc6 (>= 2.28), udev, debconf (>= 0.5) | debconf-2.0, lsb-base, debconf
+Recommends: default-mta | mail-transport-agent, kmod | module-init-tools
+Suggests: dracut-core
+Filename: pool/main/m/mdadm/mdadm_4.1-1_amd64.deb
+Size: 449428
+MD5sum: cc40af244d94c8bbacd533357ce00357
+SHA1: 6e584beba7a74ee07d47b3913251e9936d806ab9
+SHA256: f4c7a00bf7195d41b440a525598c439111134fd4d53e3cdaf9f8ff70015e72fb
+SHA512: 37752c79298a30ca67a89481a53dc691dd0dde938f17b8560eb233a16f69ebc5f111ac4f6ba57104f101d1e2fc822ead5fedd9b2f3a8e274f1969b4daf6cb983
+Homepage: http://neil.brown.name/blog/mdadm
+Description: tool to administer Linux MD arrays (software RAID)
+ The mdadm utility can be used to create, manage, and monitor MD
+ (multi-disk) arrays for software RAID or multipath I/O.
+ .
+ This package automatically configures mdadm to assemble arrays during the
+ system startup process. If not needed, this functionality can be disabled.
+
+Package: mokutil
+Architecture: amd64
+Version: 0.3.0+1538710437.fb6250f-1
+Priority: optional
+Section: admin
+Maintainer: Simon Quigley <tsimonq2@debian.org>
+Installed-Size: 70
+Depends: libc6 (>= 2.14), libefivar1 (>= 37), libssl1.1 (>= 1.1.0)
+Filename: pool/main/m/mokutil/mokutil_0.3.0+1538710437.fb6250f-1_amd64.deb
+Size: 22580
+MD5sum: 76abaf78554072bbc20bb38794a4348f
+SHA1: cc607e81bd6d98cf36f567850710ac76117dd986
+SHA256: c11fc18e856c57d0d82d7bc394b64188d8436fabf72fcc9ec4b6863b10d396b4
+SHA512: 53aed8ba7700db0611af05f17a4260f3394f58f72c2e645f8e29e8c822d7b8ea69e492bc8b012a90126d0b279a7adf7130c576973c54a293d5c5a013b71f3636
+Description: tools for manipulating machine owner keys
+ This program provides the means to enroll and erase the machine owner
+ keys (MOK) stored in the database of shim.
+
+Package: pciutils
+Architecture: amd64
+Version: 1:3.5.2-1
+Multi-Arch: foreign
+Priority: standard
+Section: admin
+Maintainer: Anibal Monsalve Salazar <anibal@debian.org>
+Installed-Size: 1220
+Depends: libc6 (>= 2.14), libkmod2 (>= 5~), libpci3 (= 1:3.5.2-1)
+Suggests: bzip2, wget | curl | lynx-cur
+Filename: pool/main/p/pciutils/pciutils_3.5.2-1_amd64.deb
+Size: 279100
+MD5sum: 93fe8c371569123f6d50559e1fcec94e
+SHA1: 5e222d2890ba55d660355c2fd77d1956c380d86d
+SHA256: 26f16734a9174bcded8143aa7506d055319b5abeaaf316f1197f1483bada0109
+SHA512: 6b759001318ebf00ebe90bf7f0c3fd94d9d292195eba5c9d0e3bfed5b4ec6fb5e449d439e2c4f37b8994bbd4052baff7d3d7e61d48338f907ac5b9e34b74f2bd
+Homepage: http://atrey.karlin.mff.cuni.cz/~mj/pciutils.shtml
+Description: Linux PCI Utilities
+ This package contains various utilities for inspecting and setting of
+ devices connected to the PCI bus.
+
+Package: libreadline5
+Architecture: amd64
+Version: 5.2+dfsg-3+b13
+Multi-Arch: same
+Priority: extra
+Section: libs
+Source: readline5 (5.2+dfsg-3)
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Installed-Size: 343
+Depends: readline-common, libc6 (>= 2.15), libtinfo6 (>= 6)
+Filename: pool/main/r/readline5/libreadline5_5.2+dfsg-3+b13_amd64.deb
+Size: 119676
+MD5sum: f162166603411fc52b0c5ff56e72411c
+SHA1: 801ea76ad9cdf5a3df45796b2d3543a712401615
+SHA256: 773fe54058095512ea24275e5d59cdb33c0b06341088b1d2e7045246d567c8ee
+SHA512: 4656b35185df9d6c0995ecea73c634c96065b7b35f8786ad770e7381ab8abcf799d4c4b9800f1bcd86ed31962a7e57215ee61a292bed60762574757e1a6284e8
+Description: GNU readline and history libraries, run-time libraries
+ The GNU readline library aids in the consistency of user interface
+ across discrete programs that need to provide a command line
+ interface.
+ .
+ The GNU history library provides a consistent user interface for
+ recalling lines of previously typed input.
+
+Package: shim-helpers-amd64-signed
+Architecture: amd64
+Version: 1+15+1533136590.3beb971+7
+Built-Using: shim (= 15+1533136590.3beb971-7)
+Priority: optional
+Section: admin
+Maintainer: Debian EFI team <debian-efi@lists.debian.org>
+Installed-Size: 2423
+Depends: shim-unsigned (= 15+1533136590.3beb971-7)
+Conflicts: shim (<< 15+1533136590.3beb971-3~)
+Breaks: shim-signed (<< 1.29)
+Replaces: shim (<< 15+1533136590.3beb971-3~), shim-signed (<< 1.29)
+Filename: pool/main/s/shim-helpers-amd64-signed/shim-helpers-amd64-signed_1+15+1533136590.3beb971+7_amd64.deb
+Size: 430624
+MD5sum: 013f9ee57bd14c3fe278662b2a7d7473
+SHA1: 2875235352d57ad49431fe5d0f90a70a0bb19ec3
+SHA256: 3557acd38142c9fa6ef37bbb673876a961dbf582e623599ea44ec6b6fdad1c05
+SHA512: 65fa841336274997e0a0a5ab532ed5c46d08411d665e40ce9ecd85685c3ade180716588b7affb6eedf48ee536e296949d13845d5aef5c7874687361f47f7afab
+Description: boot loader to chain-load signed boot loaders (signed by Debian)
+ This package provides a minimalist boot loader which allows verifying
+ signatures of other UEFI binaries against either the Secure Boot DB/DBX or
+ against a built-in signature database.  Its purpose is to allow a small,
+ infrequently-changing binary to be signed by the UEFI CA, while allowing
+ an OS distributor to revision their main bootloader independently of the CA.
+ .
+ This package contains the MOK manager and fall-back manager signed by the
+ Debian UEFI CA to be used by shim-signed.
+
+Package: shim-signed-common
+Architecture: all
+Version: 1.33+15+1533136590.3beb971-7
+Multi-Arch: foreign
+Priority: optional
+Section: utils
+Source: shim-signed (1.33)
+Maintainer: Debian EFI Team <debian-efi@lists.debian.org>
+Installed-Size: 49
+Depends: debconf (>= 0.5) | debconf-2.0, mokutil
+Breaks: shim-signed (<< 1.32+15+1533136590.3beb971-5)
+Replaces: shim-signed (<< 1.32+15+1533136590.3beb971-5)
+Filename: pool/main/s/shim-signed/shim-signed-common_1.33+15+1533136590.3beb971-7_all.deb
+Size: 13256
+MD5sum: d1cef8373e0f4c53b39a768a7811a7ec
+SHA1: 59228ceec4c7f12bb23feb617fbc6b99f78f59ad
+SHA256: b1f976afc91cd9b9a8f3d346be06b2df3d78b06c2fd75bcbd5f3bbc2361f2f48
+SHA512: c6515d5b154f6edc3e955b5797e224333d6dc5a1385e7f9fe1b90eea0c9a23e52ec95ea5d8f97c030bcdf8e1b5b7c681b3433b38e17efc80b5fd1e6e00d791a8
+Description: Secure Boot chain-loading bootloader (common helper scripts)
+ This package provides a minimalist boot loader which allows verifying
+ signatures of other UEFI binaries against either the Secure Boot DB/DBX or
+ against a built-in signature database.  Its purpose is to allow a small,
+ infrequently-changing binary to be signed by the UEFI CA, while allowing
+ an OS distributor to revision their main bootloader independently of the CA.
+ .
+ This package contains common helper scripts for all versions of the
+ shim-signed package.
+
+Package: shim-signed
+Architecture: amd64
+Version: 1.33+15+1533136590.3beb971-7
+Built-Using: shim (= 15+1533136590.3beb971-7)
+Multi-Arch: same
+Priority: optional
+Section: utils
+Source: shim-signed (1.33)
+Maintainer: Debian EFI Team <debian-efi@lists.debian.org>
+Installed-Size: 1301
+Depends: shim-signed-common (= 1.33+15+1533136590.3beb971-7), grub-efi-amd64-bin, shim-helpers-amd64-signed (>= 1+15+1533136590.3beb971+7), grub2-common (>= 2.02+dfsg1-16)
+Recommends: secureboot-db
+Filename: pool/main/s/shim-signed/shim-signed_1.33+15+1533136590.3beb971-7_amd64.deb
+Size: 334596
+MD5sum: 13b95fb039c4c0419f8c263a312065da
+SHA1: 28c906cfde21d88de8fa8a54861de50c9115c025
+SHA256: da466858eee1786433646dfcc9918395d2da06a7fb1815a3f66de749f5d8e506
+SHA512: f014f5549946b6881a0655d8f7533f3c3a6c560ac0c2e93b02051d0a8a6fbf26f771c82204d118044ade3e828e4f280b4b7632374c1d2353d7ca28ec1714761f
+Description: Secure Boot chain-loading bootloader (Microsoft-signed binary)
+ This package provides a minimalist boot loader which allows verifying
+ signatures of other UEFI binaries against either the Secure Boot DB/DBX or
+ against a built-in signature database.  Its purpose is to allow a small,
+ infrequently-changing binary to be signed by the UEFI CA, while allowing
+ an OS distributor to revision their main bootloader independently of the CA.
+ .
+ This package contains the version of the bootloader binary signed by the
+ Microsoft UEFI CA.
+
+Package: shim-unsigned
+Architecture: amd64
+Version: 15+1533136590.3beb971-7
+Priority: optional
+Section: admin
+Source: shim
+Maintainer: Debian EFI team <debian-efi@lists.debian.org>
+Installed-Size: 3719
+Conflicts: shim (<< 15+1533136590.3beb971-3~)
+Replaces: shim (<< 15+1533136590.3beb971-3~)
+Filename: pool/main/s/shim/shim-unsigned_15+1533136590.3beb971-7_amd64.deb
+Size: 579368
+MD5sum: fdfbbcf976f6191ace36b3e5288f8895
+SHA1: 3ed8f48a04c5f2ecc79437364b433cb713fb5d00
+SHA256: 721db6da68abb57d230399c61f0d252916494d2d2d727f9cdc20c142f797f601
+SHA512: 9cf5ee3580fcdc5b614e80d27c0635ad0e3f7677a95b044c47e5d59c2ef1ace82d3cd5dfd9aa2794c31abbb10c02ff5316b0649ca1f287f204b2c6b18d98cc84
+Description: boot loader to chain-load signed boot loaders under Secure Boot
+ This package provides a minimalist boot loader which allows verifying
+ signatures of other UEFI binaries against either the Secure Boot DB/DBX or
+ against a built-in signature database.  Its purpose is to allow a small,
+ infrequently-changing binary to be signed by the UEFI CA, while allowing
+ an OS distributor to revision their main bootloader independently of the CA.
+
+Package: thin-provisioning-tools
+Architecture: amd64
+Version: 0.7.6-2.1
+Priority: optional
+Section: admin
+Maintainer: Debian LVM Team <team+lvm@tracker.debian.org>
+Installed-Size: 1312
+Depends: libaio1 (>= 0.3.93), libc6 (>= 2.16), libexpat1 (>= 2.0.1), libgcc1 (>= 1:3.0), libstdc++6 (>= 5.2)
+Filename: pool/main/t/thin-provisioning-tools/thin-provisioning-tools_0.7.6-2.1_amd64.deb
+Size: 362564
+MD5sum: 149f8148ecbd12fbb65514fa649a11fb
+SHA1: 345170306561f89262e02733a29bbaede4229d54
+SHA256: 265996e8199dc869fcff23b6a6a1caa6dd3feb71902e999f7f2231678e8e9483
+SHA512: 62f7ec2dcfc6cd0bd2ec97b4bca32d9ec4f440b2f2112352091ddd3af98281b753c4cc709e43c94cd0ae4f1632df1bb37c2824959ffc40191d939318000cdbaa
+Description: Tools for handling thinly provisioned device-mapper meta-data
+ This package contains tools to handle meta-data from the device-mapper
+ thin target.  This target allows the use of a single backing store for multiple
+ thinly provisioned volumes.  Numerous snapshots can be taken from such
+ volumes.  The tools can check the meta-data for consistency, repair damaged
+ information and dump or restore the meta-data in textual form.
+
+Package: libunbound8
+Architecture: amd64
+Version: 1.9.0-2
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: unbound
+Maintainer: unbound packagers <unbound@packages.debian.org>
+Installed-Size: 1059
+Depends: libc6 (>= 2.27), libevent-2.1-6 (>= 2.1.8-stable), libgmp10, libhogweed4, libnettle6
+Filename: pool/main/u/unbound/libunbound8_1.9.0-2_amd64.deb
+Size: 461300
+MD5sum: 21f071dc3065ff090f55d78e6aaff78c
+SHA1: bacef255302af219f73be66563a6f47a7bde38fe
+SHA256: 7f3dff9dd648135215fe38d46141a8f0e02b6a2e8245af5ae62ef0de967bc703
+SHA512: a6c7bc177022d52e73f6222845813e6f47832c8477846ef11340ca18e6e7501df9e147f1d3fc236f425fd271a4989f9e9a3c688a783824533e05832786ddb97d
+Homepage: https://www.unbound.net/
+Description: library implementing DNS resolution and validation
+ libunbound performs and validates DNS lookups; it can be used to convert
+ hostnames to IP addresses and back and obtain other information from the
+ DNS. Cryptographic validation of results is performed with DNSSEC.
+
+Package: usbutils
+Architecture: amd64
+Version: 1:010-3
+Multi-Arch: foreign
+Priority: optional
+Section: utils
+Maintainer: Aurelien Jarno <aurel32@debian.org>
+Installed-Size: 312
+Depends: libc6 (>= 2.7), libudev1 (>= 196), libusb-1.0-0 (>= 2:1.0.16), usb.ids
+Filename: pool/main/u/usbutils/usbutils_010-3_amd64.deb
+Size: 75608
+MD5sum: 89f3585223de8b6301d7d182a6b9cda8
+SHA1: a11152d68b30b154e3235b784067ab9adae073f1
+SHA256: 95ef10fb58448d18db8011643d41e3e93c6ee0ef544ff16b0ba6cb477fc39f15
+SHA512: 71afeeb71876db16d07aea0422d9242ff8a1d1260dbe4a42fdf335517e36ac0a54271ba0dcaf110fa3f627f8f8aef1ee08b0f5e10b07f2dc52b500d38d26f21b
+Homepage: https://github.com/gregkh/usbutils
+Description: Linux USB utilities
+ This package contains the lsusb utility for inspecting the devices
+ connected to the USB bus. It shows a graphical representation of the
+ devices that are currently plugged in, showing the topology of the
+ USB bus. It also displays information on each individual device on
+ the bus.
+
+Package: xfsprogs
+Architecture: amd64
+Version: 4.20.0-1
+Priority: optional
+Section: admin
+Maintainer: XFS Development Team <linux-xfs@vger.kernel.org>
+Installed-Size: 3349
+Provides: fsck-backend
+Depends: libblkid1 (>= 2.17.2), libc6 (>= 2.26), libdevmapper1.02.1 (>= 2:1.02.20), libicu63 (>= 63.1-1~), libreadline5 (>= 5.2), libuuid1 (>= 2.16), python3:any
+Suggests: xfsdump, acl, attr, quota
+Breaks: xfsdump (<< 3.0.0)
+Replaces: xfsdump (<< 3.0.0)
+Filename: pool/main/x/xfsprogs/xfsprogs_4.20.0-1_amd64.deb
+Size: 908956
+MD5sum: ef0e68ecec7fbdae9e06f34bfce92c3f
+SHA1: bf83eb0178e0972781abc6f75f84691796a09ed8
+SHA256: 4c4d3fbb8a8971447618bf3307e6e9f377f0f27e70c63891e6aac2f29503b2fc
+SHA512: bcffc5637c180ccaa380cd67406d45a54c4a3213d0167f5e2b952ebdd4857a128fba45c11590a5d53b7db9afa1cbe9ac9750d8073061feefb72b0945ee5680fc
+Homepage: https://xfs.wiki.kernel.org/
+Description: Utilities for managing the XFS filesystem
+ A set of commands to use the XFS filesystem, including mkfs.xfs.
+ .
+ XFS is a high performance journaling filesystem which originated
+ on the SGI IRIX platform.  It is completely multi-threaded, can
+ support large files and large filesystems, extended attributes,
+ variable block sizes, is extent based, and makes extensive use of
+ Btrees (directories, extents, free space) to aid both performance
+ and scalability.
+ .
+ Refer to the documentation at https://xfs.wiki.kernel.org/
+ for complete details.
+

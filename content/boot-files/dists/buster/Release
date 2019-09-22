@@ -1,0 +1,19 @@
+Architectures: amd64
+Codename: buster
+Components: main
+Date: Sat, 07 Sep 2019 11:24:18 +0000
+Label: Debian
+Origin: Debian
+Suite: stable
+MD5Sum:
+ 646aa54de2c24bc10d311aa672988635            61837 main/binary-amd64/Packages
+ 0c24945b76e47072cece128668a1aa42           331636 main/debian-installer/binary-amd64/Packages
+SHA1:
+ f5347c5d50c970a0dfeb872d90e8f61d33e2b116            61837 main/binary-amd64/Packages
+ eb728aeda389d76e2994d1e6287eb9213d95b475           331636 main/debian-installer/binary-amd64/Packages
+SHA256:
+ 9e20c6508e86f5f559e61577b8ab2eabff8828c2723e118243b2eb372f86b1d0            61837 main/binary-amd64/Packages
+ 5085e1cd229d68f4de6e12b34c699dd904297d904a595a27595458866be67e62           331636 main/debian-installer/binary-amd64/Packages
+SHA512:
+ d9978a8e444bfb89ba9fea712ba22b114f613cb67b7c9b7815abd0290168b96baeb39561db06d10d907bc1c43b41c60d6bdf7934f7205f1df9a2600b86806bd2            61837 main/binary-amd64/Packages
+ ced215b08832f8fd2e76b870921f87550a3e7a9f338e1a2892eac6313c680217c8e74e4d0ce964c84dfd3e3216fd51d0a5d94817bb4eec9eb9af7e7808d9f676           331636 main/debian-installer/binary-amd64/Packages
