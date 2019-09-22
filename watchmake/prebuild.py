@@ -53,7 +53,12 @@ def prebuild_tools(watchmaker_repo: str):
     wrap_shell(f'rsync -a {watchmaker_repo}/modules/dirty-monitor/ ~/tools/dirty-monitor')
 
     info('recreating links & autocompletion for tools')
-    wrap_shell(f'sudo rm -f /usr/bin/{{lichking,king,lich,regex-rename,differ,dirty-monitor}}')
+    wrap_shell(f'sudo rm -f /usr/bin/lichking')
+    wrap_shell(f'sudo rm -f /usr/bin/lich')
+    wrap_shell(f'sudo rm -f /usr/bin/king')
+    wrap_shell(f'sudo rm -f /usr/bin/regex-rename')
+    wrap_shell(f'sudo rm -f /usr/bin/differ')
+    wrap_shell(f'sudo rm -f /usr/bin/dirty-monitor')
     wrap_shell(f'sudo rm -f /etc/bash_completion.d/cliglue_*')
 
     wrap_shell(f'sudo {home}/tools/lichking/lichking.py --bash-install lichking')

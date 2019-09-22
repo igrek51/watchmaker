@@ -1595,6 +1595,7 @@ update vmlinuz, initrd.img on boot/live
 ```bash
 update-initramfs -u
 ```
+copy from /boot to BOOT partition
 
 # Install hamachi, haguichi
 ```bash
