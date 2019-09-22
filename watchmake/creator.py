@@ -7,7 +7,7 @@ from cliglue.utils.output import info, warn
 import install_module
 from system import wrap_shell
 
-efi_part_size = 205  # MiB
+efi_part_size = 32  # MiB
 persistence_part_size = 1536  # MiB
 
 
