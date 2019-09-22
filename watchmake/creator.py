@@ -182,13 +182,6 @@ cp -r content/boot-files/live /mnt/watchmaker/boot/
 cp -r content/boot-files/pool /mnt/watchmaker/boot/
 cp -r content/boot-files/.disk /mnt/watchmaker/boot/
     ''')
-    wrap_shell(f'''
-cp -r content/boot-files/[BOOT] /mnt/watchmaker/efi/
-cp -r content/boot-files/dists /mnt/watchmaker/efi/
-cp -r content/boot-files/live /mnt/watchmaker/efi/
-cp -r content/boot-files/pool /mnt/watchmaker/efi/
-cp -r content/boot-files/.disk /mnt/watchmaker/efi/
-    ''')
     wrap_shell(f'''mkdir -p /mnt/watchmaker/boot/storage''')
 
     if persistence:

@@ -15,7 +15,7 @@ from system import wrap_shell, ensure_root, confirm
 
 def main():
     CliBuilder('Watchmaker OS tool', version='1.1.0').has(
-        subcommand('create', run=create_os, help='flash Watchmaker OS to a drive').has(
+        subcommand('create', run=create_os, help='flash Watchmaker OS to a portable drive').has(
             argument('disk', help='disk drive name (/dev/sdc)'),
             flag('skip-persistence', help='Skip creating persistence partition'),
             parameter('boot-surplus', help='Boot partition storage surplus (MiB)', type=int, default=300),
