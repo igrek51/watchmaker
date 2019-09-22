@@ -43,14 +43,14 @@ def add_modules(yes: bool, modules: List[str]):
 
 def find_usb_data_partition() -> str:
     candidates = list(
-        filter(lambda m: m.endswith('/usb-data'),
+        filter(lambda m: m.endswith('/watchmodules'),
                map(lambda p: p.mountpoint,
                    psutil.disk_partitions()))
     )
     if not candidates:
-        warn('cant find any mounted usb-data partition')
-        return '/mnt/watchmaker/usb-data'
-    assert len(candidates) <= 1, f'there are more than one partitions matching usb-data: {candidates}'
+        warn('cant find any mounted watchmodules partition')
+        return '/mnt/watchmaker/watchmodules'
+    assert len(candidates) <= 1, f'there are more than one partitions matching watchmodules: {candidates}'
     return candidates[0]
 
 

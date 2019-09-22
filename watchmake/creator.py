@@ -71,10 +71,10 @@ parted --script {disk} \\
     if persistence:
         info('making persistence partition filesystem')
         wrap_shell(f'''mkfs.ext4 -F {disk}3''')
-        info('making usb-data partition filesystem')
+        info('making watchmodules partition filesystem')
         wrap_shell(f'''mkfs.ext4 -F {disk}4''')
     else:
-        info('making usb-data partition filesystem')
+        info('making watchmodules partition filesystem')
         wrap_shell(f'''mkfs.ext4 -F {disk}3''')
     wrap_shell('sync')
 
@@ -84,13 +84,13 @@ parted --script {disk} \\
 mlabel -i {disk}1 ::boot
 mlabel -i {disk}2 ::EFI
 e2label {disk}3 persistence
-e2label {disk}4 usb-data
+e2label {disk}4 watchmodules
         ''')
     else:
         wrap_shell(f'''
 mlabel -i {disk}1 ::boot
 mlabel -i {disk}2 ::EFI
-e2label {disk}3 usb-data
+e2label {disk}3 watchmodules
         ''')
     wrap_shell('sync')
 
@@ -105,15 +105,15 @@ mkdir -p /mnt/watchmaker/efi
 mount {disk}2 /mnt/watchmaker/efi
         ''')
 
-    wrap_shell(f'''mkdir -p /mnt/watchmaker/usb-data''')
+    wrap_shell(f'''mkdir -p /mnt/watchmaker/watchmodules''')
     if persistence:
         wrap_shell(f'''
 mkdir -p /mnt/watchmaker/persistence
 mount {disk}3 /mnt/watchmaker/persistence
         ''')
-        wrap_shell(f'''mount {disk}4 /mnt/watchmaker/usb-data''')
+        wrap_shell(f'''mount {disk}4 /mnt/watchmaker/watchmodules''')
     else:
-        wrap_shell(f'''mount {disk}3 /mnt/watchmaker/usb-data''')
+        wrap_shell(f'''mount {disk}3 /mnt/watchmaker/watchmodules''')
 
     info('installing GRUB EFI bootloaders')
     wrap_shell(f'''
@@ -199,25 +199,24 @@ cp -r content/boot-files/.disk /mnt/watchmaker/efi/
     wrap_shell(f'''cp squash/filesystem.squashfs /mnt/watchmaker/boot/live/''')
 
     info('Adding init module')
-    wrap_shell(f'''mkdir -p /mnt/watchmaker/usb-data/modules''')
-    wrap_shell(f'''cp -r modules/init /mnt/watchmaker/usb-data/modules/''')
+    wrap_shell(f'''cp -r modules/init /mnt/watchmaker/watchmodules/''')
     info('Adding dev-data module')
-    wrap_shell(f'''cp -r modules/dev-data /mnt/watchmaker/usb-data/''')
+    wrap_shell(f'''cp -r modules/dev-data /mnt/watchmaker/watchmodules/''')
 
     if modules:
         info(f'Adding optional modules: {modules}')
-        target_path = '/mnt/watchmaker/usb-data'
+        target_path = '/mnt/watchmaker/watchmodules'
         for module in modules:
             install_module.add_module(module, target_path)
 
-    info('make usb-data writable to non-root user')
-    wrap_shell(f'''chown igrek /mnt/watchmaker/usb-data -R''')
+    info('make watchmodules writable to non-root user')
+    wrap_shell(f'''chown igrek /mnt/watchmaker/watchmodules -R''')
 
     info('unmounting')
     wrap_shell('sync')
     wrap_shell(f'''umount /mnt/watchmaker/boot''')
     wrap_shell(f'''umount /mnt/watchmaker/efi''')
-    wrap_shell(f'''umount /mnt/watchmaker/usb-data''')
+    wrap_shell(f'''umount /mnt/watchmaker/watchmodules''')
     if persistence:
         wrap_shell(f'''umount /mnt/watchmaker/persistence''')
 

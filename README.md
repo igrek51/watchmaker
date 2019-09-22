@@ -14,7 +14,7 @@ Watchmaker OS can be used in both manners:
 - as a tool for diagnosing and repairing other broken machines (that's why it's named `Watchmaker`).
 
 Watchmaker can be booted in 3 different modes:
-* **Live mode** - The base Linux system is loaded on the fly to RAM (not the entire, but only required components when necessary). Any change in the system is not persistent, but only separate `usb-data` partition is fully persistent (can be modified).
+* **Live mode** - The base Linux system is loaded on the fly to RAM (not the entire, but only required components when necessary). Any change in the system is not persistent, but only separate `watchmodules` partition is fully persistent (can be modified).
 * **Persistent mode** - like Live mode, but any modified system file is copied on write and stored on separate `persitence` partition. Although, this might be slow due to many writing operations on USB disk. On boot both RW and RO images are joined in the union FS.
 * **Full RAM mode** - All the required system files are loaded to RAM, so it's even allowed to eject the USB from machine, leaving fully efficient running system.
 
@@ -34,7 +34,7 @@ sudo ./watchmake/watchmake.py create /dev/sdd
 For more commands, see `./atchmake/watchmake.py --help`.
 
 # Adding modules
-Optional modules & custom data can be copied to `usb-data` partition.
+Optional modules & custom data can be copied to `watchmodules` partition.
 
 Some pre-defined modules are available [here](https://drive.google.com/drive/folders/12vn14uRO9fMJdfilrou3U5jd4cLzadAZ?usp=sharing).
 For instance download `wine.zip` and save it to `modules/wine.zip`. Then run:

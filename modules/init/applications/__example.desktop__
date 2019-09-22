@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Android Studio
-Icon=/mnt/usb-data/modules/android-studio/bin/studio.png
-Exec="/mnt/usb-data/modules/android-studio/bin/studio.sh" %f
+Icon=/mnt/watchmodules/android-studio/bin/studio.png
+Exec="/mnt/watchmodules/android-studio/bin/studio.sh" %f
 Categories=Development;IDE;
 Terminal=false

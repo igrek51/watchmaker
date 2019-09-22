@@ -1360,7 +1360,7 @@ proc /proc proc defaults 0 0
 overlay / overlay rw 0 0
 tmpfs /tmp tmpfs nosuid,nodev 0 0
 /dev/disk/by-label/persistence /mnt/persistence auto nosuid,nodev,nofail,x-gvfs-show 0 0
-/dev/disk/by-label/usb-data /mnt/usb-data auto rw,users,exec,nosuid,nodev,nofail,x-gvfs-show 0 0
+/dev/disk/by-label/watchmodules /mnt/watchmodules auto rw,users,exec,nosuid,nodev,nofail,x-gvfs-show 0 0
 EOF
 ```
 
@@ -1510,7 +1510,7 @@ ${color grey}Writeback:$color ${exec grep -e Writeback: /proc/meminfo | sed -E '
 Disk usage $hr
  ${color grey}/        $color${fs_used /}/${fs_size /} ${fs_bar 6 /}
  ${color grey}persistence $color${fs_used /mnt/persistence}/${fs_size /mnt/persistence} ${fs_bar 6 /mnt/persistence}
- ${color grey}usb-data $color${fs_used /media/user/usb-data}/${fs_size /media/user/usb-data} ${fs_bar 6 /media/user/usb-data}
+ ${color grey}watchmodules $color${fs_used /mnt/watchmodules}/${fs_size /mnt/watchmodules} ${fs_bar 6 /mnt/watchmodules}
 Networking $hr
 ${color lightgrey}Ethernet:
 ${color grey}IP address: $color${addr enp3s0}
@@ -1544,7 +1544,7 @@ cat << 'EOF' | sudo tee /etc/systemd/system/watchmaker-live-initializer.service
 Description=Watchmaker live initializer running after fstab
 Requires=local-fs.target
 After=local-fs.target
-RequiresMountsFor=/mnt/usb-data
+RequiresMountsFor=/mnt/watchmodules
 
 [Service]
 Type=simple        
@@ -1562,8 +1562,8 @@ cat << 'EOF' | tee /home/user/init.sh
 # launched from /etc/systemd/system/watchmaker-live-initializer.service
 #
 
-if [ -f "/mnt/usb-data/modules/init/init.sh" ]; then
-	. "/mnt/usb-data/modules/init/init.sh"
+if [ -f "/mnt/watchmodules/init/init.sh" ]; then
+	. "/mnt/watchmodules/init/init.sh"
 fi
 EOF
 

@@ -3,10 +3,10 @@
 # Watchmaker live initializer script
 #
 
-echo "$(id) - $(date)" >> /mnt/usb-data/modules/init/init.log
+echo "$(id) - $(date)" >> /mnt/watchmodules/init/init.log
 
 # release version
-# cp /mnt/usb-data/modules/init/version/.osversion /home/user/.osversion
+# cp /mnt/watchmodules/init/version/.osversion /home/user/.osversion
 
 # add application launchers
-cp /mnt/usb-data/modules/init/applications/*.desktop /home/ireneusz/.local/share/applications/
+cp /mnt/watchmodules/init/applications/*.desktop /home/ireneusz/.local/share/applications/
