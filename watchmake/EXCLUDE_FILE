@@ -32,3 +32,5 @@ run/^udisk
 run/^user
 run/^uuid
 lib/live/^mount$
+usr/lib/live/^mount$
+

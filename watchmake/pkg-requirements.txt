@@ -1,11 +1,10 @@
 grub-common
-grub-pc
 parted
 util-linux
 dosfstools
 e2fsprogs
 rsync
 squashfs-tools
-python3.6
+python3
 zip
 unzip

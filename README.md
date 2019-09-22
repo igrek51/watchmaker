@@ -49,7 +49,8 @@ sudo ./watchmake/watchmake.py resquash --storage-path=/media/user/data/ext/watch
 ```
 
 # Prerequisites
-Before running any of `watchmake.py` commands, install required packages. For Debian-based systems:
+* Install Python 3.6+
+* Before running any of `watchmake.py` commands, install required packages. For Debian-based systems:
 ```bash
 python3 -m pip install -r watchmake/requirements.txt
 sudo apt install `cat watchmake/pkg-requirements.txt`

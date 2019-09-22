@@ -19,9 +19,9 @@ def resquash_os(storage_path: str, live_squash: str, exclude_file: str):
 
     # ensure mount points are mounted
     info(f'checking mount points')
-    assert os.path.exists(storage_path)
-    assert os.path.exists(live_squash)
-    assert os.path.exists(exclude_file_abs)
+    assert os.path.exists(storage_path), f'storage path does not exist: {storage_path}'
+    assert os.path.exists(live_squash), f'live squash file does not exist: {live_squash}'
+    assert os.path.exists(exclude_file_abs), f'exclude file does not exist: {exclude_file}'
 
     info('removing old filesystem copy on storage')
     wrap_shell(f'rm -f {squashfs_storage_path}')

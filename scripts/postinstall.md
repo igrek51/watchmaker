@@ -1,10 +1,12 @@
 # Watchmaker postinstall
 
-## Before
-Make yourself root:
+## Base level
 ```bash
-su
+sudo -i
+apt update
+apt install gnome-terminal vim
 ```
+
 ## Package sources
 ```bash
 cat << 'EOF' | sudo tee /etc/apt/sources.list
@@ -27,23 +29,23 @@ EOF
 
 ## Install Packages
 ```bash
-apt update
-apt install \
+sudo apt update
+sudo apt install \
 	git gitk gitg \
 	vim nano mc gedit \
 	bless meld \
 	htop iotop dstat \
 	libgtop2-dev \
 	nmap net-tools network-manager traceroute rfkill \
-	isolinux syslinux extlinux squashfs-tools grub2-common debootstrap \
-	python python-pip python3 python3-pip \
+	isolinux syslinux extlinux squashfs-tools grub2-common \
+	python python3 python3-pip python3-virtualenv \
 	audacity audacious \
 	numix-gtk-theme numix-icon-theme oxygencursors \
 	dirmngr apt-transport-https gnupg \
 	gimp vlc mplayer youtube-dl mpg123 \
 	firmware-linux-nonfree firmware-iwlwifi firmware-linux firmware-linux-free firmware-misc-nonfree wireless-tools \
 	sudo gksu seahorse bash-completion \
-	openjdk-8-jdk maven \
+	openjdk-8-jdk \
 	okular kid3 \
 	ssh openssh-server openssl \
 	baobab gnome-disk-utility gparted testdisk \
@@ -53,7 +55,7 @@ apt install \
 	aptitude build-essential p7zip-full tar zip gzip tree curl httpie \
 	task-laptop task-desktop task-cinnamon-desktop live-task-cinnamon live-task-recommended \
 
-apt install \
+sudo apt install \
 	acpid \
 	adb \
 	apt-transport-https \
@@ -84,7 +86,6 @@ apt install \
 	debconf \
 	debian-archive-keyring \
 	debianutils \
-	deborphan \
 	diffutils \
 	dirmngr \
 	dkms \
@@ -149,9 +150,7 @@ apt install \
 	live-task-base \
 	live-task-localisation \
 	live-task-localisation-desktop \
-	llvm \
 	make \
-	maven \
 	mawk \
 	mc \
 	meld \
@@ -194,7 +193,6 @@ apt install \
 	sqlitebrowser \
 	squashfs-tools \
 	ssh \
-	sublime-text \
 	sudo \
 	syslinux \
 	tar \
@@ -227,7 +225,7 @@ apt install \
 
 ## Remove redundant packages
 ```bash
-apt purge \
+sudo apt purge \
 	firefox-esr-l10n-ach \
 	firefox-esr-l10n-af \
 	firefox-esr-l10n-all \
@@ -637,14 +635,25 @@ apt purge \
 	fonts-smc \
 	fonts-telu-extra \
 	apache2 \
-	apache2-bin
+	apache2-bin \
+	unattended-upgrades \
+	manpages-de \
+	manpages-es \
+	manpages-hu \
+	manpages-it \
+	manpages-ja-dev \
+	manpages-ja \
+	manpages-pt \
+	manpages-tr \
+	manpages-zh \
 
-apt autoremove
+sudo apt autoremove
 ```
 
 ## Upgrade packages
 ```bash
-apt upgrade
+sudo apt update
+sudo apt upgrade
 ```
 
 ## visudo config
@@ -671,6 +680,7 @@ EOF
 
 ## Set Passwords
 ```bash
+su
 passwd
 passwd user
 ```
@@ -1001,13 +1011,68 @@ EOF
 ```bash
 cd /tmp
 ```
-### Sublime text
+## Sublime text
 ```bash
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-apt update
-apt install sublime-text
+sudo apt update
+sudo apt install sublime-text
 ```
+
+### sublime config
+* install Package Control
+* install package: git, brogrammer
+* settings:
+```bash
+cat << 'EOF' > "$HOME/.config/sublime-text-3/Packages/User/Preferences.sublime-settings"
+{
+	"always_show_minimap_viewport": true,
+	"auto_close_tags": false,
+	"auto_match_enabled": false,
+	"color_scheme": "Packages/Theme - Brogrammer/brogrammer.tmTheme",
+	"draw_minimap_border": true,
+	"fallback_encoding": "Windows 1250",
+	"font_size": 12,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"hot_exit": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"remember_full_screen": true,
+	"scroll_past_end": false,
+	"shift_tab_unindent": true,
+	"show_encoding": true,
+	"show_line_endings": true,
+	"theme": "Brogrammer.sublime-theme",
+	"update_check": false,
+	"word_wrap": true
+}
+EOF
+```
+* Key bindings:
+```bash
+cat << 'EOF' > "$HOME/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap"
+[
+    { "keys": ["ctrl+d"], "command": "duplicate_line" },
+    { "keys": ["ctrl+shift+d"], "command": "find_under_expand" },
+    { "keys": ["ctrl+t"], "command": "new_file" },
+    { "keys": ["ctrl+o"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} },
+    { "keys": ["ctrl+l"], "command": "show_overlay", "args": {"overlay": "goto", "text": ":"} },
+    { "keys": ["shift+enter"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Add Line.sublime-macro"} },
+    { "keys": ["ctrl+shift+s"], "command": "save_all" },
+    { "keys": ["tab"], "command": "insert", "args": {"characters": "\t"},
+        "context":
+        [
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+        ]
+    },
+]
+
+EOF
+```
+
 ### Spotify
 Install No-ads deb
 ```bash
@@ -1018,13 +1083,14 @@ sudo dpkg -i spotify.deb
 ```bash
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-apt update
-apt install google-chrome-stable
+sudo apt update
+sudo apt install google-chrome-stable
 ```
 ### Teamviewer
 ```bash
 wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
 sudo dpkg -i teamviewer_amd64.deb
+sudo apt install -f
 ```
 
 ## chrome config
@@ -1033,13 +1099,13 @@ Log in, sync, log out
 ## wine install
 ```bash
 cd /tmp
-dpkg --add-architecture i386
+sudo dpkg --add-architecture i386
 wget -nc https://dl.winehq.org/wine-builds/Release.key
-apt-key add Release.key
+sudo apt-key add Release.key
 echo "deb https://dl.winehq.org/wine-builds/debian/ buster main" | sudo tee /etc/apt/sources.list.d/wine.list
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 76F1A20FF987672F
-apt update
-apt install --install-recommends winehq-stable winetricks
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 76F1A20FF987672F
+sudo apt update
+sudo apt install --install-recommends winehq-stable winetricks
 ```
 as a normal user:
 ```bash
@@ -1049,7 +1115,7 @@ winetricks directplay
 ## enable sysrq magic key
 ```bash
 # uncomment kernel.sysrq=1
-cat /etc/sysctl.conf | sed -e "s/#\\? *kernel\\.sysrq=[01]/kernel.sysrq=1/" > /tmp/sysctl.conf
+cat /etc/sysctl.conf | sed -e "s/#\\? *kernel\\.sysrq=[0-9]\\+/kernel.sysrq=1/" > /tmp/sysctl.conf
 sudo mv /tmp/sysctl.conf /etc/sysctl.conf
 sudo sysctl -p /etc/sysctl.conf
 ```
@@ -1340,6 +1406,7 @@ sudo cp ~/live-dev/linux-helpers/ydpdict/usr-local-share-ydpdict/* /usr/local/sh
 
 ## tab bell disable
 in file `/etc/inputrc`, uncomment:
+`sudo vim /etc/inputrc`
 ```
 set bell-style none
 ```
@@ -1354,67 +1421,16 @@ Add custom shortcuts:
 ## fstab
 mount rwx options:
 ```bash
+sudo mkdir -p /mnt/persistence
+sudo mkdir -p /mnt/watchmodules
+
 cat << 'EOF' | sudo tee /etc/fstab
-proc /proc proc defaults 0 0
-/dev/sda1 / ext4 errors=remount-ro 0 1
+#proc /proc proc defaults 0 0
+#/dev/sda1 / ext4 errors=remount-ro 0 1
 overlay / overlay rw 0 0
 tmpfs /tmp tmpfs nosuid,nodev 0 0
 /dev/disk/by-label/persistence /mnt/persistence auto nosuid,nodev,nofail,x-gvfs-show 0 0
 /dev/disk/by-label/watchmodules /mnt/watchmodules auto rw,users,exec,nosuid,nodev,nofail,x-gvfs-show 0 0
-EOF
-```
-
-## sublime config
-* install package manager
-* install git, brogrammer
-* settings:
-```bash
-cat << 'EOF' > "$HOME/.config/sublime-text-3/Packages/User/Preferences.sublime-settings"
-{
-	"always_show_minimap_viewport": true,
-	"auto_close_tags": false,
-	"auto_match_enabled": false,
-	"color_scheme": "Packages/Theme - Brogrammer/brogrammer.tmTheme",
-	"draw_minimap_border": true,
-	"fallback_encoding": "Windows 1250",
-	"font_size": 12,
-	"highlight_line": true,
-	"highlight_modified_tabs": true,
-	"hot_exit": true,
-	"ignored_packages":
-	[
-		"Vintage"
-	],
-	"remember_full_screen": true,
-	"scroll_past_end": false,
-	"shift_tab_unindent": true,
-	"show_encoding": true,
-	"show_line_endings": true,
-	"theme": "Brogrammer.sublime-theme",
-	"update_check": false,
-	"word_wrap": true
-}
-EOF
-```
-* Key bindings:
-```bash
-cat << 'EOF' > "$HOME/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap"
-[
-    { "keys": ["ctrl+d"], "command": "duplicate_line" },
-    { "keys": ["ctrl+shift+d"], "command": "find_under_expand" },
-    { "keys": ["ctrl+t"], "command": "new_file" },
-    { "keys": ["ctrl+o"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} },
-    { "keys": ["ctrl+l"], "command": "show_overlay", "args": {"overlay": "goto", "text": ":"} },
-    { "keys": ["shift+enter"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Add Line.sublime-macro"} },
-    { "keys": ["ctrl+shift+s"], "command": "save_all" },
-    { "keys": ["tab"], "command": "insert", "args": {"characters": "\t"},
-        "context":
-        [
-            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
-        ]
-    },
-]
-
 EOF
 ```
 
@@ -1567,6 +1583,7 @@ if [ -f "/mnt/watchmodules/init/init.sh" ]; then
 fi
 EOF
 
+chmod +x /home/user/init.sh
 sudo chmod +x /etc/systemd/system/watchmaker-live-initializer.service
 sudo systemctl daemon-reload
 sudo systemctl enable watchmaker-live-initializer
@@ -1610,7 +1627,10 @@ sudo systemctl disable docker
 sudo rm -rf /var/lib/docker
 ```
 Change `/lib/systemd/system/docker.service`:
-Set `ExecStart=/usr/bin/dockerd --storage-driver=vfs -H fd://`
+Set 
+```
+ExecStart=/usr/bin/dockerd --storage-driver=vfs -H fd:// --containerd=/run/containerd/containerd.sock
+```
 
 # Instal pip3 packages
 ```bash
@@ -1625,6 +1645,6 @@ pip3 install \
 # Create .osversion
 ```bash
 cat << 'EOF' | tee /home/user/.osversion
-v2.21
+v3.0
 EOF
 ```
