@@ -24,12 +24,12 @@ def resquash_os(storage_path: str, live_squash: str, exclude_file: str):
     assert os.path.exists(exclude_file_abs), f'exclude file does not exist: {exclude_file}'
 
     info('removing old filesystem copy on storage')
-    wrap_shell(f'rm -f {squashfs_storage_path}')
+    wrap_shell(f'sudo rm -f {squashfs_storage_path}')
     wrap_shell('sync')
 
     info('squashing filesystem...')
     wrap_shell(f'''
-mksquashfs \
+sudo mksquashfs \
     /bin /boot /dev /etc /home /lib /lib64 /media /mnt /opt /proc /run /root /sbin /srv /sys /tmp /usr /var \
     /initrd.img /initrd.img.old /vmlinuz /vmlinuz.old \
     {squashfs_storage_path} \
@@ -39,15 +39,15 @@ mksquashfs \
     ''')
 
     info(f'creating tagged copy: {tagged_squashfs_path}...')
-    wrap_shell(f'cp {squashfs_storage_path} {tagged_squashfs_path}')
+    wrap_shell(f'sudo cp {squashfs_storage_path} {tagged_squashfs_path}')
     wrap_shell('sync')
 
     info(f'[!] Putting Live system at risk')
     info(f'[!] removing current Live squashfs: {live_squash}')
-    wrap_shell(f'rm -f {live_squash}')
+    wrap_shell(f'sudo rm -f {live_squash}')
 
     info('[!] replacing with newest squashfs')
-    wrap_shell(f'rsync -ah --progress {squashfs_storage_path} {live_squash}')
+    wrap_shell(f'sudo rsync -ah --progress {squashfs_storage_path} {live_squash}')
     wrap_shell('sync')
     info(f'[!] Live system is functional again')
 

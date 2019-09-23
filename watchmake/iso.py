@@ -11,7 +11,7 @@ def make_iso(yes: bool, source_disk: str, target_iso: str):
     info(f'checking required files existence')
     assert os.path.exists(os.path.join(target_iso, os.pardir))
 
-    fdisk_output = shell_output(f'fdisk -l {source_disk}')
+    fdisk_output = shell_output(f'sudo fdisk -l {source_disk}')
     print(fdisk_output)
 
     block_size_line = [line for line in fdisk_output.splitlines() if line.startswith('Units: sectors of')][0]
@@ -32,5 +32,5 @@ def make_iso(yes: bool, source_disk: str, target_iso: str):
 
     info(f'Writing {source_disk} to {target_iso}')
     wrap_shell(
-        f'dd if={source_disk} of={target_iso} bs={block_size} count={end_sector} conv=noerror,sync status=progress')
+        f'sudo dd if={source_disk} of={target_iso} bs={block_size} count={end_sector} conv=noerror,sync status=progress')
     wrap_shell('sync')
