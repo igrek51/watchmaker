@@ -15,7 +15,7 @@ optional_modules = {
     'aoe2': '/mnt/data/ext/live-games/aoe2',
     'heroes3-hota': '/mnt/data/ext/live-games/heroes3-hota',
     'warcraft-3-pl': '/mnt/data/ext/live-games/warcraft-3-pl',
-    'pycharm': '/mnt/data/ext/watchmaker/modules/pycharm',
+    'pycharm': '/mnt/data/ext/watchmaker/modules/pycharm.zip',
     'wine': '/mnt/data/ext/watchmaker/modules/wine.zip',
     'dev-data': '/mnt/data/ext/watchmaker/modules/dev-data',
 }
@@ -60,9 +60,12 @@ def add_module(module: str, target_path):
     module_src_path = optional_modules[module]
     assert os.path.exists(module_src_path), 'module src path not found'
     if os.path.isdir(module_src_path):
-        info(f'Copying module {module_src_path} to {target_path}')
-        wrap_shell(f'rsync -a {module_src_path}/ {target_path}/')
+        dirname = os.path.basename(os.path.normpath(module_src_path))
+        info(f'Copying module {module_src_path} to {target_path}/{dirname}')
+        wrap_shell(f'mkdir -p {target_path}/{dirname}')
+        wrap_shell(f'rsync -a {module_src_path}/ {target_path}/{dirname}/')
     else:
         assert module_src_path.endswith('.zip'), 'supporting .zip only'
         info(f'Extracting module from {module_src_path} to {target_path}')
         wrap_shell(f'unzip {module_src_path} -d {target_path}/')
+    wrap_shell(f'sync')
