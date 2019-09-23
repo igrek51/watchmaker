@@ -35,7 +35,7 @@ def main():
             parameter('storage-path', help='storage path for dumping new squashed filesystem snapshot',
                       default='/media/user/data/ext/watchmaker/squash'),
             parameter('exclude-file', help='EXCLUDE_FILE path for squashfs',
-                      default='./EXCLUDE_FILE'),
+                      default='/media/user/data/ext/watchmaker/watchmake/EXCLUDE_FILE'),
             parameter('live-squash', help='target squashed filesytem to be replaced',
                       default='/media/user/BOOT/live/filesystem.squashfs'),
         ),
@@ -55,7 +55,10 @@ def main():
 def create_os(dry: bool, yes: bool, disk: str, skip_persistence: bool, boot_surplus: int, modules: List[str]):
     settings.DRY_RUN = dry
     wrap_shell('lsblk')
-    confirm(yes, f'Attempting to create Wathmaker OS on {disk} disk. Are you sure?')
+    confirm(yes, f'Attempting to create Wathmaker OS on {disk} disk, '
+                 f'boot partition surplus: {boot_surplus} MiB, '
+                 f'modules to be installed: {modules}. '
+                 f'Are you sure?')
     creator.flash_disk(disk, not skip_persistence, boot_surplus, modules)
 
 
@@ -66,7 +69,10 @@ def prebuild_tools(dry: bool, watchmaker_repo: str):
 
 def resquash_os(dry: bool, yes: bool, storage_path: str, live_squash: str, exclude_file: str):
     settings.DRY_RUN = dry
-    confirm(yes, f'Attepmting to resquash filesystem. Are you sure?')
+    confirm(yes, f'Attepmting to resquash filesystem {live_squash}, '
+                 f'store snapshot in {storage_path}, '
+                 f'based on exclude file {exclude_file}. '
+                 f'Are you sure?')
     resquash.resquash_os(storage_path, live_squash, exclude_file)
 
 
@@ -78,7 +84,8 @@ def add_modules(dry: bool, yes: bool, modules: List[str]):
 def replicate_os(dry: bool, yes: bool, source_disk: str, target_disk: str):
     settings.DRY_RUN = dry
     wrap_shell('lsblk -o NAME,TYPE,RM,RO,FSTYPE,SIZE,VENDOR,MODEL,LABEL,MOUNTPOINT')
-    confirm(yes, f'Attepmting to replicate OS from {source_disk} to {target_disk}. Are you sure?')
+    confirm(yes, f'Attepmting to replicate OS from {source_disk} to {target_disk}. '
+                 f'Are you sure?')
     replicate.replicate_os(source_disk, target_disk)
 
 
