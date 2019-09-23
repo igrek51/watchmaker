@@ -27,6 +27,7 @@ def main():
                       default='/media/user/data/ext/watchmaker'),
         ),
         subcommand('module', run=add_modules, help='install modules on existing OS').has(
+            subcommand('list', run=install_module.list_modules, help='list installable modules'),
             arguments('modules', help='module names',
                       choices=install_module.optional_modules.keys(), strict_choices=True),
         ),

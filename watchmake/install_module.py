@@ -69,3 +69,9 @@ def add_module(module: str, target_path):
         info(f'Extracting module from {module_src_path} to {target_path}')
         wrap_shell(f'unzip {module_src_path} -d {target_path}/')
     wrap_shell(f'sync')
+
+
+def list_modules():
+    info(f'Available modules:')
+    for name, path in optional_modules.items():
+        print(f'{name} - {path}')
