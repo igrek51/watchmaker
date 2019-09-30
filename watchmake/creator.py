@@ -7,7 +7,7 @@ from cliglue.utils.output import info, warn
 import install_module
 from system import wrap_shell
 
-efi_part_size = 32  # MiB
+efi_part_size = 270  # MiB
 persistence_part_size = 1536  # MiB
 
 
@@ -183,6 +183,16 @@ sudo cp -r content/boot-files/pool /mnt/watchmaker/boot/
 sudo cp -r content/boot-files/.disk /mnt/watchmaker/boot/
     ''')
     wrap_shell(f'''sudo mkdir -p /mnt/watchmaker/boot/storage''')
+
+    info('EFI base files')
+    wrap_shell(f'''
+    sudo cp -r content/boot-files/[BOOT] /mnt/watchmaker/efi/
+    sudo cp -r content/boot-files/d-i /mnt/watchmaker/efi/
+    sudo cp -r content/boot-files/dists /mnt/watchmaker/efi/
+    sudo cp -r content/boot-files/live /mnt/watchmaker/efi/
+    sudo cp -r content/boot-files/pool /mnt/watchmaker/efi/
+    sudo cp -r content/boot-files/.disk /mnt/watchmaker/efi/
+        ''')
 
     if persistence:
         info('Persistence configuration')
