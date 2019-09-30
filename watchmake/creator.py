@@ -196,14 +196,14 @@ sudo cp -r content/boot-files/.disk /mnt/watchmaker/boot/
     info('Adding dev-data module')
     wrap_shell(f'''sudo cp -r modules/dev-data /mnt/watchmaker/watchmodules/''')
 
+    info('make watchmodules writable to non-root user')
+    wrap_shell(f'''sudo chown igrek /mnt/watchmaker/watchmodules -R''')
+
     if modules:
         info(f'Adding optional modules: {modules}')
         target_path = '/mnt/watchmaker/watchmodules'
         for module in modules:
             install_module.add_module(module, target_path)
-
-    info('make watchmodules writable to non-root user')
-    wrap_shell(f'''sudo chown igrek /mnt/watchmaker/watchmodules -R''')
 
     info('unmounting')
     wrap_shell('sync')

@@ -17,9 +17,9 @@ def main():
     CliBuilder('Watchmaker OS tool', version='1.1.0').has(
         subcommand('create', run=create_os, help='flash Watchmaker OS to a portable drive').has(
             argument('disk', help='disk drive name (/dev/sdc)'),
-            flag('skip-persistence', help='Skip creating persistence partition'),
+            flag('persistence', help='Create additional persistence partition'),
             parameter('boot-surplus', help='Boot partition storage surplus (MiB)', type=int, default=300),
-            parameter('--module', name='modules', help='Add optional module', multiple=True,
+            parameter('--module', name='module', help='Add optional module', multiple=True,
                       choices=install_module.optional_modules.keys(), strict_choices=True),
         ),
         subcommand('prebuild', run=prebuild_tools, help='update current OS with latest tools').has(
@@ -52,14 +52,14 @@ def main():
     ).run()
 
 
-def create_os(dry: bool, yes: bool, disk: str, skip_persistence: bool, boot_surplus: int, modules: List[str]):
+def create_os(dry: bool, yes: bool, disk: str, persistence: bool, boot_surplus: int, module: List[str]):
     settings.DRY_RUN = dry
     wrap_shell('lsblk')
     confirm(yes, f'Attempting to create Wathmaker OS on {disk} disk, '
                  f'boot partition surplus: {boot_surplus} MiB, '
-                 f'modules to be installed: {modules}. '
+                 f'modules to be installed: {module}. '
                  f'Are you sure?')
-    creator.flash_disk(disk, not skip_persistence, boot_surplus, modules)
+    creator.flash_disk(disk, persistence, boot_surplus, module)
 
 
 def prebuild_tools(dry: bool, watchmaker_repo: str):
