@@ -59,3 +59,6 @@ sudo apt install `cat watchmake/pkg-requirements.txt`
 # Requirements
 - USB stick with the Watchmaker Linux should have at least 8GB disk space.
 - The machine running Watchmaker should have at least 4GB of RAM.
+
+# Reference links
+https://willhaley.com/blog/custom-debian-live-environment/

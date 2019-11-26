@@ -8,3 +8,5 @@ squashfs-tools
 python3
 zip
 unzip
+grub-pc-bin
+grub-efi-amd64-bin
