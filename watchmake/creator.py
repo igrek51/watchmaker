@@ -11,7 +11,7 @@ efi_part_size = 270  # MiB
 persistence_part_size = 1536  # MiB
 
 
-def flash_disk(disk: str, persistence: bool, boot_storage_surplus: int, modules: List[str]):
+def flash_disk(disk: str, persistence: bool, boot_storage_surplus: int, modules: List[str], skip_fs: bool):
     set_workdir(os.path.join(script_real_dir(), '..'))
 
     info(f'checking required files existence')
@@ -21,11 +21,14 @@ def flash_disk(disk: str, persistence: bool, boot_storage_surplus: int, modules:
     assert os.path.exists('modules/init')
     assert os.path.exists('modules/dev-data')
 
+    # TODO unmount disk partitions
+
     warn(f'writing to disk {disk}')
     wrap_shell(f'df {disk}')
 
     info('creating MBR')
     wrap_shell(f'''sudo wipefs {disk}''')
+    wrap_shell(f'''sudo dd if=/dev/zero of={disk} seek=1 count=2047''')
     wrap_shell(f'''
 sudo parted --script {disk} \\
     mklabel msdos
@@ -118,22 +121,8 @@ sudo mount {disk}3 /mnt/watchmaker/persistence
     info('installing GRUB EFI bootloaders')
     wrap_shell(f'''
 sudo grub-install \\
-    --target=i386-efi \\
-    --efi-directory=/mnt/watchmaker/boot \\
-    --boot-directory=/mnt/watchmaker/boot/boot \\
-    --removable --recheck
-    ''')
-    wrap_shell(f'''
-sudo grub-install \\
     --target=x86_64-efi \\
     --efi-directory=/mnt/watchmaker/boot \\
-    --boot-directory=/mnt/watchmaker/boot/boot \\
-    --removable --recheck
-    ''')
-    wrap_shell(f'''
-sudo grub-install \\
-    --target=i386-efi \\
-    --efi-directory=/mnt/watchmaker/efi \\
     --boot-directory=/mnt/watchmaker/boot/boot \\
     --removable --recheck
     ''')
@@ -156,12 +145,22 @@ sudo grub-install \\
 
     wrap_shell('sync')
 
+    info('Fixing GRUB EFI by replacing with Debian GRUB')
+    wrap_shell(f'''
+sudo rm /mnt/watchmaker/efi/EFI/BOOT/*
+sudo cp -r content/efi/* /mnt/watchmaker/efi/EFI/BOOT/
+sudo rm /mnt/watchmaker/boot/EFI/BOOT/*
+sudo cp -r content/efi/* /mnt/watchmaker/boot/EFI/BOOT/
+sudo cp -r /mnt/watchmaker/efi/EFI/BOOT /mnt/watchmaker/efi/EFI/debian
+sudo cp -r /mnt/watchmaker/boot/EFI/BOOT /mnt/watchmaker/boot/EFI/debian
+
+sudo cp -r content/grub/x86_64-efi /mnt/watchmaker/boot/boot/grub/
+    ''')
+
     info('making EFI Microsoft workaround')
     wrap_shell(f'''
-sudo mkdir -p /mnt/watchmaker/efi/EFI/Microsoft
-sudo mkdir -p /mnt/watchmaker/boot/EFI/Microsoft
-sudo cp -r /mnt/watchmaker/efi/EFI/BOOT /mnt/watchmaker/efi/EFI/Microsoft/
-sudo cp -r /mnt/watchmaker/boot/EFI/BOOT /mnt/watchmaker/boot/EFI/Microsoft/
+sudo cp -r /mnt/watchmaker/efi/EFI/BOOT /mnt/watchmaker/efi/EFI/Microsoft
+sudo cp -r /mnt/watchmaker/boot/EFI/BOOT /mnt/watchmaker/boot/EFI/Microsoft
     ''')
 
     info('GRUB config')
@@ -199,7 +198,8 @@ sudo cp -r content/boot-files/.disk /mnt/watchmaker/boot/
         wrap_shell(f'''sudo cp -r content/persistence/persistence.conf /mnt/watchmaker/persistence/''')
 
     info('Copying squash filesystem')
-    wrap_shell(f'''sudo cp squash/filesystem.squashfs /mnt/watchmaker/boot/live/''')
+    if not skip_fs:
+        wrap_shell(f'''sudo cp squash/filesystem.squashfs /mnt/watchmaker/boot/live/''')
 
     info('Adding init module')
     wrap_shell(f'''sudo cp -r modules/init /mnt/watchmaker/watchmodules/''')
@@ -222,6 +222,7 @@ sudo cp -r content/boot-files/.disk /mnt/watchmaker/boot/
     wrap_shell(f'''sudo umount /mnt/watchmaker/watchmodules''')
     if persistence:
         wrap_shell(f'''sudo umount /mnt/watchmaker/persistence''')
+    wrap_shell('sync')
 
     info('Success')
 

@@ -21,6 +21,7 @@ def main():
             parameter('boot-surplus', help='Boot partition storage surplus (MiB)', type=int, default=300),
             parameter('--module', name='module', help='Add optional module', multiple=True,
                       choices=install_module.optional_modules.keys(), strict_choices=True),
+            flag('skip-fs', help='Skip copying squashed filesystem'),
         ),
         subcommand('prebuild', run=prebuild_tools, help='update current OS with latest tools').has(
             parameter('watchmaker-repo', help='a path to full watchmaker repository',
@@ -52,14 +53,14 @@ def main():
     ).run()
 
 
-def create_os(dry: bool, yes: bool, disk: str, persistence: bool, boot_surplus: int, module: List[str]):
+def create_os(dry: bool, yes: bool, disk: str, persistence: bool, boot_surplus: int, module: List[str], skip_fs: bool):
     settings.DRY_RUN = dry
     wrap_shell('lsblk')
     confirm(yes, f'Attempting to create Wathmaker OS on {disk} disk, '
                  f'boot partition surplus: {boot_surplus} MiB, '
                  f'modules to be installed: {module}. '
                  f'Are you sure?')
-    creator.flash_disk(disk, persistence, boot_surplus, module)
+    creator.flash_disk(disk, persistence, boot_surplus, module, skip_fs)
 
 
 def prebuild_tools(dry: bool, watchmaker_repo: str):
