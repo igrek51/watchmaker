@@ -28,7 +28,7 @@ Check your disk device name (e.g. `/dev/sdd`) using `lsblk` or `sudo fdisk -l` c
 
 Then run `watchmake.py` script which will create all the partitions, bootloaders and save all the needed files:
 ```bash
-sudo ./watchmake/watchmake.py create /dev/sdd
+./watchmake/watchmake.py create /dev/sdd
 ```
 
 For more commands, see `./atchmake/watchmake.py --help`.
@@ -44,8 +44,19 @@ For instance download `wine.zip` and save it to `modules/wine.zip`. Then run:
 
 # Resquashing filesystem
 If you need to make the applied changes persistent, you can rebuild `filesystem.squashfs` and swap it on the run on the USB drive.
+1. Boot OS in Live RAM mode (making `filesystem.squashfs` writable)
+2. Apply your changes
+3. Update current OS with latest tools
 ```bash
-sudo ./watchmake/watchmake.py resquash --storage-path=/media/user/data/ext/watchmaker/squash
+watchmake prebuild
+```
+4. Rebuild squashed filesystem and swap it on the run
+```bash
+./watchmake/watchmake.py resquash --storage-path=/media/user/data/ext/watchmaker/squash
+```
+or just
+```bash
+watchmake resquash
 ```
 
 # Prerequisites
