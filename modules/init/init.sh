@@ -10,3 +10,7 @@ echo "$(id) - $(date)" >> /mnt/watchmodules/init/init.log
 
 # add application launchers
 cp /mnt/watchmodules/init/applications/*.desktop /home/user/.local/share/applications/
+
+# remove install-debian shortcut
+rm -f /home/user/Desktop/install-debian.desktop
+sudo rm -f /usr/share/applications/install-debian.desktop
