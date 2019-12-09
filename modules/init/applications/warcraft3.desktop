@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Warcraft III Frozen Throne
+Exec=gnome-terminal --working-directory=/mnt/watchmodules/warcraft-3-pl --command=./wine.sh
+Categories=Game;
+Terminal=false

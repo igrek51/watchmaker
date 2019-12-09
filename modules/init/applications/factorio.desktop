@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Factorio
+Exec=gnome-terminal --working-directory=/mnt/watchmodules/factorio/bin/x64 --command=./factorio.sh
+Categories=Game;
+Terminal=false

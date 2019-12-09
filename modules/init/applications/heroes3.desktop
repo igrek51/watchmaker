@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Heroes of Might & Magic 3
+Exec=gnome-terminal --working-directory=/mnt/watchmodules/heroes3-hota --command=./wine.sh
+Categories=Game;
+Terminal=false

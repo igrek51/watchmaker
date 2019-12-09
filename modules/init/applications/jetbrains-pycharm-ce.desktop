@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=PyCharm Community Edition
+Icon=/mnt/watchmodules/pycharm/bin/pycharm.svg
+Exec="/mnt/watchmodules/pycharm/bin/pycharm.sh" %f
+Comment=Python IDE for Professional Developers
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=jetbrains-pycharm-ce

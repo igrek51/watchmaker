@@ -1,7 +1,10 @@
 [Desktop Entry]
+Version=1.0
 Type=Application
 Name=Android Studio
 Icon=/mnt/watchmodules/android-studio/bin/studio.png
 Exec="/mnt/watchmodules/android-studio/bin/studio.sh" %f
-Categories=Development;IDE;GNOME;GTK;Game;
+Comment=The Drive to Develop
+Categories=Development;IDE;
 Terminal=false
+StartupWMClass=jetbrains-studio

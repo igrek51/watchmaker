@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Stronghold Crusader
+Exec=gnome-terminal --working-directory=/mnt/watchmodules/stronghold-crusader --command=./wine.sh
+Categories=Game;
+Terminal=false

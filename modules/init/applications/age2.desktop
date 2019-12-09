@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Age of Empires II Stachu Jones Legacy
+Exec=gnome-terminal --working-directory=/mnt/watchmodules/aoe2 --command=./wine.sh
+Categories=Game;
+Terminal=false
