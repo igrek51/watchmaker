@@ -1123,7 +1123,7 @@ sudo sysctl -p /etc/sysctl.conf
 ## cinnamon panels
 Applets:
 * Menu
-* Panel launchers: nemo, sublime, google-chrome, terminal, ydpdict
+* Panel launchers: nemo, sublime, google-chrome, terminal, ydpdict (run in terminal, icon: /usr/share/icons/gnome/256x256/apps/accessories-dictionary.png)
 * Window list
 * Workspace switcher: 1,2
 * Multi-Core System Monitor
