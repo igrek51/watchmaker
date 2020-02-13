@@ -1632,6 +1632,12 @@ Set
 ```
 ExecStart=/usr/bin/dockerd --storage-driver=vfs -H fd:// --containerd=/run/containerd/containerd.sock
 ```
+OR change docker data dir in `/etc/docker/daemon.json`:
+```
+{
+	"data-root": "/mnt/watchmodules/docker"
+}
+```
 
 # Instal pip3 packages
 ```bash
