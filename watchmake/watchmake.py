@@ -38,7 +38,7 @@ def main():
             parameter('exclude-file', help='EXCLUDE_FILE path for squashfs',
                       default='/media/user/data/ext/watchmaker/watchmake/EXCLUDE_FILE'),
             parameter('live-squash', help='target squashed filesytem to be replaced',
-                      default='/media/user/BOOT/live/filesystem.squashfs'),
+                      default='/mnt/BOOT/live/filesystem.squashfs'),
         ),
         subcommand('replicate', run=replicate_os, help='clone current OS itself to another drive').has(
             parameter('source-disk', help='source disk device name'),
