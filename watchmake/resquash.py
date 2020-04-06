@@ -47,7 +47,7 @@ sudo mksquashfs \
     wrap_shell(f'sudo rm -f {live_squash}')
 
     info('[!] replacing with newest squashfs')
-    wrap_shell(f'sudo rsync -ah --progress {squashfs_storage_path} {live_squash}')
+    wrap_shell(f'sudo rsync -ah --progress --no-perms --no-owner --no-group {squashfs_storage_path} {live_squash}')
     wrap_shell('sync')
     info(f'[!] Live system is functional again')
 
