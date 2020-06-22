@@ -31,7 +31,7 @@ Then run `watchmake.py` script which will create all the partitions, bootloaders
 ./watchmake/watchmake.py create /dev/sdd
 ```
 
-For more commands, see `./atchmake/watchmake.py --help`.
+For more commands, see `./watchmake/watchmake.py --help`.
 
 # Adding modules
 Optional modules & custom data can be copied to `watchmodules` partition.
