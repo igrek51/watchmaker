@@ -38,7 +38,7 @@ sudo apt install \
 	libgtop2-dev \
 	nmap net-tools network-manager traceroute rfkill \
 	isolinux syslinux extlinux squashfs-tools grub2-common \
-	python python3 python3-pip python3-virtualenv \
+	python python3 python3-pip python3-virtualenv python3-venv \
 	audacity audacious \
 	numix-gtk-theme numix-icon-theme oxygencursors \
 	dirmngr apt-transport-https gnupg \
@@ -48,7 +48,7 @@ sudo apt install \
 	openjdk-8-jdk \
 	okular kid3 \
 	ssh openssh-server openssl \
-	baobab gnome-disk-utility gparted testdisk \
+	baobab gnome-disk-utility gparted testdisk k4dirstat \
 	bluez bluez-tools blueman \
 	conky pavucontrol ydpdict adb \
 	samba smbclient cups \
@@ -645,9 +645,30 @@ sudo apt purge \
 	manpages-ja \
 	manpages-pt \
 	manpages-tr \
-	manpages-zh \
+	manpages-zh
+
+apt purge \
+	fonts-noto-unhinted \
+	fonts-noto-ui-extra \
+	fonts-noto-ui-core \
+	fonts-noto-mono \
+	fonts-noto-extra \
+	fonts-noto-cjk-extra \
+	fonts-noto-cjk \
+	fonts-noto-color-emoji \
+	fonts-arphic-ukai \
+	fonts-arphic-uming \
+	mate-icon-theme \
+	mate-themes \
+	hunspell*
 
 sudo apt autoremove
+```
+
+## Clear superfluous files
+```
+cd /usr/share/locale
+rm -rf ab ace ach af ak am am_ET an ang anp ar as as_IN ast ay az az_IR ba bal bar be be@latin bg bg_BG bi bn bn_BD bn_IN bo br brx bs byn ca ca_ES@valencia ca@valencia ce ceb cgg ch chr ckb cmn co crh cs csb cs_CZ cv cy da de de_CH de_DE de@hebrew doi dv dz ee el en@arabic en_AU en@boldquot en_CA en@cyrillic en@greek en@hebrew en_NZ en@piglatin en@quot en@shaw en_US@piglatin eo es es_AR es_CL es_CO es_CR es_DO es_EC es_ES es_GT es_HN es_MX es_NI es_PA es_PE es_PR es_SV es_UY es_VE et et_EE eu eu_ES fa fa_IR ff fi fi_FI fil fo fr fr_CA frp fur fy ga gd gez gl gn gu gv ha haw he hi hne hr hsb ht hu hu_HU hy ia id id_ID ig ii ilo io is it it_IT iu ja ja_JP jam jv ka kab kg ki kk kl km kn ko kok kok@latin ks ks@aran ks@deva ks_IN ksw ku ku_IQ kv kw kw_GB kw@kkcor kw@uccor ky la lb lg li ln lo lt lv mai mg mhr mi mk ml ml_IN mn mni mni@beng mo mr ms ms_MY mt my my_MM na nah nap nb nds ne nl nl_NL nn nn_NO no nso nv oc om or pa pap pi ps pt pt_BR pt_PT qu rm ro ru rue ru_RU rw sa sat sat@deva sc sco sd sd@deva se shn si sk sl sl_SI so son sq sr sr@ije sr@ijekavian sr@ijekavianlatin sr@latin sr@Latn sr_RS sr_RS@latin st su sv sw szl ta ta_LK te tet tg th ti tig tk tl tlh tpi tr tr_TR ts tt tt@iqtelif tw tyv ug uk ur uz uz@cyrillic ve vi wa wae wal wba wo xh yi yo zh_CN zh_Hant zh_HK zh_TW zu 
 ```
 
 ## Upgrade packages
@@ -858,6 +879,9 @@ export JAVA_HOME
 if [ -d $HOME/bin ]; then
     export PATH="$HOME/bin:$PATH"
 fi
+if [ -d $HOME/.local/bin ]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
 if [ -d /mnt/win/ext/opt/android/sdk/platform-tools ]; then
     export PATH="/mnt/win/ext/opt/android/sdk/platform-tools:$PATH"
 fi
@@ -911,6 +935,9 @@ fi
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
+fi
+if [ -d $HOME/.local/bin ]; then
+    PATH="$HOME/.local/bin:$PATH"
 fi
 if [ -d "/mnt/win/ext/opt/android/sdk/platform-tools" ] ; then
     PATH="/mnt/win/ext/opt/android/sdk/platform-tools:$PATH"
@@ -1645,7 +1672,21 @@ pip3 install \
 	requests \
 	ipython \
 	youtube-dl \
-	cliglue
+	cliglue \
+	trimmer \
+	dataclasses \
+	pydub \
+	eyeD3 \
+	cliglue \
+	youtube-dl \
+	pytest \
+	mock \
+	coverage \
+	setuptools \
+	twine \
+	wheel \
+	mkdocs \
+	coveralls
 
 ```
 

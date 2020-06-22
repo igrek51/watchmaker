@@ -42,8 +42,9 @@ def prebuild_tools(watchmaker_repo: str):
     wrap_shell(f'cp {watchmaker_repo}/modules/music/tubular.wav ~/Music/')
     wrap_shell(f'cp {watchmaker_repo}/modules/music/tubular.mp3 ~/Music/')
 
-    info('updating cliglue')
+    info('updating pip packages')
     wrap_shell(f'sudo python3 -m pip install --upgrade cliglue')
+    wrap_shell(f'python3 -m pip install --upgrade trimmer')
 
     info('updating py-tools')
     wrap_shell(f'rsync -a {pytools_src_dir}/lichking/ ~/tools/lichking')
@@ -61,11 +62,12 @@ def prebuild_tools(watchmaker_repo: str):
     wrap_shell(f'sudo rm -f /usr/bin/dirty-monitor')
     wrap_shell(f'sudo rm -f /etc/bash_completion.d/cliglue_*')
 
-    wrap_shell(f'sudo {home}/tools/lichking/lichking.py --bash-install lichking')
-    wrap_shell(f'sudo {home}/tools/lichking/lichking.py --bash-install lich')
-    wrap_shell(f'sudo {home}/tools/lichking/lichking.py --bash-install king')
-    wrap_shell(f'sudo {home}/tools/dirty-monitor/dirty_monitor.py --bash-install dirty-monitor')
-    wrap_shell(f'sudo {home}/tools/watchmake/watchmake.py --bash-install watchmake')
+    wrap_shell(f'{home}/tools/lichking/lichking.py --install-bash lichking')
+    wrap_shell(f'{home}/tools/lichking/lichking.py --install-bash lich')
+    wrap_shell(f'{home}/tools/lichking/lichking.py --install-bash king')
+    wrap_shell(f'{home}/tools/dirty-monitor/dirty_monitor.py --install-bash dirty-monitor')
+    wrap_shell(f'{home}/tools/watchmake/watchmake.py --install-bash watchmake')
+    wrap_shell(f'trimmer --install-autocomplete')
 
     wrap_shell(f'sudo ln -s {home}/tools/differ/differ.py /usr/bin/differ')
     wrap_shell(f'sudo ln -s {home}/tools/regex-rename/regex-rename.py /usr/bin/regex-rename')
