@@ -1,94 +1,94 @@
 import os
 import re
 
-from cliglue.utils.files import set_workdir, read_file, save_file
-from cliglue.utils.output import info
+from nuclear.utils.files import set_workdir, read_file, save_file
+from nuclear.sublog import log
 
 from system import wrap_shell
 
 # Put your own develop repositories here
 repo_remotes = {
-    'android-songbook': 'https://github.com/igrek51/android-songbook.git',
+    'songbook': 'https://github.com/igrek51/songbook.git',
     'py-tools': 'https://github.com/igrek51/py-tools.git',
     'linux-helpers': 'https://igrek51@bitbucket.org/igrek51/linux-helpers.git',
     'feedback_gateway': 'https://igrek51@bitbucket.org/igrek51/feedback_gateway.git',
     'django_chords': 'https://igrek51@bitbucket.org/igrek51/django_chords.git',
     'crypto-encoder': 'https://igrek51@bitbucket.org/igrek51/crypto-encoder.git',
-    'cliglue': 'https://github.com/igrek51/cliglue.git',
+    'nuclear': 'https://github.com/igrek51/nuclear.git',
     'dirty-monitor': 'https://github.com/igrek51/dirty-monitor',
+    'lichking': 'https://igrek51@bitbucket.org/igrek51/lichking.git',
+    'volumen': 'https://github.com/igrek51/volumen.git',
 }
 
 
 def prebuild_tools(watchmaker_repo: str):
     set_workdir(watchmaker_repo)
-    pytools_src_dir = f'{watchmaker_repo}/modules/py-tools'
+    submodule_src_dir = f'{watchmaker_repo}/modules'
     home = '/home/user'
 
-    info(f'checking required files existence')
+    log.info(f'checking required files existence')
     assert os.path.exists(watchmaker_repo)
-    assert os.path.exists(f'{watchmaker_repo}/modules/dev-data/remotes.md')
-    assert os.path.exists(pytools_src_dir)
-    assert os.path.exists(f'{pytools_src_dir}/lichking')
-    assert os.path.exists(f'{pytools_src_dir}/regex-rename')
-    assert os.path.exists(f'{pytools_src_dir}/differ')
-    assert os.path.exists(f'{pytools_src_dir}/volumen')
+    assert os.path.exists(submodule_src_dir)
+    assert os.path.exists(f'{submodule_src_dir}/lichking')
+    assert os.path.exists(f'{submodule_src_dir}/volumen')
 
     assert os.geteuid() != 0, 'This script must not be run as root'
 
-    info('updating watchmaker tools itself')
-    wrap_shell(f'mkdir -p ~/tools')
-    wrap_shell(f'rsync -a {watchmaker_repo}/watchmake/ ~/tools/watchmake')
-    wrap_shell(f'rsync -a {watchmaker_repo}/scripts/ ~/tools/scripts')
-    wrap_shell(f'cp {watchmaker_repo}/modules/music/tubular.wav ~/Music/')
-    wrap_shell(f'cp {watchmaker_repo}/modules/music/tubular.mp3 ~/Music/')
+    log.info('updating watchmaker tools itself')
+    wrap_shell(f'mkdir -p {home}/tools')
+    wrap_shell(f'rsync -a {watchmaker_repo}/watchmake/ {home}/tools/watchmake')
+    wrap_shell(f'rsync -a {watchmaker_repo}/scripts/ {home}/tools/scripts')
+    wrap_shell(f'cp {watchmaker_repo}/modules/music/tubular.wav {home}/Music/')
+    wrap_shell(f'cp {watchmaker_repo}/modules/music/tubular.mp3 {home}/Music/')
 
-    info('updating pip packages')
-    wrap_shell(f'sudo python3 -m pip install --upgrade cliglue')
+    log.info('updating pip packages')
+    wrap_shell(f'sudo python3 -m pip install --upgrade nuclear')
+    wrap_shell(f'python3 -m pip install --upgrade diffs')
+    wrap_shell(f'python3 -m pip install --upgrade copymon')
+    wrap_shell(f'python3 -m pip install --upgrade regex-rename')
     wrap_shell(f'python3 -m pip install --upgrade trimmer')
+    wrap_shell(f'python3 -m pip install --upgrade youtube-dl')
 
-    info('updating py-tools')
-    wrap_shell(f'rsync -a {pytools_src_dir}/lichking/ ~/tools/lichking')
-    wrap_shell(f'rsync -a {pytools_src_dir}/regex-rename/ ~/tools/regex-rename')
-    wrap_shell(f'rsync -a {pytools_src_dir}/differ/ ~/tools/differ')
-    wrap_shell(f'rsync -a {pytools_src_dir}/volumen/ ~/tools/volumen')
-    wrap_shell(f'rsync -a {watchmaker_repo}/modules/dirty-monitor/ ~/tools/dirty-monitor')
+    log.info('updating py-tools')
+    wrap_shell(f'rsync -a {submodule_src_dir}/lichking/ {home}/tools/lichking')
+    wrap_shell(f'rsync -a {submodule_src_dir}/volumen/ {home}/tools/volumen')
 
-    info('recreating links & autocompletion for tools')
+    log.info('recreating links & autocompletion for tools')
     wrap_shell(f'sudo rm -f /usr/bin/lichking')
     wrap_shell(f'sudo rm -f /usr/bin/lich')
     wrap_shell(f'sudo rm -f /usr/bin/king')
-    wrap_shell(f'sudo rm -f /usr/bin/regex-rename')
-    wrap_shell(f'sudo rm -f /usr/bin/differ')
-    wrap_shell(f'sudo rm -f /usr/bin/dirty-monitor')
+    wrap_shell(f'sudo rm -f /usr/bin/volumen')
+    wrap_shell(f'sudo rm -f /usr/bin/watchmake')
     wrap_shell(f'sudo rm -f /etc/bash_completion.d/cliglue_*')
+    wrap_shell(f'sudo rm -f /etc/bash_completion.d/nuclear_*')
 
     wrap_shell(f'{home}/tools/lichking/lichking.py --install-bash lichking')
     wrap_shell(f'{home}/tools/lichking/lichking.py --install-bash lich')
     wrap_shell(f'{home}/tools/lichking/lichking.py --install-bash king')
-    wrap_shell(f'{home}/tools/dirty-monitor/dirty_monitor.py --install-bash dirty-monitor')
     wrap_shell(f'{home}/tools/watchmake/watchmake.py --install-bash watchmake')
+    wrap_shell(f'{home}/tools/volumen/volumen.py --install-bash volumen')
+
+    wrap_shell(f'diffs --install-autocomplete')
+    wrap_shell(f'copymon --install-autocomplete')
+    wrap_shell(f'regex-rename --install-autocomplete')
     wrap_shell(f'trimmer --install-autocomplete')
 
-    wrap_shell(f'sudo ln -s {home}/tools/differ/differ.py /usr/bin/differ')
-    wrap_shell(f'sudo ln -s {home}/tools/regex-rename/regex-rename.py /usr/bin/regex-rename')
-
-    info('updating live dev-data repos')
-    wrap_shell(f'rm -rf ~/dev-live')
-    wrap_shell(f'mkdir -p ~/dev-live')
-    wrap_shell(f'cp modules/dev-data/remotes.md ~/dev-live/')
+    log.info('updating live dev repos')
+    wrap_shell(f'rm -rf {home}/dev-live')
+    wrap_shell(f'mkdir -p {home}/dev-live')
     for repo_name, url in repo_remotes.items():
-        info(f'initializing live git repo {repo_name}')
-        repo_path = f'/home/user/dev-live/{repo_name}'
+        log.info(f'initializing live git repo {repo_name}')
+        repo_path = f'{home}/dev-live/{repo_name}'
         wrap_shell(f'mkdir -p {repo_path}')
         set_workdir(repo_path)
         wrap_shell(f'git init')
         wrap_shell(f'git remote add origin "{url}"')
     set_workdir(watchmaker_repo)
 
-    info('clearing gradle cache')
-    wrap_shell(f'rm -rf ~/.gradle/*')
+    log.info('clearing gradle cache')
+    wrap_shell(f'rm -rf {home}/.gradle/*')
 
-    info('clearing apt cache')
+    log.info('clearing apt cache')
     wrap_shell(f'sudo apt clean')
 
     version_file = '/home/user/.osversion'
@@ -99,5 +99,5 @@ def prebuild_tools(watchmaker_repo: str):
     major_version = int(match.group(1))
     minor_version = int(match.group(2)) + 1
     new_version = f'v{major_version}.{minor_version}'
-    info(f'updating new OS version {new_version}')
+    log.info(f'updating new OS version {new_version}')
     save_file(version_file, new_version)

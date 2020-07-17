@@ -1,9 +1,8 @@
-[submodule "modules/py-tools"]
-	path = modules/py-tools
-	url = https://github.com/igrek51/py-tools
+[submodule "modules/volumen"]
+	path = modules/volumen
+	url = https://github.com/igrek51/volumen
 	branch = master
-
-[submodule "modules/dirty-monitor"]
-	path = modules/dirty-monitor
-	url = https://github.com/igrek51/dirty-monitor
+[submodule "modules/lichking"]
+	path = modules/lichking
+	url = https://igrek51@bitbucket.org/igrek51/lichking.git
 	branch = master

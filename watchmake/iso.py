@@ -1,14 +1,14 @@
 import os
 import re
 
-from cliglue.utils.output import info
-from cliglue.utils.shell import shell_output
+from nuclear.sublog import log
+from nuclear.utils.shell import shell_output
 
 from system import wrap_shell, confirm
 
 
 def make_iso(yes: bool, source_disk: str, target_iso: str):
-    info(f'checking required files existence')
+    log.info(f'checking required files existence')
     assert os.path.exists(os.path.abspath(os.path.join(target_iso, os.pardir)))
 
     fdisk_output = shell_output(f'sudo fdisk -l {source_disk}')
@@ -26,11 +26,11 @@ def make_iso(yes: bool, source_disk: str, target_iso: str):
     assert match
     end_sector = int(match.group(1))
 
-    info(f'block size: {block_size}')
-    info(f'end sector: {end_sector}')
+    log.info(f'block size: {block_size}')
+    log.info(f'end sector: {end_sector}')
     confirm(yes, f'Attempting to dump partitions from {source_disk} to {target_iso}. Are you sure?')
 
-    info(f'Writing {source_disk} to {target_iso}')
+    log.info(f'Writing {source_disk} to {target_iso}')
     wrap_shell(
         f'sudo dd if={source_disk} of={target_iso} bs={block_size} count={end_sector} conv=noerror,sync status=progress')
     wrap_shell('sync')

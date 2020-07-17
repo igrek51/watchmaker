@@ -2,9 +2,9 @@ import datetime
 import hashlib
 import os
 
-from cliglue.utils.files import set_workdir
-from cliglue.utils.output import info
-from cliglue.utils.time import time2str
+from nuclear.utils.files import set_workdir
+from nuclear.sublog import log
+from nuclear.utils.time import time2str
 
 from system import wrap_shell
 
@@ -18,16 +18,16 @@ def resquash_os(storage_path: str, live_squash: str, exclude_file: str):
     set_workdir('/')
 
     # ensure mount points are mounted
-    info(f'checking mount points')
+    log.info(f'checking mount points')
     assert os.path.exists(storage_path), f'storage path does not exist: {storage_path}'
     assert os.path.exists(live_squash), f'live squash file does not exist: {live_squash}'
     assert os.path.exists(exclude_file_abs), f'exclude file does not exist: {exclude_file_abs}'
 
-    info('removing old filesystem copy on storage')
+    log.info('removing old filesystem copy on storage')
     wrap_shell(f'sudo rm -f {squashfs_storage_path}')
     wrap_shell('sync')
 
-    info('squashing filesystem...')
+    log.info('squashing filesystem...')
     wrap_shell(f'''
 sudo mksquashfs \
     /bin /boot /dev /etc /home /lib /lib64 /media /mnt /opt /proc /run /root /sbin /srv /sys /tmp /usr /var \
@@ -38,28 +38,28 @@ sudo mksquashfs \
     -keep-as-directory
     ''')
 
-    info(f'creating tagged copy: {tagged_squashfs_path}...')
+    log.info(f'creating tagged copy: {tagged_squashfs_path}...')
     wrap_shell(f'sudo cp {squashfs_storage_path} {tagged_squashfs_path}')
     wrap_shell('sync')
 
-    info(f'[!] Putting Live system at risk')
-    info(f'[!] removing current Live squashfs: {live_squash}')
+    log.info(f'[!] Putting Live system at risk')
+    log.info(f'[!] removing current Live squashfs: {live_squash}')
     wrap_shell(f'sudo rm -f {live_squash}')
 
-    info('[!] replacing with newest squashfs')
+    log.info('[!] replacing with newest squashfs')
     wrap_shell(f'sudo rsync -ah --progress --no-perms --no-owner --no-group {squashfs_storage_path} {live_squash}')
     wrap_shell('sync')
-    info(f'[!] Live system is functional again')
+    log.info(f'[!] Live system is functional again')
 
-    info(f'calculating checksum {squashfs_storage_path}')
+    log.info(f'calculating checksum {squashfs_storage_path}')
     cksum1 = checksum_file(squashfs_storage_path)
-    info(f'calculating checksum {live_squash}')
+    log.info(f'calculating checksum {live_squash}')
     cksum2 = checksum_file(live_squash)
     assert cksum1 == cksum2
-    info(f'checksums are valid')
+    log.info(f'checksums are valid')
     tagged_squashfs_mib = os.path.getsize(tagged_squashfs_path) / 1024 ** 2
 
-    info(f'Success. '
+    log.info(f'Success. '
          f'Resquashed {live_squash}. '
          f'Filesystem snaposhot dumped to {tagged_squashfs_path} ({tagged_squashfs_mib}MiB)')
 
