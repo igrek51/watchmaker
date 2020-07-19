@@ -42,6 +42,9 @@ sudo mksquashfs \
     wrap_shell(f'sudo cp {squashfs_storage_path} {tagged_squashfs_path}')
     wrap_shell('sync')
 
+	log.info(f'cheking current squashfs size')
+    live_squash_mib = os.path.getsize(live_squash) / 1024 ** 2
+
     log.info(f'[!] Putting Live system at risk')
     log.info(f'[!] removing current Live squashfs: {live_squash}')
     wrap_shell(f'sudo rm -f {live_squash}')
@@ -58,10 +61,13 @@ sudo mksquashfs \
     assert cksum1 == cksum2
     log.info(f'checksums are valid')
     tagged_squashfs_mib = os.path.getsize(tagged_squashfs_path) / 1024 ** 2
+    squash_size_diff = tagged_squashfs_mib - live_squash_mib
 
     log.info(f'Success. '
          f'Resquashed {live_squash}. '
-         f'Filesystem snaposhot dumped to {tagged_squashfs_path} ({tagged_squashfs_mib}MiB)')
+         f'Filesystem snaposhot dumped to {tagged_squashfs_path}',
+         size=f'{tagged_squashfs_mib}MiB',
+         size_diff=f'{squash_size_diff}MiB')
 
 
 def today_stamp() -> str:
