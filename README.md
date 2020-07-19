@@ -60,13 +60,13 @@ or
 ```
 
 # Custom squashed filesystem
-In order to run live OS you need squashed filesystem placed in `squash/filesystem.squashfs`. You can either download latest Watchmaker image or get base Debian image and apply custom changes on it:
-* Download latest [Watchmaker filesystem image](https://drive.google.com/drive/folders/1dM3Hzds_2qhJ9KLAo6CgsyE4K_-yaj75?usp=sharing)
-* Start from scratch:
-	1. Get [Debian Live CD ISO](https://www.debian.org/CD/live/)
-	2. Open ISO with archive manager and extract `live/filesystem.squashfs` from there.
-	3. Create Live USB using `watchmake create` and replace `live/filesystem.squashfs` with base Debian filesystem image.
-	4. Apply your custom changes in live system and use `watchmake resquash` to generate new filesystem and replace in on the run.
+In order to run live OS you need squashed filesystem placed in `squash/filesystem.squashfs`.
+You can either download latest [Watchmaker filesystem image](https://drive.google.com/drive/folders/1dM3Hzds_2qhJ9KLAo6CgsyE4K_-yaj75?usp=sharing) or start it from scratch by getting base image and applying custom changes on it:
+
+1. Get [Debian Live CD ISO](https://www.debian.org/CD/live/)
+2. Open ISO with archive manager and extract `live/filesystem.squashfs` from there.
+3. Create Live USB using `watchmake create` and replace `live/filesystem.squashfs` with base Debian filesystem image.
+4. Apply your custom changes in live system and use `watchmake resquash` to generate new filesystem and replace in on the run.
 
 # Software Prerequisites
 * Python 3.6+
