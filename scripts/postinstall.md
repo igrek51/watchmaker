@@ -1672,12 +1672,11 @@ pip3 install \
 	requests \
 	ipython \
 	youtube-dl \
-	cliglue \
+	nuclear \
 	trimmer \
 	dataclasses \
 	pydub \
 	eyeD3 \
-	cliglue \
 	youtube-dl \
 	pytest \
 	mock \

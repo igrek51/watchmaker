@@ -66,7 +66,8 @@ You can either download latest [Watchmaker filesystem image](https://drive.googl
 1. Get [Debian Live CD ISO](https://www.debian.org/CD/live/)
 2. Open ISO with archive manager and extract `live/filesystem.squashfs` from there.
 3. Create Live USB using `watchmake create` and replace `live/filesystem.squashfs` with base Debian filesystem image.
-4. Apply your custom changes in live system and use `watchmake resquash` to generate new filesystem and replace in on the run.
+4. Apply your custom changes in live system (checkout [postinstall.md](https://github.com/igrek51/watchmaker/blob/master/scripts/postinstall.md))
+5. Use `watchmake resquash` to generate new filesystem, persist changes and replace image on the run.
 
 # Software Prerequisites
 * Python 3.6+
