@@ -52,22 +52,31 @@ watchmake prebuild
 ```
 4. Rebuild squashed filesystem and swap it on the run
 ```bash
-./watchmake/watchmake.py resquash --storage-path=/media/user/data/ext/watchmaker/squash
-```
-or just
-```bash
 watchmake resquash
 ```
+or
+```bash
+./watchmake/watchmake.py resquash --storage-path=/media/user/data/ext/watchmaker/squash
+```
 
-# Prerequisites
-* Install Python 3.6+
+# Custom squashed filesystem
+In order to run live OS you need squashed filesystem placed in `squash/filesystem.squashfs`. You can either download latest Watchmaker image or get base Debian image and apply custom changes on it:
+* Download latest [Watchmaker filesystem image](https://drive.google.com/drive/folders/1dM3Hzds_2qhJ9KLAo6CgsyE4K_-yaj75?usp=sharing)
+* Start from scratch:
+	1. Get [Debian Live CD ISO](https://www.debian.org/CD/live/)
+	2. Open ISO with archive manager and extract `live/filesystem.squashfs` from there.
+	3. Create Live USB using `watchmake create` and replace `live/filesystem.squashfs` with base Debian filesystem image.
+	4. Apply your custom changes in live system and use `watchmake resquash` to generate new filesystem and replace in on the run.
+
+# Software Prerequisites
+* Python 3.6+
 * Before running any of `watchmake.py` commands, install required packages. For Debian-based systems:
 ```bash
 python3 -m pip install -r watchmake/requirements.txt
 sudo apt install `cat watchmake/pkg-requirements.txt`
 ```
 
-# Requirements
+# Hardware Requirements
 - USB stick with the Watchmaker Linux should have at least 8GB disk space.
 - The machine running Watchmaker should have at least 4GB of RAM.
 
