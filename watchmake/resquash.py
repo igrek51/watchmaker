@@ -42,7 +42,7 @@ sudo mksquashfs \
     wrap_shell(f'sudo cp {squashfs_storage_path} {tagged_squashfs_path}')
     wrap_shell('sync')
 
-	log.info(f'cheking current squashfs size')
+    log.info(f'cheking current squashfs size')
     live_squash_mib = os.path.getsize(live_squash) / 1024 ** 2
 
     log.info(f'[!] Putting Live system at risk')
