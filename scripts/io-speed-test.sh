@@ -7,7 +7,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # provide mounted partition name, not device
-export OF=/dev/mmcblk0
+export OF=/dev/sdc1
 # disks info
 lsblk -o NAME,TYPE,RM,RO,FSTYPE,SIZE,VENDOR,MODEL,LABEL,MOUNTPOINT
 df .

@@ -16,6 +16,7 @@ optional_modules = {
     'heroes3-hota': '/mnt/data/ext/live-games/heroes3-hota',
     'warcraft-3-pl': '/mnt/data/ext/live-games/warcraft-3-pl',
     'stronghold': '/mnt/data/ext/live-games/stronghold-crusader',
+    'gruntz': '/mnt/games/linux-games/gruntz',
     'pycharm': '/mnt/data/ext/watchmaker/modules/pycharm.zip',
     'wine': '/mnt/data/ext/watchmaker/modules/wine.zip',
 }
